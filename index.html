@@ -6,20 +6,26 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div class="main-container">
-        <aside class="sidebar">
-            <h2>Golden King</h2>
-            <select id="loteriaSelect"></select>
-            <div id="montoControls">
-                <button onclick="setMonto(10)">10</button>
-                <button onclick="setMonto(50)">50</button>
-                <button onclick="setMonto(100)">100</button>
-            </div>
-            <div id="ticketDisplay"></div>
-            <button class="print-btn" onclick="imprimirTicket()">IMPRIMIR</button>
-        </aside>
-        <main class="grid-panel" id="matrizAnimalitos"></main>
-    </div>
+    <aside class="sidebar">
+        <h2>Golden King POS</h2>
+        <label>Seleccionar Lotería:</label>
+        <select id="loteriaSelect" onchange="App.initMatriz()">
+            <option value="Granjita">La Granjita</option>
+            <option value="Guacharo">Guacharo Activo</option>
+            <option value="LottoActivo">Lotto Activo</option>
+            <option value="SelvaPlus">Selva Plus</option>
+        </select>
+        <div class="monto-box">
+            <p>Monto: <span id="displayMonto">50</span></p>
+            <button onclick="App.setMonto(10)">10</button>
+            <button onclick="App.setMonto(50)">50</button>
+            <button onclick="App.setMonto(100)">100</button>
+        </div>
+        <table id="ticketTable"></table>
+        <h3 id="totalDisplay">Total: 0</h3>
+        <button class="print-btn" onclick="window.print()">IMPRIMIR</button>
+    </aside>
+    <main class="grid-panel" id="matrizAnimalitos"></main>
     <script src="script.js"></script>
 </body>
 </html>
