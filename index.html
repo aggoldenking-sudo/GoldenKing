@@ -17,13 +17,13 @@
         </select>
         <div class="monto-box">
             <p>Monto: <span id="displayMonto">50</span></p>
-            <button onclick="App.setMonto(10)">10</button>
-            <button onclick="App.setMonto(50)">50</button>
-            <button onclick="App.setMonto(100)">100</button>
+            <button class="btn-monto" onclick="App.setMonto(10)">10</button>
+            <button class="btn-monto" onclick="App.setMonto(50)">50</button>
+            <button class="btn-monto" onclick="App.setMonto(100)">100</button>
         </div>
         <table id="ticketTable"></table>
         <h3 id="totalDisplay">Total: 0</h3>
-        <button class="print-btn" onclick="window.print()">IMPRIMIR</button>
+        <button class="print-btn" onclick="window.print()">IMPRIMIR TICKET</button>
     </aside>
     <main class="grid-panel" id="matrizAnimalitos"></main>
     <script src="script.js"></script>
