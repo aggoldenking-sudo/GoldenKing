@@ -1,1 +1,30 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Golden King POS</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="contenedor">
+        <h1>Golden King</h1>
+        
+        <select id="selectLoteria" onchange="cambiarLoteria()">
+            <option value="Granjita">La Granjita</option>
+            <option value="Guacharo">Guacharo Activo</option>
+        </select>
 
+        <div id="matrizAnimalitos" class="grid-animalitos"></div>
+        
+        <input type="number" id="monto" value="50" placeholder="Monto">
+        
+        <table id="listaTicket">
+            <tbody id="cuerpoTicket"></tbody>
+        </table>
+        
+        <h2 id="total">Total: 0</h2>
+        <button onclick="imprimirTicket()">Imprimir Ticket</button>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
