@@ -6,24 +6,19 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div class="contenedor">
-        <h1>Golden King</h1>
-        
-        <select id="selectLoteria" onchange="cambiarLoteria()">
-            <option value="Granjita">La Granjita</option>
-            <option value="Guacharo">Guacharo Activo</option>
-        </select>
-
-        <div id="matrizAnimalitos" class="grid-animalitos"></div>
-        
-        <input type="number" id="monto" value="50" placeholder="Monto">
-        
-        <table id="listaTicket">
-            <tbody id="cuerpoTicket"></tbody>
-        </table>
-        
-        <h2 id="total">Total: 0</h2>
-        <button onclick="imprimirTicket()">Imprimir Ticket</button>
+    <div class="main-container">
+        <aside class="sidebar">
+            <h2>Golden King</h2>
+            <select id="loteriaSelect"></select>
+            <div id="montoControls">
+                <button onclick="setMonto(10)">10</button>
+                <button onclick="setMonto(50)">50</button>
+                <button onclick="setMonto(100)">100</button>
+            </div>
+            <div id="ticketDisplay"></div>
+            <button class="print-btn" onclick="imprimirTicket()">IMPRIMIR</button>
+        </aside>
+        <main class="grid-panel" id="matrizAnimalitos"></main>
     </div>
     <script src="script.js"></script>
 </body>
