@@ -1,1 +1,253 @@
+*{
+    box-sizing:border-box;
+    font-family:Arial, sans-serif;
+}
 
+
+body{
+
+    margin:0;
+    background:#f2f4f7;
+    color:#222;
+
+}
+
+
+
+.topbar{
+
+    background:#d4af37;
+    padding:15px 25px;
+
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+
+}
+
+
+
+.logo{
+
+    font-size:24px;
+    font-weight:bold;
+
+}
+
+
+
+.topbar button{
+
+    padding:10px 18px;
+
+    border:none;
+
+    border-radius:8px;
+
+    cursor:pointer;
+
+}
+
+
+
+
+
+.contenedor{
+
+    display:grid;
+
+    grid-template-columns:280px 1fr 350px;
+
+    gap:20px;
+
+    padding:20px;
+
+}
+
+
+
+
+
+
+.sorteos,
+.jugada,
+.ticket{
+
+    background:white;
+
+    padding:20px;
+
+    border-radius:15px;
+
+    box-shadow:0 3px 10px #ccc;
+
+}
+
+
+
+
+
+h2{
+
+    margin-top:0;
+
+    text-align:center;
+
+}
+
+
+
+
+
+
+.btn-sorteo{
+
+
+    width:100%;
+
+    margin:5px 0;
+
+    padding:10px;
+
+    border:none;
+
+    border-radius:8px;
+
+    background:#eee;
+
+    cursor:pointer;
+
+}
+
+
+
+.btn-sorteo.active{
+
+    background:#d4af37;
+
+    color:white;
+
+    font-weight:bold;
+
+}
+
+
+
+
+
+
+.jugada label{
+
+    display:block;
+
+    margin-top:15px;
+
+}
+
+
+
+.jugada input{
+
+
+    width:100%;
+
+    padding:12px;
+
+    margin-top:5px;
+
+    border-radius:8px;
+
+    border:1px solid #ccc;
+
+    font-size:18px;
+
+
+}
+
+
+
+
+.jugada button,
+.ticket button{
+
+
+    width:100%;
+
+    padding:13px;
+
+    margin-top:15px;
+
+    border:none;
+
+    border-radius:10px;
+
+    background:#d4af37;
+
+    color:white;
+
+    font-size:16px;
+
+    cursor:pointer;
+
+
+}
+
+
+
+
+
+
+.ticket-item{
+
+
+    border-bottom:1px solid #ddd;
+
+    padding:10px 0;
+
+
+}
+
+
+
+
+.ticket-item strong{
+
+
+    display:block;
+
+    text-align:right;
+
+
+}
+
+
+
+
+
+.total{
+
+
+    margin-top:20px;
+
+    font-size:22px;
+
+    font-weight:bold;
+
+    text-align:center;
+
+}
+
+
+
+
+@media(max-width:900px){
+
+
+.contenedor{
+
+    grid-template-columns:1fr;
+
+}
+
+
+}
