@@ -23,12 +23,12 @@ window.App = {
 
         const items = window.DATA_LOTERIAS[tipo];
 
+
         contenedor.innerHTML = "";
 
 
         Object.keys(items)
         .sort((a,b)=>{
-
 
             if(a === "00") return -1;
             if(b === "00") return 1;
@@ -36,9 +36,7 @@ window.App = {
             if(a === "0") return -1;
             if(b === "0") return 1;
 
-
             return Number(a)-Number(b);
-
 
         })
 
@@ -53,7 +51,6 @@ window.App = {
 
 
             btn.innerHTML =
-
             `<strong>${id}</strong><br>${items[id]}`;
 
 
@@ -65,15 +62,13 @@ window.App = {
 
 
                     this.seleccionados =
-
-                    this.seleccionados.filter(x => x !== id);
-
+                    this.seleccionados.filter(x=>x !== id);
 
 
                     btn.classList.remove("seleccionado");
 
 
-                } else {
+                }else{
 
 
                     this.seleccionados.push(id);
@@ -149,6 +144,7 @@ window.App = {
 
 
 
+
         this.seleccionados.forEach(id=>{
 
 
@@ -175,14 +171,11 @@ window.App = {
             if(existe){
 
 
-                // SUMA EL MONTO SI YA EXISTE
-
                 existe.monto += monto;
 
 
 
-            } else {
-
+            }else{
 
 
                 this.ticket.push({
@@ -202,7 +195,6 @@ window.App = {
                 });
 
 
-
             }
 
 
@@ -218,7 +210,6 @@ window.App = {
         this.guardarTicket();
 
 
-
         this.renderMatriz();
 
 
@@ -227,6 +218,7 @@ window.App = {
 
 
     },
+
 
 
 
@@ -251,7 +243,6 @@ window.App = {
 
             <tr>
 
-
                 <td>
 
                 ${t.id} ${t.nombre}
@@ -268,13 +259,12 @@ window.App = {
 
                 <td>
 
-                ${t.monto}
+                Bs.${t.monto}
 
                 </td>
 
 
                 <td>
-
 
                 <button onclick="window.App.remover(${i})">
 
@@ -288,7 +278,6 @@ window.App = {
 
             </tr>
 
-
             `;
 
 
@@ -297,10 +286,7 @@ window.App = {
 
 
 
-        const total =
-
-
-        this.ticket.reduce(
+        const total = this.ticket.reduce(
 
 
             (suma,t)=> suma + t.monto,
@@ -323,6 +309,7 @@ window.App = {
 
 
     },
+
 
 
 
@@ -357,9 +344,13 @@ window.App = {
             this.ticket = [];
 
 
+            this.seleccionados = [];
+
 
             this.guardarTicket();
 
+
+            this.renderMatriz();
 
 
             this.renderTicket();
@@ -399,7 +390,6 @@ window.App = {
 
 
         const datos =
-
 
         localStorage.getItem("goldenking_ticket");
 
@@ -449,6 +439,55 @@ window.App = {
 
 
 
+
+
+        // GUARDAR HISTORIAL
+
+        let historial = JSON.parse(
+
+            localStorage.getItem("goldenking_historial")
+
+        ) || [];
+
+
+
+
+        historial.push({
+
+
+            fecha:new Date().toLocaleString(),
+
+
+            ticket:this.ticket,
+
+
+            total:total
+
+
+        });
+
+
+
+
+
+        localStorage.setItem(
+
+
+            "goldenking_historial",
+
+
+            JSON.stringify(historial)
+
+
+        );
+
+
+
+
+
+
+        // IMPRIMIR
+
         window.Impresion.generarTicket(
 
 
@@ -459,6 +498,31 @@ window.App = {
 
 
         );
+
+
+
+
+
+
+        // LIMPIAR NUEVA VENTA
+
+
+        this.ticket = [];
+
+
+        this.seleccionados = [];
+
+
+
+        this.guardarTicket();
+
+
+
+        this.renderMatriz();
+
+
+        this.renderTicket();
+
 
 
     }
