@@ -3,31 +3,52 @@ document
 .addEventListener("click", function(){
 
 
-    let usuario =
-    document.getElementById("usuario").value;
+    let usuario = 
+    document
+    .getElementById("usuario")
+    .value
+    .trim();
 
 
-    let clave =
-    document.getElementById("clave").value;
+    let clave = 
+    document
+    .getElementById("clave")
+    .value
+    .trim();
+
+
+
+    let mensaje =
+    document
+    .getElementById("mensaje");
 
 
 
     if(usuario === "admin" && clave === "1234"){
 
 
-        window.location.href = "sistema/index.html";
+        mensaje.textContent = "Ingresando...";
+
+
+        setTimeout(function(){
+
+
+            window.location.href = "dashboard/index.html";
+
+
+        },500);
+
 
 
     }else{
 
 
-        document
-        .getElementById("mensaje")
-        .textContent =
+        mensaje.textContent =
         "Usuario o contraseña incorrectos";
 
 
     }
+
 
 
 });
