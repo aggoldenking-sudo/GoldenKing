@@ -1,47 +1,143 @@
+```html
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
+
     <meta charset="UTF-8">
-    <title>Golden King POS</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>👑 Golden King POS</title>
+
     <link rel="stylesheet" href="style.css">
+
 </head>
+
 <body>
+
     <aside class="sidebar">
-        <h2>Golden King POS</h2>
-        
-        <label>Lotería:</label>
+
+        <h2>👑 GOLDEN KING</h2>
+        <p class="subtitulo">Sistema POS Animalitos</p>
+
+        <hr>
+
+        <label for="loteriaSelect">Lotería</label>
+
         <select id="loteriaSelect" onchange="window.App.renderMatriz()">
+
             <option value="Granjita">La Granjita</option>
-            <option value="Guacharo">Guacharo Activo</option>
+            <option value="Guacharo">Guácharo Activo</option>
             <option value="LottoActivo">Lotto Activo</option>
             <option value="SelvaPlus">Selva Plus</option>
+
         </select>
 
-        <label>Sorteo:</label>
+        <label for="modalidadSelect">Modalidad</label>
+
+        <select id="modalidadSelect">
+
+            <option value="Animalito">Animalito</option>
+            <option value="Terminal" disabled>Terminal (Próximamente)</option>
+            <option value="Tripleta" disabled>Tripleta (Próximamente)</option>
+
+        </select>
+
+        <label for="horarioSelect">Sorteo</label>
+
         <select id="horarioSelect">
-            <option value="09:00 AM">09:00 AM</option><option value="10:00 AM">10:00 AM</option>
-            <option value="11:00 AM">11:00 AM</option><option value="12:00 PM">12:00 PM</option>
+
+            <option value="08:00 AM">08:00 AM</option>
+            <option value="09:00 AM">09:00 AM</option>
+            <option value="10:00 AM">10:00 AM</option>
+            <option value="11:00 AM">11:00 AM</option>
+            <option value="12:00 PM">12:00 PM</option>
+            <option value="01:00 PM">01:00 PM</option>
+            <option value="02:00 PM">02:00 PM</option>
+            <option value="03:00 PM">03:00 PM</option>
+            <option value="04:00 PM">04:00 PM</option>
+            <option value="05:00 PM">05:00 PM</option>
+            <option value="06:00 PM">06:00 PM</option>
+            <option value="07:00 PM">07:00 PM</option>
+
         </select>
 
-        <label>Código Animal (Enter):</label>
-        <input type="text" id="inputRapido" placeholder="Ej: 05" style="width:100%; padding:8px; border-radius:5px; border:none;">
-        
-        <label>Monto:</label>
-        <input type="number" id="montoInput" value="50" style="width:100%; padding:8px; border-radius:5px; border:none;">
+        <label for="inputRapido">Código del Animal</label>
+
+        <input
+            type="text"
+            id="inputRapido"
+            maxlength="2"
+            autocomplete="off"
+            placeholder="Ejemplo: 05">
+
+        <label for="montoInput">Monto de la Jugada</label>
+
+        <input
+            type="number"
+            id="montoInput"
+            value="50"
+            min="1"
+            step="1">
+
+        <div class="acciones">
+
+            <button id="agregarBtn">
+                ➕ Agregar
+            </button>
+
+            <button id="limpiarBtn">
+                🗑 Limpiar
+            </button>
+
+        </div>
 
         <table id="ticketTable">
-            <thead><tr><th>Jugada</th><th>Sorteo</th><th>Monto</th><th>Acción</th></tr></thead>
-            <tbody></tbody>
+
+            <thead>
+
+                <tr>
+
+                    <th>Jugada</th>
+                    <th>Sorteo</th>
+                    <th>Monto</th>
+                    <th></th>
+
+                </tr>
+
+            </thead>
+
+            <tbody>
+
+            </tbody>
+
         </table>
-        
-        <h3 id="totalDisplay">Total: 0</h3>
-        <button class="print-btn" onclick="window.print()">IMPRIMIR TICKET</button>
+
+        <h3 id="totalDisplay">
+            Total: Bs. 0
+        </h3>
+
+        <button
+            class="print-btn"
+            onclick="window.print()">
+
+            🖨 IMPRIMIR TICKET
+
+        </button>
+
     </aside>
 
-    <main class="grid-panel" id="matrizAnimalitos"></main>
+    <main class="grid-panel">
+
+        <div id="matrizAnimalitos"></div>
+
+    </main>
 
     <script src="js/loterias.js"></script>
     <script src="js/impresion.js"></script>
     <script src="js/app.js"></script>
+
 </body>
+
 </html>
+```
