@@ -84,7 +84,6 @@ window.App = {
 
 
 
-
     cargarSorteos(){
 
 
@@ -137,11 +136,10 @@ window.App = {
             document.createElement("h4");
 
 
-            titulo.textContent=loteria;
+            titulo.textContent = loteria;
 
 
             lista.appendChild(titulo);
-
 
 
 
@@ -165,7 +163,7 @@ window.App = {
 
 
 
-                boton.onclick=()=>{
+                boton.onclick = ()=>{
 
 
                     boton.classList.toggle("active");
@@ -175,11 +173,10 @@ window.App = {
                     let existe =
                     this.sorteosSeleccionados.some(s=>
 
-                        s.loteria===loteria &&
-                        s.hora===hora
+                        s.loteria === loteria &&
+                        s.hora === hora
 
                     );
-
 
 
 
@@ -210,6 +207,8 @@ window.App = {
                     }
 
 
+                    console.log(this.sorteosSeleccionados);
+
 
                 };
 
@@ -230,7 +229,6 @@ window.App = {
 
 
 
-
     agregarJugada(){
 
 
@@ -241,14 +239,12 @@ window.App = {
 
 
         let monto =
-        Number(
-        document.getElementById("monto").value
-        );
+        Number(document.getElementById("monto").value);
 
 
 
 
-        if(this.sorteosSeleccionados.length===0){
+        if(this.sorteosSeleccionados.length === 0){
 
             alert("Seleccione un sorteo");
 
@@ -282,12 +278,10 @@ window.App = {
 
 
 
-
         this.sorteosSeleccionados.forEach(s=>{
 
 
             this.jugadas.push({
-
 
                 loteria:s.loteria,
 
@@ -311,7 +305,6 @@ window.App = {
 
 
 
-
         this.mostrarTicket();
 
 
@@ -321,10 +314,7 @@ window.App = {
         document.getElementById("monto").value="";
 
 
-
     },
-
-
 
 
 
@@ -333,8 +323,7 @@ window.App = {
     buscarAnimal(loteria,numero){
 
 
-
-        let tabla=null;
+        let tabla;
 
 
 
@@ -355,7 +344,6 @@ window.App = {
 
 
 
-
         if(tabla && tabla[numero]){
 
             return tabla[numero];
@@ -363,12 +351,10 @@ window.App = {
         }
 
 
-
         return "Animal";
 
+
     },
-
-
 
 
 
@@ -377,32 +363,33 @@ window.App = {
     mostrarTicket(){
 
 
-        let caja =
+        const ticket =
         document.getElementById("ticket");
 
 
-        let totalBox =
+        const total =
         document.getElementById("total");
 
 
-        if(!caja) return;
+
+        if(!ticket) return;
 
 
 
-        caja.innerHTML="";
+        ticket.innerHTML="";
 
-        let total=0;
+        let suma=0;
 
 
 
         this.jugadas.forEach(j=>{
 
 
-            total+=j.monto;
+            suma += j.monto;
 
 
 
-            caja.innerHTML += `
+            ticket.innerHTML += `
 
             <div class="ticket-item">
 
@@ -424,19 +411,16 @@ window.App = {
 
 
 
-        if(totalBox){
+        if(total){
 
-            totalBox.innerHTML =
-            total.toFixed(2);
+            total.innerHTML =
+            suma.toFixed(2);
 
         }
 
 
 
     },
-
-
-
 
 
 
@@ -453,35 +437,19 @@ window.App = {
             b.classList.add("active");
 
 
-            let existe =
-            this.sorteosSeleccionados.some(s=>
+            this.sorteosSeleccionados.push({
 
-                s.loteria===b.dataset.loteria &&
-                s.hora===b.dataset.hora
+                loteria:b.dataset.loteria,
 
-            );
+                hora:b.dataset.hora
 
-
-
-            if(!existe){
-
-                this.sorteosSeleccionados.push({
-
-                    loteria:b.dataset.loteria,
-
-                    hora:b.dataset.hora
-
-                });
-
-            }
+            });
 
 
         });
 
 
     },
-
-
 
 
 
@@ -503,8 +471,6 @@ window.App = {
 
 
     },
-
-
 
 
 
@@ -540,13 +506,10 @@ window.App = {
         navigator.clipboard.writeText(texto);
 
 
-
-        alert("Ticket copiado para WhatsApp");
+        alert("Ticket copiado");
 
 
     },
-
-
 
 
 
@@ -557,9 +520,9 @@ window.App = {
 
         let ventana =
         window.open(
-        "",
-        "",
-        "width=250,height=600"
+            "",
+            "",
+            "width=250,height=600"
         );
 
 
@@ -592,7 +555,6 @@ Gracias por su jugada
 
 
     }
-
 
 
 };
