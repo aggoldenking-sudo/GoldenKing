@@ -1,273 +1,47 @@
-/* ==========================================
-   GOLDEN KING POS - VERDE ESMERALDA & DORADO
-   ========================================== */
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Golden King POS</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <aside class="sidebar">
+        <h2>Golden King POS</h2>
+        
+        <label>Lotería:</label>
+        <select id="loteriaSelect" onchange="window.App.renderMatriz()">
+            <option value="Granjita">La Granjita</option>
+            <option value="Guacharo">Guacharo Activo</option>
+            <option value="LottoActivo">Lotto Activo</option>
+            <option value="SelvaPlus">Selva Plus</option>
+        </select>
 
-:root {
-    --bg-main: #061e14;        /* Verde selva muy oscuro */
-    --bg-sidebar: #0b291c;     /* Verde esmeralda profundo */
-    --bg-card: #123827;        /* Tarjetas e inputs */
-    --bg-card-hover: #1b4d36;  /* Hover suave */
-    
-    --accent-gold: #f3be3a;    /* Dorado rey */
-    --accent-gold-hover: #dca321;
-    --accent-green: #2ecc71;   /* Verde para acciones de éxito */
-    --accent-red: #e74c3c;     /* Rojo para limpiar */
-    
-    --text-primary: #f0fdf4;   /* Blanco menta muy suave */
-    --text-secondary: #86efac; /* Menta para labels/secundarios */
-    --border-color: #1a4d35;  /* Bordes integrados */
-    
-    --radius: 6px;
-}
+        <label>Sorteo:</label>
+        <select id="horarioSelect">
+            <option value="09:00 AM">09:00 AM</option><option value="10:00 AM">10:00 AM</option>
+            <option value="11:00 AM">11:00 AM</option><option value="12:00 PM">12:00 PM</option>
+        </select>
 
-* {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
-    font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
-}
+        <label>Código Animal (Enter):</label>
+        <input type="text" id="inputRapido" placeholder="Ej: 05" style="width:100%; padding:8px; border-radius:5px; border:none;">
+        
+        <label>Monto:</label>
+        <input type="number" id="montoInput" value="50" style="width:100%; padding:8px; border-radius:5px; border:none;">
 
-body {
-    display: flex;
-    height: 100vh;
-    background-color: var(--bg-main);
-    color: var(--text-primary);
-    overflow: hidden;
-}
+        <table id="ticketTable">
+            <thead><tr><th>Jugada</th><th>Sorteo</th><th>Monto</th><th>Acción</th></tr></thead>
+            <tbody></tbody>
+        </table>
+        
+        <h3 id="totalDisplay">Total: 0</h3>
+        <button class="print-btn" onclick="window.print()">IMPRIMIR TICKET</button>
+    </aside>
 
-/* ==========================================
-   SIDEBAR (PANEL IZQUIERDO)
-   ========================================== */
+    <main class="grid-panel" id="matrizAnimalitos"></main>
 
-.sidebar {
-    width: 360px;
-    background-color: var(--bg-sidebar);
-    border-right: 1px solid var(--border-color);
-    padding: 18px;
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
-    overflow-y: auto;
-}
-
-.sidebar h2 {
-    color: var(--accent-gold);
-    font-size: 1.4rem;
-    letter-spacing: 1px;
-    text-align: center;
-}
-
-.subtitulo {
-    color: var(--text-secondary);
-    font-size: 0.8rem;
-    text-align: center;
-    margin-top: -8px;
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
-}
-
-hr {
-    border: none;
-    border-top: 1px solid var(--border-color);
-    margin: 2px 0;
-}
-
-label {
-    font-size: 0.75rem;
-    font-weight: 700;
-    color: var(--text-secondary);
-    text-transform: uppercase;
-    margin-bottom: -6px;
-}
-
-select, input {
-    width: 100%;
-    padding: 9px 12px;
-    background-color: var(--bg-card);
-    border: 1px solid var(--border-color);
-    border-radius: var(--radius);
-    color: var(--text-primary);
-    font-size: 0.95rem;
-    outline: none;
-    transition: border-color 0.2s;
-}
-
-select:focus, input:focus {
-    border-color: var(--accent-gold);
-}
-
-/* Botones de acción */
-.acciones {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 10px;
-    margin-top: 4px;
-}
-
-.acciones button {
-    padding: 10px;
-    border: none;
-    border-radius: var(--radius);
-    font-weight: bold;
-    cursor: pointer;
-    transition: background-color 0.2s, transform 0.1s;
-    font-size: 0.88rem;
-}
-
-.acciones button:active {
-    transform: scale(0.98);
-}
-
-#agregarBtn {
-    background-color: var(--accent-green);
-    color: #061e14;
-}
-
-#agregarBtn:hover {
-    background-color: #27ae60;
-}
-
-#limpiarBtn {
-    background-color: var(--accent-red);
-    color: #ffffff;
-}
-
-#limpiarBtn:hover {
-    background-color: #c0392b;
-}
-
-/* ==========================================
-   TABLA DEL TICKET
-   ========================================== */
-
-#ticketTable {
-    width: 100%;
-    border-collapse: collapse;
-    margin-top: 8px;
-    font-size: 0.85rem;
-    background-color: var(--bg-card);
-    border-radius: var(--radius);
-    overflow: hidden;
-    border: 1px solid var(--border-color);
-}
-
-#ticketTable th {
-    background-color: rgba(0, 0, 0, 0.2);
-    color: var(--text-secondary);
-    padding: 8px;
-    text-align: left;
-    font-weight: 700;
-    text-transform: uppercase;
-    font-size: 0.7rem;
-}
-
-#ticketTable td {
-    padding: 8px;
-    border-bottom: 1px solid var(--border-color);
-}
-
-.btn-borrar {
-    background: none;
-    border: none;
-    cursor: pointer;
-    font-size: 0.85rem;
-    opacity: 0.7;
-    transition: opacity 0.2s;
-}
-
-.btn-borrar:hover {
-    opacity: 1;
-}
-
-/* Total e Imprimir */
-#totalDisplay {
-    background-color: var(--bg-card);
-    padding: 12px;
-    border-radius: var(--radius);
-    text-align: center;
-    color: var(--accent-gold);
-    font-size: 1.25rem;
-    font-weight: bold;
-    border: 1px solid var(--accent-gold);
-    margin-top: auto;
-}
-
-.print-btn {
-    width: 100%;
-    padding: 11px;
-    background-color: var(--accent-gold);
-    color: #061e14;
-    font-weight: bold;
-    border: none;
-    border-radius: var(--radius);
-    cursor: pointer;
-    font-size: 0.95rem;
-    letter-spacing: 0.5px;
-    transition: background-color 0.2s;
-}
-
-.print-btn:hover {
-    background-color: var(--accent-gold-hover);
-}
-
-/* ==========================================
-   GRID PANEL (CUADRÍCULA DE ANIMALITOS)
-   ========================================== */
-
-.grid-panel {
-    flex: 1;
-    padding: 18px;
-    overflow-y: auto;
-    background-color: var(--bg-main);
-}
-
-#matrizAnimalitos {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(85px, 1fr));
-    gap: 8px;
-}
-
-/* Botones de la cuadrícula */
-.btn-animal {
-    background-color: var(--bg-sidebar);
-    border: 1px solid var(--border-color);
-    border-radius: var(--radius);
-    color: var(--text-primary);
-    padding: 10px 4px;
-    text-align: center;
-    cursor: pointer;
-    transition: background-color 0.15s, border-color 0.15s;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    font-size: 0.78rem;
-    user-select: none;
-}
-
-.btn-animal strong {
-    font-size: 1.15rem;
-    color: var(--accent-gold);
-    margin-bottom: 2px;
-}
-
-.btn-animal:hover {
-    background-color: var(--bg-card-hover);
-    border-color: var(--accent-gold);
-}
-
-.btn-animal:active {
-    transform: scale(0.97);
-}
-
-/* Scrollbar Personalizada */
-::-webkit-scrollbar {
-    width: 6px;
-}
-::-webkit-scrollbar-track {
-    background: var(--bg-main);
-}
-::-webkit-scrollbar-thumb {
-    background: var(--border-color);
-    border-radius: 3px;
-}
+    <script src="js/loterias.js"></script>
+    <script src="js/impresion.js"></script>
+    <script src="js/app.js"></script>
+</body>
+</html>
