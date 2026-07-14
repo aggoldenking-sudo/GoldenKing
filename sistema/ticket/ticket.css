@@ -1,1 +1,164 @@
+/**
+ * Proyecto Golden King
+ * Archivo: sistema/ticket/ticket.css
+ * Descripción: Diseño visual del ticket de apuestas
+ */
 
+
+.ticket-container {
+
+    width: 320px;
+    margin: auto;
+    background: white;
+    color: black;
+    padding: 15px;
+    font-family: "Courier New", monospace;
+    font-size: 14px;
+
+}
+
+
+
+.ticket-header {
+
+    text-align: center;
+    margin-bottom: 10px;
+
+}
+
+
+
+.ticket-header h1 {
+
+    margin: 0;
+    font-size: 22px;
+    font-weight: bold;
+
+}
+
+
+
+.ticket-header p {
+
+    margin: 3px 0;
+    font-size: 12px;
+
+}
+
+
+
+.ticket-separador {
+
+    border-top: 1px dashed #000;
+    margin: 10px 0;
+
+}
+
+
+
+.ticket-info {
+
+    line-height: 20px;
+
+}
+
+
+
+.ticket-jugada {
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 5px 0;
+
+}
+
+
+
+.ticket-numero {
+
+    font-weight: bold;
+    width: 40px;
+
+}
+
+
+
+.ticket-animal {
+
+    flex: 1;
+
+}
+
+
+
+.ticket-monto {
+
+    text-align: right;
+    font-weight: bold;
+
+}
+
+
+
+.ticket-total {
+
+    text-align: right;
+    font-size: 18px;
+    font-weight: bold;
+    margin-top: 15px;
+
+}
+
+
+
+.ticket-footer {
+
+    text-align: center;
+    font-size: 12px;
+    margin-top: 15px;
+
+}
+
+
+
+.ticket-logo {
+
+    width: 90px;
+    display: block;
+    margin: auto;
+
+}
+
+
+
+/* Vista para impresora térmica */
+
+@media print {
+
+
+    body {
+
+        margin: 0;
+        padding: 0;
+
+    }
+
+
+    .ticket-container {
+
+        width: 80mm;
+        padding: 5mm;
+        font-size: 12px;
+
+    }
+
+
+    .no-print {
+
+        display: none !important;
+
+    }
+
+
+}
