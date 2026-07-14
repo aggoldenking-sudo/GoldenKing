@@ -1,543 +1,509 @@
 window.App = {
 
-    ticket: [],
-    seleccionados: [],
 
+ticket: [],
 
-    init() {
+seleccionados: [],
 
-        this.cargarTicket();
 
-        this.renderMatriz();
 
-        this.renderTicket();
+init(){
 
 
-    },
+this.cargarTicket();
 
 
+this.renderMatriz();
 
-    renderMatriz() {
 
+this.renderTicket();
 
-        const contenedor = document.getElementById("matrizAnimalitos");
 
+},
 
-        const tipo = document.getElementById("loteriaSelect").value;
 
 
-        const items = window.DATA_LOTERIAS[tipo];
 
+renderMatriz(){
 
 
-        if(!items){
+const contenedor =
+document.getElementById("matrizAnimalitos");
 
-            console.error("No hay datos de lotería");
 
-            return;
 
-        }
+const tipo =
+document.getElementById("loteriaSelect").value;
 
 
 
-        contenedor.innerHTML = "";
+const items =
+window.DATA_LOTERIAS[tipo];
 
 
 
-        Object.keys(items)
-        .sort((a,b)=>{
+if(!items){
 
+console.error("No existen datos");
 
-            if(a==="00") return -1;
+return;
 
-            if(b==="00") return 1;
+}
 
 
-            if(a==="0") return -1;
 
-            if(b==="0") return 1;
+contenedor.innerHTML="";
 
 
-            return Number(a)-Number(b);
 
+Object.keys(items)
 
-        })
+.sort((a,b)=>{
 
-        .forEach(id=>{
 
+if(a==="00") return -1;
 
-            let btn=document.createElement("button");
+if(b==="00") return 1;
 
 
-            btn.className="btn-animal";
+if(a==="0") return -1;
 
+if(b==="0") return 1;
 
-            btn.innerHTML=
 
-            `<strong>${id}</strong><br>${items[id]}`;
+return Number(a)-Number(b);
 
 
+})
 
-            if(this.seleccionados.includes(id)){
 
-                btn.classList.add("seleccionado");
+.forEach(id=>{
 
-            }
 
+let btn=document.createElement("button");
 
 
-            btn.onclick=()=>{
+btn.className="btn-animal";
 
 
-                if(this.seleccionados.includes(id)){
+btn.innerHTML=
 
+`<strong>${id}</strong><br>${items[id]}`;
 
-                    this.seleccionados =
 
-                    this.seleccionados.filter(x=>x!==id);
 
+btn.onclick=()=>{
 
-                    btn.classList.remove("seleccionado");
 
+if(this.seleccionados.includes(id)){
 
-                }else{
 
+this.seleccionados =
 
-                    this.seleccionados.push(id);
+this.seleccionados.filter(x=>x!==id);
 
 
-                    btn.classList.add("seleccionado");
+btn.classList.remove("seleccionado");
 
 
-                }
+}else{
 
 
-            };
+this.seleccionados.push(id);
 
 
+btn.classList.add("seleccionado");
 
-            contenedor.appendChild(btn);
 
+}
 
-        });
 
+};
 
 
-    },
 
+contenedor.appendChild(btn);
 
 
 
+});
 
-    agregarSeleccion(){
 
+},
 
-        if(this.seleccionados.length===0){
 
 
-            alert("Seleccione animales");
 
 
-            return;
 
+agregarSeleccion(){
 
-        }
 
 
+const monto =
 
-        const monto=
+Number(document.getElementById("montoInput").value);
 
-        Number(document.getElementById("montoInput").value);
 
 
+const hora =
 
-        const hora=
+document.getElementById("horarioSelect").value;
 
-        document.getElementById("horarioSelect").value;
 
 
+const loteria =
 
-        const loteria=
+document.getElementById("loteriaSelect").value;
 
-        document.getElementById("loteriaSelect").value;
 
 
 
+this.seleccionados.forEach(id=>{
 
-        this.seleccionados.forEach(id=>{
 
+let existe=this.ticket.find(t=>
 
-            this.agregarJugada(id,monto,hora,loteria);
 
+t.id===id &&
 
-        });
+t.hora===hora &&
 
+t.loteria===loteria
 
 
-        this.seleccionados=[];
+);
 
 
-        this.guardarTicket();
 
+if(existe){
 
-        this.renderMatriz();
 
+existe.monto += monto;
 
-        this.renderTicket();
 
+}else{
 
 
-    },
+this.ticket.push({
 
 
+id:id,
 
 
+nombre:
+window.DATA_LOTERIAS[loteria][id],
 
 
-    agregarJugada(id,monto,hora,loteria){
+monto:monto,
 
 
+hora:hora,
 
-        let existe=this.ticket.find(t=>
 
+loteria:loteria
 
-            t.id===id &&
 
-            t.hora===hora &&
+});
 
-            t.loteria===loteria
 
+}
 
-        );
 
+});
 
 
-        if(existe){
 
+this.seleccionados=[];
 
-            existe.monto += monto;
 
+this.guardarTicket();
 
-        }else{
 
+this.renderMatriz();
 
-            this.ticket.push({
 
+this.renderTicket();
 
-                id:id,
 
+},
 
-                nombre:
 
-                window.DATA_LOTERIAS[loteria][id],
 
 
-                monto:monto,
 
 
-                hora:hora,
+agregarCodigoRapido(codigo){
 
 
-                loteria:loteria
+const loteria=
 
+document.getElementById("loteriaSelect").value;
 
-            });
 
 
-        }
+if(!window.DATA_LOTERIAS[loteria][codigo]){
 
 
-    },
+alert("Código inválido");
 
+return;
 
+}
 
 
 
+const monto=
 
-    agregarCodigoRapido(codigo){
+Number(document.getElementById("montoInput").value);
 
 
-        const loteria=
 
-        document.getElementById("loteriaSelect").value;
+const hora=
 
+document.getElementById("horarioSelect").value;
 
 
-        const animales=
 
-        window.DATA_LOTERIAS[loteria];
+let existe=this.ticket.find(t=>
 
+t.id===codigo &&
 
+t.hora===hora &&
 
-        if(!animales[codigo]){
+t.loteria===loteria
 
+);
 
-            alert("Código no existe");
 
 
-            return;
+if(existe){
 
 
-        }
+existe.monto += monto;
 
 
+}else{
 
-        const monto=
 
-        Number(document.getElementById("montoInput").value);
+this.ticket.push({
 
 
+id:codigo,
 
-        const hora=
 
-        document.getElementById("horarioSelect").value;
+nombre:
+window.DATA_LOTERIAS[loteria][codigo],
 
 
+monto:monto,
 
-        this.agregarJugada(
 
-            codigo,
+hora:hora,
 
-            monto,
 
-            hora,
+loteria:loteria
 
-            loteria
 
-        );
+});
 
 
+}
 
-        this.guardarTicket();
 
 
-        this.renderTicket();
+this.guardarTicket();
 
+this.renderTicket();
 
 
-    },
+},
 
 
 
 
 
 
-    renderTicket(){
+renderTicket(){
 
 
-        const tbody=
+const tbody=document.querySelector("#ticketTable tbody");
 
-        document.querySelector("#ticketTable tbody");
 
+tbody.innerHTML=this.ticket.map((t,i)=>`
 
 
-        if(!tbody) return;
+<tr>
 
+<td>${t.id} ${t.nombre}</td>
 
+<td>${t.hora}</td>
 
-        tbody.innerHTML=this.ticket.map((t,i)=>`
+<td>${t.monto}</td>
 
+<td>
 
-        <tr>
+<button onclick="window.App.remover(${i})">
 
-        <td>${t.id} ${t.nombre}</td>
+X
 
-        <td>${t.hora}</td>
+</button>
 
-        <td>${t.monto}</td>
+</td>
 
-        <td>
+</tr>
 
-        <button onclick="window.App.remover(${i})">
 
-        X
+`).join("");
 
-        </button>
 
-        </td>
 
 
-        </tr>
+let total=this.ticket.reduce(
 
+(a,b)=>a+b.monto,
 
-        `).join("");
+0
 
+);
 
 
 
-        const total=
+document.getElementById("totalDisplay").innerText=
 
-        this.ticket.reduce(
+"Total: Bs. "+total;
 
-            (s,t)=>s+t.monto,
 
-            0
 
-        );
+},
 
 
 
-        document.getElementById("totalDisplay")
 
-        .innerText=
 
-        "Total: Bs. "+total;
 
+remover(i){
 
 
-    },
+this.ticket.splice(i,1);
 
 
+this.guardarTicket();
 
 
+this.renderTicket();
 
 
+},
 
-    remover(i){
 
 
-        this.ticket.splice(i,1);
 
 
-        this.guardarTicket();
 
+limpiarTodo(){
 
-        this.renderTicket();
 
+this.ticket=[];
 
-    },
 
+this.seleccionados=[];
 
 
+this.guardarTicket();
 
 
+this.renderTicket();
 
-    limpiarTodo(){
 
+this.renderMatriz();
 
-        this.ticket=[];
 
+},
 
-        this.seleccionados=[];
 
 
-        this.guardarTicket();
 
 
-        this.renderMatriz();
 
+guardarTicket(){
 
-        this.renderTicket();
 
+localStorage.setItem(
 
-    },
+"goldenking_ticket",
 
+JSON.stringify(this.ticket)
 
+);
 
 
+},
 
 
 
-    guardarTicket(){
 
 
-        localStorage.setItem(
 
-            "goldenking_ticket",
+cargarTicket(){
 
-            JSON.stringify(this.ticket)
 
-        );
+let datos=
 
+localStorage.getItem(
 
-    },
+"goldenking_ticket"
 
+);
 
 
 
+if(datos){
 
+this.ticket=JSON.parse(datos);
 
-    cargarTicket(){
+}
 
 
-        let datos=
+},
 
-        localStorage.getItem(
 
-            "goldenking_ticket"
 
-        );
 
 
 
-        if(datos){
+imprimirTicket(){
 
 
-            this.ticket=
+let total=this.ticket.reduce(
 
-            JSON.parse(datos);
+(a,b)=>a+b.monto,
 
+0
 
-        }
+);
 
 
-    },
+window.Impresion.generarTicket(
 
+this.ticket,
 
+total
 
+);
 
 
+this.ticket=[];
 
 
-    imprimirTicket(){
+this.guardarTicket();
 
 
-        if(this.ticket.length===0){
+this.renderTicket();
 
 
-            alert("No hay jugadas");
+}
 
-
-            return;
-
-
-        }
-
-
-
-        let total=
-
-        this.ticket.reduce(
-
-            (s,t)=>s+t.monto,
-
-            0
-
-        );
-
-
-
-        window.Impresion.generarTicket(
-
-            this.ticket,
-
-            total
-
-        );
-
-
-
-        this.ticket=[];
-
-
-        this.guardarTicket();
-
-
-        this.renderTicket();
-
-
-
-    }
 
 
 };
@@ -546,10 +512,10 @@ window.App = {
 
 
 
-window.onload=function(){
+window.onload=()=>{
 
 
-    window.App.init();
+window.App.init();
 
 
 };
@@ -558,34 +524,32 @@ window.onload=function(){
 
 
 
-// CODIGO RAPIDO
-
-document.addEventListener("keydown",function(e){
+document.addEventListener("keydown",e=>{
 
 
-    if(e.key==="Enter"){
+if(e.key==="Enter"){
 
 
-        let campo=document.activeElement;
+let campo=document.activeElement;
 
 
-        if(campo && campo.id==="codigoAnimal"){
+if(campo.id==="codigoAnimal"){
 
 
-            window.App.agregarCodigoRapido(
+window.App.agregarCodigoRapido(
 
-                campo.value.trim()
+campo.value.trim()
 
-            );
-
-
-            campo.value="";
+);
 
 
-        }
+campo.value="";
 
 
-    }
+}
+
+
+}
 
 
 });
