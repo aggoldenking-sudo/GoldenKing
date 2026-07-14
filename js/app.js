@@ -1,54 +1,35 @@
 window.App = {
-    monto: 50,
     ticket: [],
     
     init() { 
-        console.log("Iniciando App...");
         this.renderMatriz(); 
     },
     
-    setMonto(m) { 
-        this.monto = m; 
-        document.getElementById('displayMonto').innerText = m; 
-    },
-    
     renderMatriz() {
-        const tipo = document.getElementById('loteriaSelect').value;
         const contenedor = document.getElementById('matrizAnimalitos');
-        
-        if (!contenedor) {
-            console.error("No se encontró el contenedor");
-            return;
-        }
-
+        const items = window.DATA_LOTERIAS[document.getElementById('loteriaSelect').value];
         contenedor.innerHTML = "";
         
-        // Ahora busca los datos de forma directa
-        const items = window.DATA_LOTERIAS[tipo];
-        
-        if (!items) {
-            console.error("No hay datos para la lotería");
-            return;
-        }
-        
-        for (let id in items) {
+        // Ordenamos los números numéricamente (00, 0, 01, 02... 75)
+        Object.keys(items).sort((a, b) => parseInt(a) - parseInt(b)).forEach(id => {
             let btn = document.createElement('button');
             btn.className = 'btn-animal';
             btn.innerHTML = `<strong>${id}</strong><br>${items[id]}`;
             btn.onclick = () => {
+                // Toma el monto directamente del input manual
+                const montoManual = parseInt(document.getElementById('montoInput').value) || 0;
                 const hora = document.getElementById('horarioSelect').value;
-                let premio = window.calcularPremio(tipo, id, this.monto);
-                this.ticket.push({id, nombre: items[id], monto: this.monto, premio, hora});
+                let premio = window.calcularPremio(document.getElementById('loteriaSelect').value, id, montoManual);
+                
+                this.ticket.push({id, nombre: items[id], monto: montoManual, premio, hora});
                 this.renderTicket();
             };
             contenedor.appendChild(btn);
-        }
+        });
     },
 
     renderTicket() {
         const tbody = document.querySelector('#ticketTable tbody');
-        if(!tbody) return;
-        
         tbody.innerHTML = this.ticket.map((t, i) => 
             `<tr>
                 <td>${t.id} ${t.nombre}</td>
@@ -59,10 +40,7 @@ window.App = {
         this.actualizarTotal();
     },
 
-    remover(i) { 
-        this.ticket.splice(i, 1); 
-        this.renderTicket(); 
-    },
+    remover(i) { this.ticket.splice(i, 1); this.renderTicket(); },
     
     actualizarTotal() { 
         const total = this.ticket.reduce((a, b) => a + b.monto, 0);
