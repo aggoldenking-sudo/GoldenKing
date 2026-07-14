@@ -7,11 +7,9 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Golden King - Caja</title>
-
+<title>Golden King POS</title>
 
 <link rel="stylesheet" href="style.css">
-
 
 </head>
 
@@ -19,37 +17,19 @@
 <body>
 
 
-<header>
-
-<h1>👑 GOLDEN KING</h1>
-
-<h3>Sistema de Caja</h3>
-
-<button onclick="window.open('historial/historial.html','Historial','width=900,height=600')">
-📋 Historial
-</button>
-
-</header>
+<div class="sidebar">
 
 
+<h2>👑 GOLDEN KING</h2>
 
 
-<section class="panel">
-
-
-<label>
-Lotería:
-</label>
-
+<label>Lotería</label>
 
 <select id="loteriaSelect"></select>
 
 
 
-<label>
-Horario:
-</label>
-
+<label>Horario</label>
 
 <select id="horarioSelect">
 
@@ -70,24 +50,23 @@ Horario:
 
 
 
-<br><br>
+<label>Código Animal</label>
 
-
-<input 
-id="codigoAnimal"
-placeholder="Código animal"
-type="text"
-autocomplete="off"
->
+<input id="codigoAnimal"
+placeholder="Ej: 00, 1, 25"
+autocomplete="off">
 
 
 
-<input 
-id="montoInput"
-placeholder="Monto Bs."
+<label>Monto Bs.</label>
+
+<input id="montoInput"
 type="number"
->
+placeholder="Monto">
 
+
+
+<div class="acciones">
 
 
 <button onclick="App.agregarSeleccion()">
@@ -95,15 +74,37 @@ type="number"
 </button>
 
 
-</section>
+<button onclick="window.open('historial/historial.html','Historial','width=900,height=600')">
+📋 Historial
+</button>
+
+
+</div>
+
+
+
+<button class="print-btn" onclick="App.imprimirTicket()">
+🖨️ Imprimir Ticket
+</button>
+
+
+
+<button class="print-btn" onclick="App.limpiarTodo()">
+🗑️ Limpiar
+</button>
+
+
+
+</div>
 
 
 
 
 
-<h2>
-🐾 Animalitos
-</h2>
+<div class="grid-panel">
+
+
+<h2>🐾 Animalitos</h2>
 
 
 <div id="matrizAnimalitos">
@@ -113,48 +114,24 @@ type="number"
 
 
 
-
-<h2>
-🎟️ Ticket Actual
-</h2>
+<h2>🎟️ Ticket</h2>
 
 
 <table id="ticketTable">
-
 
 <thead>
 
 <tr>
 
-<th>
-Animal
-</th>
-
-
-<th>
-Lotería
-</th>
-
-
-<th>
-Hora
-</th>
-
-
-<th>
-Monto
-</th>
-
-
-<th>
-Eliminar
-</th>
-
+<th>Animal</th>
+<th>Lotería</th>
+<th>Hora</th>
+<th>Monto</th>
+<th></th>
 
 </tr>
 
 </thead>
-
 
 
 <tbody>
@@ -167,27 +144,15 @@ Eliminar
 
 
 
-<h2 id="totalDisplay">
+<div id="totalDisplay">
+
 Total: Bs. 0
-</h2>
+
+</div>
 
 
 
-
-<button class="imprimir" onclick="App.imprimirTicket()">
-
-🖨️ Imprimir Ticket
-
-</button>
-
-
-
-
-<button class="limpiar" onclick="App.limpiarTodo()">
-
-🗑️ Limpiar
-
-</button>
+</div>
 
 
 
