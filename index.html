@@ -1,142 +1,273 @@
-<!DOCTYPE html>
-<html lang="es">
+/* ==========================================
+   GOLDEN KING POS - VERDE ESMERALDA & DORADO
+   ========================================== */
 
-<head>
+:root {
+    --bg-main: #061e14;        /* Verde selva muy oscuro */
+    --bg-sidebar: #0b291c;     /* Verde esmeralda profundo */
+    --bg-card: #123827;        /* Tarjetas e inputs */
+    --bg-card-hover: #1b4d36;  /* Hover suave */
+    
+    --accent-gold: #f3be3a;    /* Dorado rey */
+    --accent-gold-hover: #dca321;
+    --accent-green: #2ecc71;   /* Verde para acciones de éxito */
+    --accent-red: #e74c3c;     /* Rojo para limpiar */
+    
+    --text-primary: #f0fdf4;   /* Blanco menta muy suave */
+    --text-secondary: #86efac; /* Menta para labels/secundarios */
+    --border-color: #1a4d35;  /* Bordes integrados */
+    
+    --radius: 6px;
+}
 
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+}
 
-    <title>👑 Golden King POS</title>
+body {
+    display: flex;
+    height: 100vh;
+    background-color: var(--bg-main);
+    color: var(--text-primary);
+    overflow: hidden;
+}
 
-    <link rel="stylesheet" href="style.css">
+/* ==========================================
+   SIDEBAR (PANEL IZQUIERDO)
+   ========================================== */
 
-</head>
+.sidebar {
+    width: 360px;
+    background-color: var(--bg-sidebar);
+    border-right: 1px solid var(--border-color);
+    padding: 18px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    overflow-y: auto;
+}
 
-<body>
+.sidebar h2 {
+    color: var(--accent-gold);
+    font-size: 1.4rem;
+    letter-spacing: 1px;
+    text-align: center;
+}
 
-    <aside class="sidebar">
+.subtitulo {
+    color: var(--text-secondary);
+    font-size: 0.8rem;
+    text-align: center;
+    margin-top: -8px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
 
-        <h2>👑 GOLDEN KING</h2>
-        <p class="subtitulo">Sistema POS Animalitos</p>
+hr {
+    border: none;
+    border-top: 1px solid var(--border-color);
+    margin: 2px 0;
+}
 
-        <hr>
+label {
+    font-size: 0.75rem;
+    font-weight: 700;
+    color: var(--text-secondary);
+    text-transform: uppercase;
+    margin-bottom: -6px;
+}
 
-        <label for="loteriaSelect">Lotería</label>
+select, input {
+    width: 100%;
+    padding: 9px 12px;
+    background-color: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius);
+    color: var(--text-primary);
+    font-size: 0.95rem;
+    outline: none;
+    transition: border-color 0.2s;
+}
 
-        <select id="loteriaSelect" onchange="window.App.renderMatriz()">
+select:focus, input:focus {
+    border-color: var(--accent-gold);
+}
 
-            <option value="Granjita">La Granjita</option>
-            <option value="Guacharo">Guácharo Activo</option>
-            <option value="LottoActivo">Lotto Activo</option>
-            <option value="SelvaPlus">Selva Plus</option>
+/* Botones de acción */
+.acciones {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    margin-top: 4px;
+}
 
-        </select>
+.acciones button {
+    padding: 10px;
+    border: none;
+    border-radius: var(--radius);
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.2s, transform 0.1s;
+    font-size: 0.88rem;
+}
 
-        <label for="modalidadSelect">Modalidad</label>
+.acciones button:active {
+    transform: scale(0.98);
+}
 
-        <select id="modalidadSelect">
+#agregarBtn {
+    background-color: var(--accent-green);
+    color: #061e14;
+}
 
-            <option value="Animalito">Animalito</option>
-            <option value="Terminal" disabled>Terminal (Próximamente)</option>
-            <option value="Tripleta" disabled>Tripleta (Próximamente)</option>
+#agregarBtn:hover {
+    background-color: #27ae60;
+}
 
-        </select>
+#limpiarBtn {
+    background-color: var(--accent-red);
+    color: #ffffff;
+}
 
-        <label for="horarioSelect">Sorteo</label>
+#limpiarBtn:hover {
+    background-color: #c0392b;
+}
 
-        <select id="horarioSelect">
+/* ==========================================
+   TABLA DEL TICKET
+   ========================================== */
 
-            <option value="08:00 AM">08:00 AM</option>
-            <option value="09:00 AM">09:00 AM</option>
-            <option value="10:00 AM">10:00 AM</option>
-            <option value="11:00 AM">11:00 AM</option>
-            <option value="12:00 PM">12:00 PM</option>
-            <option value="01:00 PM">01:00 PM</option>
-            <option value="02:00 PM">02:00 PM</option>
-            <option value="03:00 PM">03:00 PM</option>
-            <option value="04:00 PM">04:00 PM</option>
-            <option value="05:00 PM">05:00 PM</option>
-            <option value="06:00 PM">06:00 PM</option>
-            <option value="07:00 PM">07:00 PM</option>
+#ticketTable {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 8px;
+    font-size: 0.85rem;
+    background-color: var(--bg-card);
+    border-radius: var(--radius);
+    overflow: hidden;
+    border: 1px solid var(--border-color);
+}
 
-        </select>
+#ticketTable th {
+    background-color: rgba(0, 0, 0, 0.2);
+    color: var(--text-secondary);
+    padding: 8px;
+    text-align: left;
+    font-weight: 700;
+    text-transform: uppercase;
+    font-size: 0.7rem;
+}
 
-        <label for="inputRapido">Código del Animal</label>
+#ticketTable td {
+    padding: 8px;
+    border-bottom: 1px solid var(--border-color);
+}
 
-        <input
-            type="text"
-            id="inputRapido"
-            maxlength="2"
-            autocomplete="off"
-            placeholder="Ejemplo: 05">
+.btn-borrar {
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 0.85rem;
+    opacity: 0.7;
+    transition: opacity 0.2s;
+}
 
-        <label for="montoInput">Monto de la Jugada</label>
+.btn-borrar:hover {
+    opacity: 1;
+}
 
-        <input
-            type="number"
-            id="montoInput"
-            value="50"
-            min="1"
-            step="1">
+/* Total e Imprimir */
+#totalDisplay {
+    background-color: var(--bg-card);
+    padding: 12px;
+    border-radius: var(--radius);
+    text-align: center;
+    color: var(--accent-gold);
+    font-size: 1.25rem;
+    font-weight: bold;
+    border: 1px solid var(--accent-gold);
+    margin-top: auto;
+}
 
-        <div class="acciones">
+.print-btn {
+    width: 100%;
+    padding: 11px;
+    background-color: var(--accent-gold);
+    color: #061e14;
+    font-weight: bold;
+    border: none;
+    border-radius: var(--radius);
+    cursor: pointer;
+    font-size: 0.95rem;
+    letter-spacing: 0.5px;
+    transition: background-color 0.2s;
+}
 
-            <button id="agregarBtn">
-                ➕ Agregar
-            </button>
+.print-btn:hover {
+    background-color: var(--accent-gold-hover);
+}
 
-            <button id="limpiarBtn">
-                🗑 Limpiar
-            </button>
+/* ==========================================
+   GRID PANEL (CUADRÍCULA DE ANIMALITOS)
+   ========================================== */
 
-        </div>
+.grid-panel {
+    flex: 1;
+    padding: 18px;
+    overflow-y: auto;
+    background-color: var(--bg-main);
+}
 
-        <table id="ticketTable">
+#matrizAnimalitos {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(85px, 1fr));
+    gap: 8px;
+}
 
-            <thead>
+/* Botones de la cuadrícula */
+.btn-animal {
+    background-color: var(--bg-sidebar);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius);
+    color: var(--text-primary);
+    padding: 10px 4px;
+    text-align: center;
+    cursor: pointer;
+    transition: background-color 0.15s, border-color 0.15s;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    font-size: 0.78rem;
+    user-select: none;
+}
 
-                <tr>
+.btn-animal strong {
+    font-size: 1.15rem;
+    color: var(--accent-gold);
+    margin-bottom: 2px;
+}
 
-                    <th>Jugada</th>
-                    <th>Sorteo</th>
-                    <th>Monto</th>
-                    <th></th>
+.btn-animal:hover {
+    background-color: var(--bg-card-hover);
+    border-color: var(--accent-gold);
+}
 
-                </tr>
+.btn-animal:active {
+    transform: scale(0.97);
+}
 
-            </thead>
-
-            <tbody>
-
-            </tbody>
-
-        </table>
-
-        <h3 id="totalDisplay">
-            Total: Bs. 0
-        </h3>
-
-        <button
-            class="print-btn"
-            onclick="window.print()">
-
-            🖨 IMPRIMIR TICKET
-
-        </button>
-
-    </aside>
-
-    <main class="grid-panel">
-
-        <div id="matrizAnimalitos"></div>
-
-    </main>
-
-    <script src="js/loterias.js"></script>
-    <script src="js/impresion.js"></script>
-    <script src="js/app.js"></script>
-
-</body>
-
-</html>
-```
+/* Scrollbar Personalizada */
+::-webkit-scrollbar {
+    width: 6px;
+}
+::-webkit-scrollbar-track {
+    background: var(--bg-main);
+}
+::-webkit-scrollbar-thumb {
+    background: var(--border-color);
+    border-radius: 3px;
+}
