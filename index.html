@@ -70,10 +70,11 @@ placeholder="Monto"
 
 
 
+
 <div class="acciones">
 
 
-<button onclick="App.agregarSeleccion()">
+<button onclick="window.App.agregarSeleccion()">
 ➕ Agregar
 </button>
 
@@ -89,19 +90,22 @@ placeholder="Monto"
 
 
 
-<button class="print-btn" onclick="App.imprimirTicket()">
+
+<button class="print-btn" onclick="window.App.imprimirTicket()">
 🖨️ Imprimir Ticket
 </button>
 
 
 
-<button class="print-btn" onclick="App.limpiarTodo()">
+<button class="print-btn" onclick="window.App.limpiarTodo()">
 🗑️ Limpiar
 </button>
 
 
 
 </div>
+
+
 
 
 
@@ -117,6 +121,7 @@ placeholder="Monto"
 <div id="matrizAnimalitos">
 
 </div>
+
 
 
 
@@ -154,6 +159,7 @@ placeholder="Monto"
 
 
 
+
 <div id="totalDisplay">
 
 Total: Bs. 0
@@ -169,9 +175,13 @@ Total: Bs. 0
 
 
 
+
+
 <!-- ARCHIVOS DEL SISTEMA -->
 
-<script src="data.js"></script>
+<script src="js/loterias.js"></script>
+
+<script src="js/impresion.js"></script>
 
 <script src="js/app.js"></script>
 
