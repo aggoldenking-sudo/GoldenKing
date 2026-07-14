@@ -1,192 +1,23 @@
-<!DOCTYPE html>
-<html lang="es">
-
-<head>
-
-<meta charset="UTF-8">
-
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<title>Golden King POS</title>
-
-<link rel="stylesheet" href="style.css">
-
-</head>
-
-
 <body>
-
-
-<div class="sidebar">
-
-
-<h2>👑 GOLDEN KING</h2>
-
-
-<label>Lotería</label>
-
-<select id="loteriaSelect"></select>
-
-
-
-<label>Horario</label>
-
-<select id="horarioSelect">
-
-<option>08:00 AM</option>
-<option>09:00 AM</option>
-<option>10:00 AM</option>
-<option>11:00 AM</option>
-<option>12:00 PM</option>
-<option>01:00 PM</option>
-<option>02:00 PM</option>
-<option>03:00 PM</option>
-<option>04:00 PM</option>
-<option>05:00 PM</option>
-<option>06:00 PM</option>
-<option>07:00 PM</option>
-
-</select>
-
-
-
-<label>Código Animal</label>
-
-<input 
-id="codigoAnimal"
-placeholder="Ej: 00, 0, 01"
-autocomplete="off"
->
-
-
-
-<label>Monto Bs.</label>
-
-<input 
-id="montoInput"
-type="number"
-placeholder="Monto"
->
-
-
-
-
-<div class="acciones">
-
-
-<button onclick="window.App.agregarSeleccion()">
-➕ Agregar
-</button>
-
-
-
-<button onclick="window.open('historial/historial.html','Historial','width=900,height=600')">
-📋 Historial
-</button>
-
-
-</div>
-
-
-
-
-
-<button class="print-btn" onclick="window.App.imprimirTicket()">
-🖨️ Imprimir Ticket
-</button>
-
-
-
-<button class="print-btn" onclick="window.App.limpiarTodo()">
-🗑️ Limpiar
-</button>
-
-
-
-</div>
-
-
-
-
-
-
-
-
-<div class="grid-panel">
-
-
-<h2>🐾 Animalitos</h2>
-
-
-<div id="matrizAnimalitos">
-
-</div>
-
-
-
-
-
-<h2>🎟️ Ticket Actual</h2>
-
-
-
-<table id="ticketTable">
-
-
-<thead>
-
-<tr>
-
-<th>Animal</th>
-<th>Lotería</th>
-<th>Hora</th>
-<th>Monto</th>
-<th>Eliminar</th>
-
-</tr>
-
-
-</thead>
-
-
-<tbody>
-
-</tbody>
-
-
-</table>
-
-
-
-
-
-<div id="totalDisplay">
-
-Total: Bs. 0
-
-</div>
-
-
-
-</div>
-
-
-
-
-
-
-
-
-<!-- ARCHIVOS DEL SISTEMA -->
-
-<script src="js/loterias.js"></script>
-
-<script src="js/impresion.js"></script>
-
-<script src="js/app.js"></script>
-
-
-
+    <div class="sidebar" id="sidebar">
+        <h2>👑 GOLDEN KING</h2>
+        <div id="loteriaLista">
+            </div>
+    </div>
+
+    <div class="main-content">
+        <div class="panel-jugada">
+            <input id="codigoAnimal" placeholder="Código (ej: 01)" autofocus>
+            <input id="montoInput" type="number" placeholder="Monto">
+            <button onclick="App.agregarDirecto()">➕ AGREGAR</button>
+        </div>
+        
+        <table id="ticketTable">
+            <thead><tr><th>Animal</th><th>Sorteo</th><th>Monto</th><th>X</th></tr></thead>
+            <tbody></tbody>
+        </table>
+        
+        <h2 id="totalDisplay">Total: Bs. 0</h2>
+        <button onclick="App.imprimirTicket()">🖨️ IMPRIMIR</button>
+    </div>
 </body>
-
-</html>
