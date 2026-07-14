@@ -3,13 +3,11 @@
 
 <head>
 
-    <meta charset="UTF-8">
+<meta charset="UTF-8">
 
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Golden King POS</title>
 
-    <title>👑 Golden King POS</title>
-
-    <link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="style.css">
 
 </head>
 
@@ -20,187 +18,134 @@
 <aside class="sidebar">
 
 
-    <h2>👑 GOLDEN KING</h2>
+<h2>👑 GOLDEN KING</h2>
 
-    <p class="subtitulo">
-        Centro de Apuestas POS
-    </p>
 
 
-    <hr>
+<label>LOTERÍA:</label>
 
+<select id="loteriaSelect" onchange="window.App.renderMatriz()"></select>
 
-    <label>LOTERÍA:</label>
 
-    <select 
-    id="loteriaSelect"
-    onchange="window.App.renderMatriz()">
 
-        <option value="Granjita">
-            La Granjita
-        </option>
 
-        <option value="Guacharo">
-            Guácharo Activo
-        </option>
+<label>SORTEO:</label>
 
-        <option value="LottoActivo">
-            Lotto Activo
-        </option>
+<select id="horarioSelect">
 
-        <option value="SelvaPlus">
-            Selva Plus
-        </option>
+<option value="08:00 AM">08:00 AM</option>
+<option value="09:00 AM">09:00 AM</option>
+<option value="10:00 AM">10:00 AM</option>
+<option value="11:00 AM">11:00 AM</option>
+<option value="12:00 PM">12:00 PM</option>
+<option value="01:00 PM">01:00 PM</option>
+<option value="02:00 PM">02:00 PM</option>
+<option value="03:00 PM">03:00 PM</option>
+<option value="04:00 PM">04:00 PM</option>
+<option value="05:00 PM">05:00 PM</option>
+<option value="06:00 PM">06:00 PM</option>
+<option value="07:00 PM">07:00 PM</option>
 
-    </select>
+</select>
 
 
 
 
-    <label>SORTEO:</label>
 
-    <select id="horarioSelect">
+<label>CÓDIGO RÁPIDO:</label>
 
-        <option value="08:00 AM">08:00 AM</option>
-        <option value="09:00 AM">09:00 AM</option>
-        <option value="10:00 AM">10:00 AM</option>
-        <option value="11:00 AM">11:00 AM</option>
+<input 
+type="text"
+id="codigoAnimal"
+placeholder="Ej: 27"
+maxlength="2">
 
-        <option value="12:00 PM">12:00 PM</option>
 
-        <option value="01:00 PM">01:00 PM</option>
-        <option value="02:00 PM">02:00 PM</option>
-        <option value="03:00 PM">03:00 PM</option>
 
-        <option value="04:00 PM">04:00 PM</option>
-        <option value="05:00 PM">05:00 PM</option>
 
-        <option value="06:00 PM">06:00 PM</option>
-        <option value="07:00 PM">07:00 PM</option>
 
-    </select>
 
+<label>MONTO:</label>
 
+<input 
+type="number"
+id="montoInput"
+value="50">
 
 
-    <label>CÓDIGO ANIMAL:</label>
 
-    <input 
-    type="text"
-    id="inputRapido"
-    maxlength="2"
-    placeholder="Ejemplo: 27">
 
 
+<div class="acciones">
 
 
+<button onclick="window.App.agregarSeleccion()">
 
-    <label>MONTO:</label>
+➕ AGREGAR
 
-    <input
+</button>
 
-    type="number"
 
-    id="montoInput"
 
-    value="50"
+<button onclick="window.App.limpiarTodo()">
 
-    min="1">
+🗑 LIMPIAR
 
+</button>
 
 
+</div>
 
 
-    <div class="acciones">
 
 
-        <button
 
-        id="agregarBtn"
+<table id="ticketTable">
 
-        onclick="window.App.agregarSeleccion()">
 
-        ➕ AGREGAR
+<thead>
 
-        </button>
+<tr>
 
+<th>Jugada</th>
 
+<th>Sorteo</th>
 
+<th>Monto</th>
 
-        <button
+<th>X</th>
 
-        id="limpiarBtn"
+</tr>
 
-        onclick="window.App.limpiarTodo()">
+</thead>
 
-        🗑 LIMPIAR
 
-        </button>
 
+<tbody></tbody>
 
-    </div>
 
+</table>
 
 
 
 
-    <table id="ticketTable">
 
+<h3 id="totalDisplay">
 
-        <thead>
+Total: Bs. 0
 
-            <tr>
+</h3>
 
-                <th>Jugada</th>
 
-                <th>Sorteo</th>
 
-                <th>Monto</th>
 
-                <th>X</th>
+<button 
+class="print-btn"
+onclick="window.App.imprimirTicket()">
 
-            </tr>
+🖨 IMPRIMIR
 
-
-        </thead>
-
-
-
-        <tbody>
-
-
-        </tbody>
-
-
-
-    </table>
-
-
-
-
-
-    <h3 id="totalDisplay">
-
-        Total: Bs. 0
-
-    </h3>
-
-
-
-
-
-    <button
-
-    class="print-btn"
-
-    onclick="window.App.imprimirTicket()">
-
-
-    🖨 IMPRIMIR TICKET
-
-
-    </button>
-
+</button>
 
 
 
@@ -210,16 +155,11 @@
 
 
 
-
-<main
-
+<main 
 class="grid-panel"
-
 id="matrizAnimalitos">
 
-
 </main>
-
 
 
 
@@ -235,6 +175,5 @@ id="matrizAnimalitos">
 
 
 </body>
-
 
 </html>
