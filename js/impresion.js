@@ -27,11 +27,51 @@ window.Impresion = {
 
 
 
-        let detalle = "";
+        // AGRUPAR POR LOTERIA Y HORA
+
+        let grupos = {};
 
 
 
         ticket.forEach(t => {
+
+
+            let clave = t.loteria + "|" + t.hora;
+
+
+
+            if(!grupos[clave]){
+
+
+                grupos[clave] = {
+
+                    loteria:t.loteria,
+
+                    hora:t.hora,
+
+                    jugadas:[]
+
+                };
+
+
+            }
+
+
+
+            grupos[clave].jugadas.push(t);
+
+
+
+        });
+
+
+
+
+        let detalle = "";
+
+
+
+        Object.values(grupos).forEach(g=>{
 
 
             detalle += `
@@ -39,49 +79,77 @@ window.Impresion = {
 
             <tr>
 
-                <td colspan="2">
+            <td colspan="2">
 
-                    <b>${t.loteria} - ${t.hora}</b>
+            <b>${g.loteria} - ${g.hora}</b>
 
-                </td>
+            </td>
+
 
             </tr>
 
 
-            <tr>
+
+            `;
+
+
+
+            g.jugadas.forEach(t=>{
+
+
+                detalle += `
+
+
+                <tr>
+
 
                 <td>
 
-                    ${t.id} ${t.nombre}
+                ${t.id} ${t.nombre}
 
                 </td>
 
 
                 <td align="right">
 
-                    Bs. ${Number(t.monto).toFixed(2)}
+                Bs.${Number(t.monto).toFixed(2)}
 
                 </td>
 
 
-            </tr>
+                </tr>
+
+
+
+                `;
+
+
+
+            });
+
+
+
+            detalle += `
 
 
             <tr>
 
-                <td colspan="2">
+            <td colspan="2">
 
-                    ----------------------------
+            ----------------------------
 
-                </td>
+            </td>
 
             </tr>
+
 
 
             `;
 
 
+
         });
+
 
 
 
@@ -91,24 +159,22 @@ window.Impresion = {
 
 <html>
 
-
 <head>
-
 
 <style>
 
 
 body{
 
-    width:280px;
+width:280px;
 
-    margin:auto;
+margin:auto;
 
-    font-family:'Courier New', monospace;
+font-family:'Courier New',monospace;
 
-    font-size:13px;
+font-size:13px;
 
-    color:#000;
+color:#000;
 
 }
 
@@ -116,7 +182,7 @@ body{
 
 .center{
 
-    text-align:center;
+text-align:center;
 
 }
 
@@ -124,9 +190,9 @@ body{
 
 .linea{
 
-    border-top:1px dashed #000;
+border-top:1px dashed #000;
 
-    margin:8px 0;
+margin:8px 0;
 
 }
 
@@ -134,9 +200,9 @@ body{
 
 table{
 
-    width:100%;
+width:100%;
 
-    border-collapse:collapse;
+border-collapse:collapse;
 
 }
 
@@ -144,7 +210,7 @@ table{
 
 td{
 
-    padding:3px 0;
+padding:3px 0;
 
 }
 
@@ -152,11 +218,11 @@ td{
 
 .total{
 
-    text-align:right;
+font-size:18px;
 
-    font-size:18px;
+font-weight:bold;
 
-    font-weight:bold;
+text-align:right;
 
 }
 
@@ -164,16 +230,15 @@ td{
 
 .titulo{
 
-    font-size:20px;
+font-size:20px;
 
-    font-weight:bold;
+font-weight:bold;
 
 }
 
 
 
 </style>
-
 
 </head>
 
@@ -220,7 +285,9 @@ SERIAL:
 ${serial}
 
 
+
 <br><br>
+
 
 
 TICKET:
@@ -257,13 +324,9 @@ ${detalle}
 
 
 
-<div>
-
 TOTAL JUGADAS:
 
 ${ticket.length}
-
-</div>
 
 
 
@@ -275,16 +338,15 @@ TOTAL:
 
 <br>
 
-
-Bs. ${Number(total).toFixed(2)}
+Bs.${Number(total).toFixed(2)}
 
 
 </div>
 
 
 
-<div class="linea"></div>
 
+<div class="linea"></div>
 
 
 
@@ -293,9 +355,7 @@ Bs. ${Number(total).toFixed(2)}
 
 VERIFIQUE SU TICKET
 
-
 <br>
-
 
 CADUCA EN 3 DIAS
 
@@ -304,7 +364,6 @@ CADUCA EN 3 DIAS
 
 
 ¡SUERTE!
-
 
 
 </div>
