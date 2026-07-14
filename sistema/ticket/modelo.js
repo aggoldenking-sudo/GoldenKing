@@ -1,278 +1,42 @@
-/**
- * Proyecto Golden King
- * Módulo: js/ticket/modelo.js
- * Descripción: Modelo generador de tickets.
- */
-
-window.TicketModelo = (function () {
-
+window.TicketModelo = (function() {
     'use strict';
-
-
-    function limpiarAnimal(nombre) {
-
-        if (!nombre) return "";
-
-        return nombre
-        .replace(/[\u{1F300}-\u{1FAFF}]/gu, '')
-        .trim();
-
-    }
-
-
-
+    function quitarEmoji(n) { return n.replace(/[\u{1F300}-\u{1F64F}\u{1F680}-\u{1F6FF}\u{2600}-\u{26FF}\u{2700}-\u{27BF}]/gu, '').trim(); }
     function agruparJugadas(jugadas) {
-
-        return jugadas.reduce((grupos, jugada)=>{
-
-
-            const clave =
-            `${jugada.loteria || "SIN LOTERIA"} - ${jugada.hora || ""}`;
-
-
-            if(!grupos[clave]){
-                grupos[clave] = [];
-            }
-
-
-            grupos[clave].push({
-
-                tipo:
-                jugada.tipo || "Animalitos",
-
-                numero:
-                String(jugada.numero).padStart(2,"0"),
-
-                animal:
-                limpiarAnimal(jugada.animal),
-
-                monto:
-                Number(jugada.monto) || 0
-
-            });
-
-
-            return grupos;
-
-
-        },{});
-
+        return jugadas.reduce((acc, j) => {
+            const key = `${j.loteria} - ${j.hora}`;
+            if (!acc[key]) acc[key] = [];
+            acc[key].push({ ...j, animal: quitarEmoji(j.animal) });
+            return acc;
+        }, {});
     }
-
-
-
-
-    function ordenar(grupos){
-
-
-        Object.keys(grupos).forEach(key=>{
-
-
-            grupos[key].sort((a,b)=>{
-
-                return Number(a.numero)-Number(b.numero);
-
-            });
-
-
-        });
-
-
+    function ordenarJugadas(grupos) {
+        for (const k in grupos) grupos[k].sort((a, b) => parseInt(a.numero) - parseInt(b.numero));
         return grupos;
-
     }
-
-
-
-
-    function crearFilas(lista){
-
-
-        let filas=[];
-
-
-        for(let i=0;i<lista.length;i+=3){
-
-            filas.push(lista.slice(i,i+3));
-
-        }
-
-
+    function crearColumnas(jugadas) {
+        const filas = [];
+        for (let i = 0; i < jugadas.length; i += 3) filas.push(jugadas.slice(i, i + 3));
         return filas;
-
     }
-
-
-
-
-
-    function generarTexto(datos){
-
-
-        let texto="";
-
-
-        texto += "==============================\n";
-        texto += "        GOLDEN KING\n";
-        texto += "      AGENCIA DE APUESTAS\n";
-        texto += "==============================\n";
-
-
-        texto += `Ticket: ${datos.numeroTicket}\n`;
-        texto += `Fecha: ${datos.fecha}\n`;
-
-
-        texto += "------------------------------\n";
-
-
-
-        Object.entries(datos.grupos).forEach(([grupo,jugadas])=>{
-
-
-            texto += grupo+"\n";
-            texto += "------------------------------\n";
-
-
-            crearFilas(jugadas).forEach(fila=>{
-
-
-                fila.forEach(j=>{
-
-
-                    texto +=
-                    `${j.numero} ${j.animal}\n`;
-
-                    texto +=
-                    `   Bs ${j.monto.toFixed(2)}\n`;
-
-
-                });
-
-
+    function generarTexto(data) {
+        let out = "================================\nGOLDEN KING\n================================\n";
+        out += `Ticket: ${data.numeroTicket}\nFecha: ${data.fecha}\n`;
+        for (const [key, jugadas] of Object.entries(data.grupos)) {
+            out += `${key}\n`;
+            crearColumnas(jugadas).forEach(f => {
+                out += f.map(j => `${j.numero} ${j.animal.padEnd(10)}`.substring(0, 10)).join(" ") + "\n";
             });
-
-
-
-        });
-
-
-
-        texto += "==============================\n";
-        texto +=
-        `TOTAL Bs ${datos.total.toFixed(2)}\n`;
-
-        texto += "==============================\n";
-
-        texto +=
-        "Gracias por jugar en Golden King\n";
-
-        texto +=
-        "Conserve su ticket\n";
-
-
-        return texto;
-
-    }
-
-
-
-
-
-    function generarHTML(texto){
-
-
-        return `
-
-        <pre style="
-        font-family:monospace;
-        font-size:14px;
-        white-space:pre-wrap;
-        ">
-        ${texto}
-        </pre>
-
-        `;
-
-
-    }
-
-
-
-
-
-
-
-    return {
-
-
-        generar(jugadas,numeroTicket){
-
-
-            const fecha =
-            new Date()
-            .toLocaleDateString("es-VE");
-
-
-
-            const total = jugadas.reduce(
-                (suma,jugada)=>
-                suma + (Number(jugada.monto)||0),
-                0
-            );
-
-
-
-            const grupos =
-            ordenar(
-                agruparJugadas(jugadas)
-            );
-
-
-
-            const texto =
-            generarTexto({
-
-                numeroTicket,
-                fecha,
-                grupos,
-                total
-
-            });
-
-
-
-            return {
-
-
-                ticket:
-                numeroTicket,
-
-
-                fecha,
-
-
-                total,
-
-
-                texto,
-
-
-                html:
-                generarHTML(texto),
-
-
-                grupos
-
-
-            };
-
-
         }
-
-
-
+        out += `================================\nTOTAL Bs. ${data.total.toFixed(2)}\n================================\nGracias por su preferencia.`;
+        return out;
+    }
+    return {
+        generar: function(jugadas, numeroTicket) {
+            const fecha = new Date().toLocaleDateString('es-VE');
+            const total = jugadas.reduce((sum, j) => sum + Number(j.monto), 0);
+            const grupos = ordenarJugadas(agruparJugadas(jugadas));
+            const texto = generarTexto({ numeroTicket, fecha, grupos, total });
+            return { html: `<pre style="font-family: monospace;">${texto}</pre>`, texto, total, ticket: numeroTicket, fecha };
+        }
     };
-
-
-
 })();
