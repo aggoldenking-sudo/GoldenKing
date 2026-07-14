@@ -33,10 +33,14 @@ window.App = {
     },
 
     renderTicket() {
-        const tabla = document.getElementById('ticketTable');
-        tabla.innerHTML = this.ticket.map((t, i) => 
-            `<tr><td>${t.hora} | ${t.id} ${t.nombre}</td><td>${t.monto}</td>
-            <td><button onclick="window.App.remover(${i})">X</button></td></tr>`).join('');
+        const tablaBody = document.querySelector('#ticketTable tbody');
+        tablaBody.innerHTML = this.ticket.map((t, i) => 
+            `<tr>
+                <td>${t.id} ${t.nombre}</td>
+                <td>${t.hora}</td>
+                <td>${t.monto}</td>
+                <td><button class="btn-anular" onclick="window.App.remover(${i})">Anular</button></td>
+            </tr>`).join('');
         this.actualizarTotal();
     },
 
