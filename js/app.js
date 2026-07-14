@@ -4,9 +4,10 @@ window.App = {
 
     jugadas: [],
 
+    numeroTicket: 1,
+
 
     init(){
-
 
         this.cargarSorteos();
 
@@ -25,7 +26,7 @@ window.App = {
         .getElementById("numero")
         .addEventListener("keydown",(e)=>{
 
-            if(e.key === "Enter"){
+            if(e.key==="Enter"){
 
                 document
                 .getElementById("monto")
@@ -41,7 +42,7 @@ window.App = {
         .getElementById("monto")
         .addEventListener("keydown",(e)=>{
 
-            if(e.key === "Enter"){
+            if(e.key==="Enter"){
 
                 this.agregarJugada();
 
@@ -60,7 +61,6 @@ window.App = {
         });
 
 
-
     },
 
 
@@ -72,7 +72,6 @@ window.App = {
 
         const contenedor =
         document.getElementById("listaSorteos");
-
 
 
         const loterias=[
@@ -142,13 +141,11 @@ window.App = {
 
                 }else{
 
-
                     grupo.style.display="none";
 
                     titulo.textContent="▼ "+loteria;
 
                 }
-
 
             };
 
@@ -159,7 +156,6 @@ window.App = {
 
                 let boton =
                 document.createElement("button");
-
 
 
                 boton.className="btn-sorteo";
@@ -186,9 +182,13 @@ window.App = {
 
 
 
-                    this.sorteoSeleccionado =
-                    loteria+" - "+hora;
+                    this.sorteoSeleccionado = {
 
+                        loteria:loteria,
+
+                        hora:hora
+
+                    };
 
 
                 };
@@ -196,7 +196,6 @@ window.App = {
 
 
                 grupo.appendChild(boton);
-
 
 
             });
@@ -210,7 +209,6 @@ window.App = {
 
 
         });
-
 
 
     },
@@ -242,7 +240,7 @@ window.App = {
 
         if(!this.sorteoSeleccionado){
 
-            alert("Seleccione una lotería y horario");
+            alert("Seleccione lotería y horario");
 
             return;
 
@@ -260,13 +258,75 @@ window.App = {
 
 
 
+        let animal="";
+
+
+
+        // BUSCAR ANIMAL
+
+        if(DATA_LOTERIAS){
+
+
+            let tabla;
+
+
+
+            if(this.sorteoSeleccionado.loteria==="LOTTO ACTIVO"){
+
+                tabla=DATA_LOTERIAS.LottoActivo;
+
+            }
+
+
+            if(this.sorteoSeleccionado.loteria==="LA GRANJITA"){
+
+                tabla=DATA_LOTERIAS.Granjita;
+
+            }
+
+
+            if(this.sorteoSeleccionado.loteria==="SELVA PLUS"){
+
+                tabla=DATA_LOTERIAS.SelvaPlus;
+
+            }
+
+
+            if(this.sorteoSeleccionado.loteria==="GUACHARO ACTIVO"){
+
+                tabla=DATA_LOTERIAS.Guacharo;
+
+            }
+
+
+
+            if(tabla && tabla[numero]){
+
+                animal=tabla[numero];
+
+            }else{
+
+                animal="Animal no encontrado";
+
+            }
+
+        }
+
+
+
         this.jugadas.push({
 
-            sorteo:this.sorteoSeleccionado,
+
+            loteria:this.sorteoSeleccionado.loteria,
+
+            hora:this.sorteoSeleccionado.hora,
 
             numero:numero,
 
+            animal:animal,
+
             monto:monto
+
 
         });
 
@@ -280,8 +340,8 @@ window.App = {
 
         document.getElementById("monto").value="";
 
-
         document.getElementById("numero").focus();
+
 
 
     },
@@ -298,46 +358,33 @@ window.App = {
         document.getElementById("ticket");
 
 
-
         ticket.innerHTML="";
-
 
 
         let total=0;
 
 
 
-        this.jugadas.forEach(jugada=>{
+        this.jugadas.forEach(j=>{
 
 
-            total += jugada.monto;
+            total+=j.monto;
 
 
 
             ticket.innerHTML += `
 
-
             <div class="ticket-item">
 
+            <b>${j.loteria}</b><br>
 
-            <span>
+            ${j.hora}<br>
 
-            ${jugada.sorteo}<br>
+            ${j.numero} - ${j.animal}
 
-            Número: ${jugada.numero}
-
-            </span>
-
-
-            <b>
-
-            ${jugada.monto} Bs
-
-            </b>
-
+            <strong>${j.monto} Bs</strong>
 
             </div>
-
 
             `;
 
@@ -351,6 +398,7 @@ window.App = {
         .textContent=total;
 
 
+
     },
 
 
@@ -362,20 +410,58 @@ window.App = {
     imprimirTicket(){
 
 
-        let contenido =
-
-        document.getElementById("ticket").innerHTML;
+        let fecha =
+        new Date()
+        .toLocaleString();
 
 
 
         let total =
+        document
+        .getElementById("total")
+        .textContent;
 
-        document.getElementById("total").textContent;
+
+
+        let numeroTicket =
+        String(this.numeroTicket)
+        .padStart(6,"0");
+
+
+
+        let serial =
+        "GK"+numeroTicket;
+
+
+
+        let contenido="";
+
+
+
+        this.jugadas.forEach(j=>{
+
+
+            contenido += `
+
+            ${j.loteria}
+
+            ${j.hora}
+
+            ${j.numero} - ${j.animal}
+
+            ${j.monto.toFixed(2)} Bs
+
+            ----------------------
+
+            `;
+
+
+        });
+
 
 
 
         let ventana =
-
         window.open(
         "",
         "",
@@ -389,77 +475,52 @@ window.App = {
 
         <html>
 
-        <head>
-
-        <title>Golden King</title>
+        <body style="font-family:Arial;padding:20px">
 
 
-        <style>
+        <center>
 
-        body{
+        AGENCIA: GOLDEN KING
 
-            font-family:Arial;
-            padding:20px;
-
-        }
+        </center>
 
 
-        h2{
-
-            text-align:center;
-
-        }
+        <br>
 
 
-        .ticket-item{
+        TICKET Nº: ${numeroTicket}
 
-            border-bottom:1px solid #000;
+        <br>
 
-            padding:10px 0;
+        SERIAL: ${serial}
 
-        }
+        <br>
 
-
-        .total{
-
-            font-size:20px;
-
-            font-weight:bold;
-
-            margin-top:20px;
-
-        }
+        ${fecha}
 
 
-        </style>
-
-
-        </head>
-
-
-        <body>
-
-
-        <h2>👑 GOLDEN KING</h2>
+        <hr>
 
 
         ${contenido}
 
 
-        <div class="total">
-
-        TOTAL: ${total} Bs
-
-        </div>
+        <hr>
 
 
-        <br>
+        TOTAL TICKET VES:
 
-        Gracias por su jugada
+        ${total},00 Bs
+
+
+        <br><br>
+
+
+        El Ticket caduca a los 3 días.
+
 
 
         </body>
-
 
         </html>
 
@@ -473,6 +534,9 @@ window.App = {
 
         ventana.print();
 
+
+
+        this.numeroTicket++;
 
 
     }
