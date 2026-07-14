@@ -33,7 +33,18 @@
             <button class="btn-monto" onclick="window.App.setMonto(100)">100</button>
         </div>
 
-        <table id="ticketTable"></table>
+        <table id="ticketTable">
+            <thead>
+                <tr>
+                    <th>Jugada</th>
+                    <th>Sorteo</th>
+                    <th>Monto</th>
+                    <th>Acción</th>
+                </tr>
+            </thead>
+            <tbody></tbody>
+        </table>
+        
         <h3 id="totalDisplay">Total: 0</h3>
         <button class="print-btn" onclick="window.print()">IMPRIMIR TICKET</button>
     </aside>
