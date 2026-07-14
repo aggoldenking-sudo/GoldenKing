@@ -4,6 +4,8 @@ window.App = {
 ticket: [],
 
 seleccionados: [],
+  
+  codigoPendiente: null,
 
 
 
@@ -524,7 +526,87 @@ window.App.init();
 
 
 
-document.addEventListener("keydown",e=>{
+document.addEventListener("keydown",(e)=>{
+
+    if(e.key !== "Enter") return;
+
+    const campo = document.activeElement;
+
+    // ENTER EN CÓDIGO
+    if(campo.id==="codigoAnimal"){
+
+        e.preventDefault();
+
+        const codigo = campo.value.trim();
+
+        if(codigo==="") return;
+
+        window.App.agregarCodigoRapido(codigo);
+
+        return;
+
+    }
+
+    // ENTER EN MONTO
+    if(campo.id==="montoInput"){
+
+        e.preventDefault();
+
+        if(window.App.codigoPendiente){
+
+            const codigo = window.App.codigoPendiente;
+
+            window.App.codigoPendiente = null;
+
+            const monto = Number(campo.value);
+
+            const hora = document.getElementById("horarioSelect").value;
+
+            const loteria = document.getElementById("loteriaSelect").value;
+
+            let existe = window.App.ticket.find(t=>
+
+                t.id===codigo &&
+                t.hora===hora &&
+                t.loteria===loteria
+
+            );
+
+            if(existe){
+
+                existe.monto += monto;
+
+            }else{
+
+                window.App.ticket.push({
+
+                    id:codigo,
+
+                    nombre:window.DATA_LOTERIAS[loteria][codigo],
+
+                    monto:monto,
+
+                    hora:hora,
+
+                    loteria:loteria
+
+                });
+
+            }
+
+            window.App.guardarTicket();
+
+            window.App.renderTicket();
+
+            document.getElementById("codigoAnimal").value="";
+
+            document.getElementById("codigoAnimal").focus();
+
+        }
+
+    }
+
+});
 
 
 if(e.key==="Enter"){
@@ -536,15 +618,22 @@ let campo=document.activeElement;
 if(campo.id==="codigoAnimal"){
 
 
-window.App.agregarCodigoRapido(
+agregarCodigoRapido(codigo){
 
-campo.value.trim()
+    const loteria = document.getElementById("loteriaSelect").value;
 
-);
+    if(!window.DATA_LOTERIAS[loteria][codigo]){
+        alert("Código inválido");
+        return;
+    }
 
+    this.codigoPendiente = codigo;
 
-campo.value="";
+    const monto = document.getElementById("montoInput");
 
+    monto.focus();
+
+    monto.select();
 
 }
 
