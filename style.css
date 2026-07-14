@@ -1,552 +1,379 @@
 /* =====================================
-   GOLDEN KING POS
-   DISEÑO PROFESIONAL
+   GOLDEN KING POS - DISEÑO CLARO
 ===================================== */
 
-
-* {
-
+*{
     margin:0;
     padding:0;
     box-sizing:border-box;
     font-family:'Segoe UI', Arial, sans-serif;
-
 }
 
 
-
-body {
-
-    background:#06160b;
-
-    color:white;
+body{
 
     display:flex;
-
     height:100vh;
-
+    background:#eef2f3;
+    color:#222;
     overflow:hidden;
 
 }
 
 
-
-/* ===============================
+/* ================================
    PANEL IZQUIERDO
 ================================ */
 
+.sidebar{
 
-.sidebar {
-
-    width:350px;
-
-    background:#0b2413;
-
-    padding:20px;
-
-    border-right:3px solid #f1c40f;
-
+    width:360px;
+    background:#ffffff;
+    padding:18px;
+    border-right:3px solid #d4af37;
     overflow-y:auto;
 
 }
 
 
-
-.sidebar h2 {
-
-    color:#f1c40f;
+.sidebar h2{
 
     text-align:center;
-
-    margin-bottom:5px;
+    color:#b8860b;
+    margin-bottom:20px;
+    font-size:26px;
 
 }
 
 
 
-.subtitulo {
-
-    text-align:center;
-
-    color:white;
-
-    font-size:13px;
-
-    margin-bottom:15px;
-
-}
-
-
-
-
-label {
+label{
 
     display:block;
-
-    margin-top:10px;
-
-    margin-bottom:5px;
-
-    color:#f1c40f;
-
+    color:#555;
     font-weight:bold;
+    margin-top:10px;
+    margin-bottom:5px;
 
 }
 
 
 
 select,
-input {
-
+input{
 
     width:100%;
-
-    padding:8px;
-
-    border-radius:5px;
-
-    border:none;
-
-    margin-bottom:5px;
-
-    font-size:14px;
-
+    padding:10px;
+    border-radius:6px;
+    border:1px solid #ccc;
+    background:#fff;
+    color:#222;
+    font-size:15px;
 
 }
 
 
 
-/* ===============================
+/* ================================
+   BOTONES DE ACCION
+================================ */
+
+.acciones{
+
+    display:flex;
+    gap:10px;
+    margin:15px 0;
+
+}
+
+
+
+.acciones button{
+
+    flex:1;
+    padding:12px;
+    border:none;
+    border-radius:6px;
+    background:#d4af37;
+    color:white;
+    font-weight:bold;
+    cursor:pointer;
+
+}
+
+
+
+.acciones button:hover{
+
+    background:#b8860b;
+
+}
+
+
+
+/* ================================
    PANEL DE ANIMALES
 ================================ */
 
-
-.grid-panel {
+.grid-panel{
 
     flex:1;
-
-    padding:20px;
-
+    padding:15px;
     overflow-y:auto;
 
 }
 
 
 
-/* MATRIZ */
-
-#matrizAnimalitos {
-
+#matrizAnimalitos{
 
     display:grid;
 
-
-    grid-template-columns:repeat(8, 1fr);
-
+    grid-template-columns:
+    repeat(auto-fill,minmax(90px,1fr));
 
     gap:8px;
 
-
-    width:100%;
-
-
 }
 
 
 
 
-/* BOTONES ANIMALES */
+/* ================================
+   BOTONES ANIMALES
+================================ */
 
-
-.btn-animal {
-
+.btn-animal{
 
     height:65px;
 
-
-    background:#0b2413;
-
-
-    color:white;
-
-
-    border:1px solid #f1c40f;
-
-
-    border-radius:5px;
-
-
-    cursor:pointer;
-
-
-    font-size:11px;
-
-
-    font-weight:bold;
-
-
-    display:flex;
-
-
-    flex-direction:column;
-
-
-    justify-content:center;
-
-
-    align-items:center;
-
-
-    transition:.15s;
-
-
-}
-
-
-
-.btn-animal strong {
-
-
-    font-size:16px;
-
-    color:#f1c40f;
-
-
-}
-
-
-
-
-.btn-animal:hover {
-
-
-    background:#f1c40f;
-
-    color:#000;
-
-    transform:scale(1.05);
-
-
-}
-
-
-
-.btn-animal.seleccionado {
-
-
-    background:#f1c40f;
-
-
-    color:#000;
-
-
-    border:3px solid white;
-
-
-}
-
-
-
-.btn-animal.seleccionado strong {
-
-
-    color:#000;
-
-
-}
-
-
-
-
-/* ===============================
-   BOTONES ACCION
-================================ */
-
-
-.acciones {
-
-
-    display:flex;
-
-
-    gap:5px;
-
-
-    margin:10px 0;
-
-
-}
-
-
-
-.acciones button {
-
-
-    flex:1;
-
-
-    padding:10px;
-
-
-    cursor:pointer;
-
-
-    background:#f1c40f;
-
-
-    border:none;
-
-
-    font-weight:bold;
-
-
-    border-radius:5px;
-
-
-}
-
-
-
-#limpiarBtn {
-
-
-    background:#c0392b;
-
-    color:white;
-
-
-}
-
-
-
-
-/* ===============================
-   TABLA TICKET
-================================ */
-
-
-table {
-
-
-    width:100%;
-
-
-    margin-top:15px;
-
-
-    border-collapse:collapse;
-
-
     background:white;
 
+    border:1px solid #ccc;
 
-    color:black;
+    color:#333;
 
+    border-radius:8px;
+
+    cursor:pointer;
 
     font-size:12px;
 
+    font-weight:bold;
+
+    box-shadow:0 2px 4px rgba(0,0,0,.15);
+
+    transition:.2s;
 
 }
 
 
 
-th {
+.btn-animal strong{
 
+    color:#b8860b;
 
-    background:#145a32;
-
-
-    color:#f1c40f;
-
-
-    padding:7px;
-
+    font-size:17px;
 
 }
 
 
 
-td {
+.btn-animal:hover{
 
+    background:#fff3cd;
 
-    padding:6px;
+    border-color:#d4af37;
 
-
-    border-bottom:1px solid #ccc;
-
-
-    text-align:center;
-
+    transform:scale(1.03);
 
 }
 
 
 
-td button {
 
+/* ANIMAL SELECCIONADO */
 
-    background:#c0392b;
+.btn-animal.seleccionado{
 
+    background:#d4af37;
 
     color:white;
 
+    border-color:#b8860b;
 
-    border:none;
-
-
-    padding:3px 8px;
+}
 
 
-    cursor:pointer;
 
+.btn-animal.seleccionado strong{
 
-    border-radius:3px;
-
+    color:white;
 
 }
 
 
 
 
-/* ===============================
-   TOTAL
+/* ================================
+   TABLA DEL TICKET
 ================================ */
 
-
-#totalDisplay {
-
-
-    margin-top:15px;
-
-
-    background:#145a32;
-
-
-    padding:15px;
-
-
-    text-align:center;
-
-
-    color:#f1c40f;
-
-
-    font-size:20px;
-
-
-    font-weight:bold;
-
-
-}
-
-
-
-/* ===============================
-   IMPRIMIR
-================================ */
-
-
-.print-btn {
-
+table{
 
     width:100%;
 
+    margin-top:15px;
 
-    padding:15px;
+    border-collapse:collapse;
 
+    background:white;
 
-    margin-top:10px;
-
-
-    background:#f1c40f;
-
-
-    border:none;
+}
 
 
-    font-weight:bold;
+
+th{
+
+    background:#d4af37;
+
+    color:white;
+
+    padding:8px;
+
+    font-size:12px;
+
+}
 
 
-    cursor:pointer;
 
+td{
 
-    border-radius:5px;
+    padding:6px;
 
+    text-align:center;
+
+    border-bottom:1px solid #ddd;
+
+    font-size:12px;
 
 }
 
 
 
 
+/* ================================
+   TOTAL
+================================ */
 
-/* ===============================
+#totalDisplay{
+
+    margin-top:15px;
+
+    padding:15px;
+
+    text-align:center;
+
+    background:#2e8b57;
+
+    color:white;
+
+    font-size:22px;
+
+    border-radius:8px;
+
+}
+
+
+
+
+/* ================================
+   BOTON IMPRIMIR
+================================ */
+
+.print-btn{
+
+    width:100%;
+
+    margin-top:10px;
+
+    padding:15px;
+
+    background:#d4af37;
+
+    color:white;
+
+    border:none;
+
+    border-radius:8px;
+
+    font-weight:bold;
+
+    cursor:pointer;
+
+}
+
+
+
+.print-btn:hover{
+
+    background:#b8860b;
+
+}
+
+
+
+
+/* ================================
+   SCROLL
+================================ */
+
+::-webkit-scrollbar{
+
+    width:8px;
+
+}
+
+
+::-webkit-scrollbar-thumb{
+
+    background:#d4af37;
+
+    border-radius:10px;
+
+}
+
+
+
+
+/* ================================
    IMPRESION
 ================================ */
 
-
-@media print {
-
-
-    body {
-
-
-        background:white;
-
-
-        color:black;
-
-
-    }
-
+@media print{
 
 
     .grid-panel,
-
-    .acciones,
-
     .print-btn,
-
+    .acciones,
     select,
-
     input,
+    label,
+    h2{
 
-    label {
-
-
-        display:none !important;
-
+        display:none!important;
 
     }
 
 
 
-    .sidebar {
-
+    .sidebar{
 
         width:100%;
 
-
         border:none;
 
-
-        background:white;
-
-
-        color:black;
-
-
     }
-
-
-
-    table {
-
-
-        border:1px solid black;
-
-
-    }
-
 
 
 }
