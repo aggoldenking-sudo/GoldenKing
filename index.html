@@ -1,23 +1,153 @@
-<body>
-    <div class="sidebar" id="sidebar">
-        <h2>👑 GOLDEN KING</h2>
-        <div id="loteriaLista">
-            </div>
-    </div>
+<!DOCTYPE html>
+<html lang="es">
 
-    <div class="main-content">
-        <div class="panel-jugada">
-            <input id="codigoAnimal" placeholder="Código (ej: 01)" autofocus>
-            <input id="montoInput" type="number" placeholder="Monto">
-            <button onclick="App.agregarDirecto()">➕ AGREGAR</button>
-        </div>
-        
-        <table id="ticketTable">
-            <thead><tr><th>Animal</th><th>Sorteo</th><th>Monto</th><th>X</th></tr></thead>
-            <tbody></tbody>
-        </table>
-        
-        <h2 id="totalDisplay">Total: Bs. 0</h2>
-        <button onclick="App.imprimirTicket()">🖨️ IMPRIMIR</button>
-    </div>
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Golden King</title>
+
+<link rel="stylesheet" href="style.css">
+
+</head>
+
+
+<body>
+
+
+<!-- PANEL DE SORTEOS -->
+
+<aside class="sidebar">
+
+
+<div class="logo">
+    👑 GOLDEN KING
+</div>
+
+
+<h3>SORTEOS</h3>
+
+
+<div id="listaSorteos">
+
+
+<button class="btn-sorteo">
+    Lotto Activo - 10:00 AM
+</button>
+
+
+<button class="btn-sorteo">
+    Lotto Activo - 1:00 PM
+</button>
+
+
+<button class="btn-sorteo">
+    La Granjita - 11:00 AM
+</button>
+
+
+<button class="btn-sorteo">
+    La Granjita - 3:00 PM
+</button>
+
+
+</div>
+
+
+</aside>
+
+
+
+
+<!-- AREA PRINCIPAL -->
+
+<main class="main-content">
+
+
+
+<div class="card">
+
+
+<h2>Registrar Jugada</h2>
+
+
+
+<label>
+Número
+</label>
+
+
+<input 
+type="text" 
+id="numero"
+placeholder="Ejemplo: 00">
+
+
+
+<label>
+Monto Bs.
+</label>
+
+
+<input 
+type="number"
+id="monto"
+placeholder="Ejemplo: 50">
+
+
+
+<button class="btn-agregar" id="agregar">
+
+AGREGAR JUGADA
+
+</button>
+
+
+
+</div>
+
+
+
+
+
+<div class="ticket">
+
+
+<h2>Ticket</h2>
+
+
+<div id="ticket">
+
+
+<p>No hay jugadas</p>
+
+
+</div>
+
+
+
+<div class="total">
+
+Total: <span id="total">0</span> Bs
+
+</div>
+
+
+</div>
+
+
+
+</main>
+
+
+
+
+
+<script src="app.js"></script>
+
+
 </body>
+
+</html>
