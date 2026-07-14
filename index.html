@@ -9,7 +9,7 @@
 
 <title>Golden King</title>
 
-<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="login.css">
 
 </head>
 
@@ -17,145 +17,47 @@
 <body>
 
 
-<!-- PANEL IZQUIERDO -->
-
-<aside class="sidebar">
+<div class="login-box">
 
 
-<div class="logo">
+<h1>
 👑 GOLDEN KING
-</div>
+</h1>
 
 
-<h3>SORTEOS</h3>
-
-
-<div id="listaSorteos">
-
-</div>
-
-
-</aside>
-
-
-
-
-
-<!-- AREA PRINCIPAL -->
-
-<main class="main-content">
-
-
-
-<div class="card">
-
-
-<h2>Nueva Jugada</h2>
-
-
-
-<label>
-Número
-</label>
+<h2>
+Inicio de Sesión
+</h2>
 
 
 <input 
+id="usuario"
 type="text"
-id="numero"
-placeholder="Ejemplo: 00"
-autocomplete="off">
+placeholder="Usuario">
+
+
+<input 
+id="clave"
+type="password"
+placeholder="Contraseña">
 
 
 
-<label>
-Monto Bs.
-</label>
+<button id="entrar">
 
-
-<input
-type="number"
-id="monto"
-placeholder="Ejemplo: 50">
-
-
-
-<button 
-id="agregar"
-class="btn-agregar">
-
-➕ AGREGAR JUGADA
+ENTRAR
 
 </button>
 
 
-</div>
-
-
-
-
-
-
-
-<div class="ticket">
-
-
-<h2>Ticket</h2>
-
-
-
-<div id="ticket">
-
-<p>No hay jugadas</p>
-
-</div>
-
-
-
-
-
-<div class="total">
-
-TOTAL:
-
-<span id="total">
-
-0
-
-</span>
-
-Bs
-
-</div>
-
-
-
-
-<button 
-id="imprimir"
-class="btn-imprimir">
-
-🖨️ IMPRIMIR TICKET
-
-</button>
-
+<p id="mensaje"></p>
 
 
 </div>
 
 
 
-
-</main>
-
-
-
-
-
-
-<script src="js/datos.js"></script>
-
-<script src="js/app.js"></script>
-
+<script src="login.js"></script>
 
 
 </body>
