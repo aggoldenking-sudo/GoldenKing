@@ -7,9 +7,9 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Golden King - Taquilla</title>
+<title>Golden King | Taquilla</title>
 
-<link rel="stylesheet" href="../style.css">
+<link rel="stylesheet" href="sistema.css">
 
 </head>
 
@@ -17,121 +17,92 @@
 <body>
 
 
-<aside class="sidebar">
-
+<header class="topbar">
 
 <div class="logo">
 👑 GOLDEN KING
 </div>
 
 
+<button onclick="window.location.href='../dashboard/index.html'">
 
-<button 
-class="btn-volver"
-onclick="window.location.href='../dashboard/index.html'">
-
-⬅ VOLVER AL DASHBOARD
+⬅ Dashboard
 
 </button>
 
 
-
-
-<h3>SORTEOS</h3>
-
-
-
-<div class="acciones-sorteos">
-
-
-<button id="seleccionarTodos">
-
-SELECCIONAR TODOS
-
-</button>
-
-
-
-<button id="limpiarSeleccion">
-
-LIMPIAR
-
-</button>
-
-
-</div>
-
-
-
-
-<div id="listaSorteos">
-
-</div>
-
-
-
-</aside>
+</header>
 
 
 
 
 
-
-
-<main class="main-content">
+<div class="contenedor">
 
 
 
-<div class="card">
+<!-- SORTEOS -->
+
+<section class="sorteos">
 
 
 <h2>
+🎰 Sorteos
+</h2>
 
-Nueva Jugada
 
+
+<div id="listaSorteos"></div>
+
+
+</section>
+
+
+
+
+
+
+<!-- JUGADA -->
+
+<section class="jugada">
+
+
+<h2>
+🎟️ Nueva Jugada
 </h2>
 
 
 
 <label>
-
 Número
-
 </label>
 
 
-
-<input
-type="text"
+<input 
 id="numero"
+type="text"
 maxlength="2"
-placeholder="Ejemplo: 00"
-autocomplete="off">
+placeholder="00">
 
 
 
 
 
 <label>
-
-Monto Bs.
-
+Monto Bs
 </label>
 
 
-
-<input
-type="number"
+<input 
 id="monto"
-placeholder="Ejemplo: 50">
+type="number"
+placeholder="50">
 
 
 
 
 
-<button
-id="agregar"
-class="btn-agregar">
+<button id="agregar">
 
 ➕ AGREGAR JUGADA
 
@@ -139,7 +110,8 @@ class="btn-agregar">
 
 
 
-</div>
+
+</section>
 
 
 
@@ -147,75 +119,65 @@ class="btn-agregar">
 
 
 
-<div class="ticket">
+<!-- TICKET -->
+
+<section class="ticket">
 
 
 <h2>
-
-🎟️ Ticket
-
+🧾 Ticket
 </h2>
-
 
 
 
 <div id="ticket">
 
-
-<p>
-
 No hay jugadas
 
-</p>
-
-
 </div>
-
-
 
 
 
 
 <div class="total">
 
-
 TOTAL:
 
 <span id="total">
 
-0.00
+0
 
 </span>
 
 Bs
 
-
 </div>
 
 
 
 
 
+<button id="imprimir">
 
-<button
-id="imprimir"
-class="btn-imprimir">
-
-🖨️ IMPRIMIR TICKET
+🖨️ IMPRIMIR
 
 </button>
 
 
 
+<button id="copiar">
+
+📲 WHATSAPP
+
+</button>
+
+
+
+</section>
+
+
+
 </div>
-
-
-
-
-
-
-</main>
-
 
 
 
@@ -224,7 +186,7 @@ class="btn-imprimir">
 
 <script src="../js/datos.js"></script>
 
-<script src="../js/app.js"></script>
+<script src="sistema.js"></script>
 
 
 </body>
