@@ -5,9 +5,13 @@
 
 <meta charset="UTF-8">
 
-<title>Golden King POS</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Golden King - Caja</title>
+
 
 <link rel="stylesheet" href="style.css">
+
 
 </head>
 
@@ -15,96 +19,104 @@
 <body>
 
 
-<aside class="sidebar">
+<header>
 
+<h1>👑 GOLDEN KING</h1>
 
-<h2>👑 GOLDEN KING</h2>
+<h3>Sistema de Caja</h3>
 
+<button onclick="window.open('historial/historial.html','Historial','width=900,height=600')">
+📋 Historial
+</button>
 
-<label>LOTERÍA:</label>
-
-<select id="loteriaSelect" onchange="window.App.renderMatriz()">
-
-<option value="Granjita">La Granjita</option>
-
-<option value="Guacharo">Guacharo Activo</option>
-
-<option value="LottoActivo">Lotto Activo</option>
-
-<option value="SelvaPlus">Selva Plus</option>
-
-</select>
+</header>
 
 
 
 
-<label>SORTEO:</label>
+<section class="panel">
+
+
+<label>
+Lotería:
+</label>
+
+
+<select id="loteriaSelect"></select>
+
+
+
+<label>
+Horario:
+</label>
+
 
 <select id="horarioSelect">
 
-<option value="08:00 AM">08:00 AM</option>
-<option value="09:00 AM">09:00 AM</option>
-<option value="10:00 AM">10:00 AM</option>
-<option value="11:00 AM">11:00 AM</option>
-<option value="12:00 PM">12:00 PM</option>
-<option value="01:00 PM">01:00 PM</option>
-<option value="02:00 PM">02:00 PM</option>
-<option value="03:00 PM">03:00 PM</option>
-<option value="04:00 PM">04:00 PM</option>
-<option value="05:00 PM">05:00 PM</option>
-<option value="06:00 PM">06:00 PM</option>
-<option value="07:00 PM">07:00 PM</option>
+<option>08:00 AM</option>
+<option>09:00 AM</option>
+<option>10:00 AM</option>
+<option>11:00 AM</option>
+<option>12:00 PM</option>
+<option>01:00 PM</option>
+<option>02:00 PM</option>
+<option>03:00 PM</option>
+<option>04:00 PM</option>
+<option>05:00 PM</option>
+<option>06:00 PM</option>
+<option>07:00 PM</option>
 
 </select>
 
 
 
+<br><br>
 
-
-<label>CÓDIGO RÁPIDO:</label>
 
 <input 
-type="text"
 id="codigoAnimal"
-placeholder="Ej: 27"
-maxlength="2">
+placeholder="Código animal"
+type="text"
+autocomplete="off"
+>
 
 
-
-
-
-<label>MONTO:</label>
 
 <input 
-type="number"
 id="montoInput"
-value="50">
+placeholder="Monto Bs."
+type="number"
+>
 
 
 
-
-
-<div class="acciones">
-
-
-<button onclick="window.App.agregarSeleccion()">
-
-➕ AGREGAR
-
+<button onclick="App.agregarSeleccion()">
+➕ Agregar
 </button>
 
 
-<button onclick="window.App.limpiarTodo()">
+</section>
 
-🗑 LIMPIAR
 
-</button>
 
+
+
+<h2>
+🐾 Animalitos
+</h2>
+
+
+<div id="matrizAnimalitos">
 
 </div>
 
 
 
+
+
+<h2>
+🎟️ Ticket Actual
+</h2>
 
 
 <table id="ticketTable">
@@ -114,20 +126,40 @@ value="50">
 
 <tr>
 
-<th>Jugada</th>
+<th>
+Animal
+</th>
 
-<th>Sorteo</th>
 
-<th>Monto</th>
+<th>
+Lotería
+</th>
 
-<th>X</th>
+
+<th>
+Hora
+</th>
+
+
+<th>
+Monto
+</th>
+
+
+<th>
+Eliminar
+</th>
+
 
 </tr>
 
 </thead>
 
 
-<tbody></tbody>
+
+<tbody>
+
+</tbody>
 
 
 </table>
@@ -135,45 +167,35 @@ value="50">
 
 
 
-<h3 id="totalDisplay">
-
+<h2 id="totalDisplay">
 Total: Bs. 0
-
-</h3>
-
+</h2>
 
 
 
 
-<button class="print-btn" onclick="window.App.imprimirTicket()">
+<button class="imprimir" onclick="App.imprimirTicket()">
 
-🖨 IMPRIMIR
+🖨️ Imprimir Ticket
 
 </button>
 
 
 
-</aside>
+
+<button class="limpiar" onclick="App.limpiarTodo()">
+
+🗑️ Limpiar
+
+</button>
 
 
 
 
 
-<main 
-class="grid-panel"
-id="matrizAnimalitos">
+<script src="data.js"></script>
 
-</main>
-
-
-
-
-
-<script src="js/loterias.js"></script>
-
-<script src="js/impresion.js"></script>
-
-<script src="js/app.js"></script>
+<script src="app.js"></script>
 
 
 </body>
