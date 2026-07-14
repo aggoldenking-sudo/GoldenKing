@@ -3,38 +3,26 @@ window.Impresion = {
     generarTicket(ticket, total) {
 
 
-        const ventana = window.open(
+        const v = window.open(
             '',
             '_blank',
             'width=320,height=700'
         );
 
 
-
         const serial =
-
-        Math.floor(
-            Math.random() * 900000000000
-        ) + 100000000000;
-
+        Math.floor(Math.random() * 900000000000) + 100000000000;
 
 
         const ticketNo =
-
-        Math.floor(
-            Math.random() * 900000000000
-        ) + 100000000000;
-
+        Math.floor(Math.random() * 900000000000) + 100000000000;
 
 
         const fecha =
-
         new Date().toLocaleDateString();
 
 
-
-        const hora =
-
+        const horaVenta =
         new Date().toLocaleTimeString();
 
 
@@ -46,13 +34,51 @@ window.Impresion = {
         ticket.forEach(t => {
 
 
-            detalle +=
+            detalle += `
 
-`${t.id} ${t.nombre}
-Sorteo: ${t.hora}
-Monto: Bs. ${t.monto}
------------------------------
-`;
+
+            <tr>
+
+                <td colspan="2">
+
+                    <b>${t.loteria} - ${t.hora}</b>
+
+                </td>
+
+            </tr>
+
+
+            <tr>
+
+                <td>
+
+                    ${t.id} ${t.nombre}
+
+                </td>
+
+
+                <td align="right">
+
+                    Bs. ${Number(t.monto).toFixed(2)}
+
+                </td>
+
+
+            </tr>
+
+
+            <tr>
+
+                <td colspan="2">
+
+                    ----------------------------
+
+                </td>
+
+            </tr>
+
+
+            `;
 
 
         });
@@ -60,35 +86,35 @@ Monto: Bs. ${t.monto}
 
 
 
-        ventana.document.write(`
+        v.document.write(`
 
-<!DOCTYPE html>
 
 <html>
 
-<head>
 
-<title>Ticket Golden King</title>
+<head>
 
 
 <style>
 
 
-body {
-
-    font-family:'Courier New', monospace;
+body{
 
     width:280px;
 
     margin:auto;
 
+    font-family:'Courier New', monospace;
+
     font-size:13px;
+
+    color:#000;
 
 }
 
 
 
-.center {
+.center{
 
     text-align:center;
 
@@ -96,9 +122,9 @@ body {
 
 
 
-.linea {
+.linea{
 
-    border-top:1px dashed black;
+    border-top:1px dashed #000;
 
     margin:8px 0;
 
@@ -106,9 +132,41 @@ body {
 
 
 
-h2 {
+table{
 
-    margin:0;
+    width:100%;
+
+    border-collapse:collapse;
+
+}
+
+
+
+td{
+
+    padding:3px 0;
+
+}
+
+
+
+.total{
+
+    text-align:right;
+
+    font-size:18px;
+
+    font-weight:bold;
+
+}
+
+
+
+.titulo{
+
+    font-size:20px;
+
+    font-weight:bold;
 
 }
 
@@ -120,15 +178,23 @@ h2 {
 </head>
 
 
+
 <body>
+
 
 
 <div class="center">
 
 
-<h2>👑 GOLDEN KING</h2>
+<div class="titulo">
+
+👑 GOLDEN KING
+
+</div>
+
 
 CENTRO DE APUESTAS
+
 
 
 <div class="linea"></div>
@@ -139,22 +205,27 @@ FECHA: ${fecha}
 
 <br>
 
-HORA: ${hora}
+HORA: ${horaVenta}
 
 
 
 <div class="linea"></div>
 
 
+
 SERIAL:
+
+<br>
 
 ${serial}
 
 
-<br>
+<br><br>
 
 
 TICKET:
+
+<br>
 
 ${ticketNo}
 
@@ -164,32 +235,76 @@ ${ticketNo}
 
 
 
+</div>
+
+
+
+
+
+<table>
+
+
 ${detalle}
 
 
+</table>
+
+
+
 
 <div class="linea"></div>
 
 
-TOTAL VENTA
 
-Bs. ${total.toFixed(2)}
+
+<div>
+
+TOTAL JUGADAS:
+
+${ticket.length}
+
+</div>
+
+
+
+
+<div class="total">
+
+
+TOTAL:
+
+<br>
+
+
+Bs. ${Number(total).toFixed(2)}
+
+
+</div>
 
 
 
 <div class="linea"></div>
+
+
+
+
+<div class="center">
 
 
 VERIFIQUE SU TICKET
 
-CADUCA EN 3 DIAS
 
+<br>
+
+
+CADUCA EN 3 DIAS
 
 
 <br><br>
 
 
 ¡SUERTE!
+
 
 
 </div>
@@ -202,22 +317,32 @@ CADUCA EN 3 DIAS
 </html>
 
 
+
         `);
 
 
 
-        ventana.document.close();
+        v.document.close();
 
 
-        ventana.focus();
+        v.focus();
 
 
-        ventana.print();
+
+        setTimeout(()=>{
 
 
-        ventana.close();
+            v.print();
+
+
+            v.close();
+
+
+        },500);
+
 
 
     }
+
 
 };
