@@ -7,9 +7,7 @@ window.App = {
     init() {
 
         this.cargarTicket();
-
         this.renderMatriz();
-
         this.renderTicket();
 
     },
@@ -17,12 +15,11 @@ window.App = {
 
     renderMatriz() {
 
-        const contenedor = document.getElementById('matrizAnimalitos');
+        const contenedor = document.getElementById("matrizAnimalitos");
 
-        const tipo = document.getElementById('loteriaSelect').value;
+        const tipo = document.getElementById("loteriaSelect").value;
 
         const items = window.DATA_LOTERIAS[tipo];
-
 
         contenedor.innerHTML = "";
 
@@ -55,7 +52,15 @@ window.App = {
 
 
 
-            btn.onclick = () => {
+            if(this.seleccionados.includes(id)){
+
+                btn.classList.add("seleccionado");
+
+            }
+
+
+
+            btn.onclick = ()=>{
 
 
                 if(this.seleccionados.includes(id)){
@@ -94,6 +99,7 @@ window.App = {
 
 
 
+
     agregarSeleccion(){
 
 
@@ -112,7 +118,7 @@ window.App = {
 
         const monto = Number(
 
-            document.getElementById('montoInput').value
+            document.getElementById("montoInput").value
 
         );
 
@@ -121,7 +127,7 @@ window.App = {
         if(monto <= 0){
 
 
-            alert("Ingrese un monto válido");
+            alert("Monto inválido");
 
 
             return;
@@ -131,15 +137,18 @@ window.App = {
 
 
 
+
         const hora =
 
-        document.getElementById('horarioSelect').value;
+        document.getElementById("horarioSelect").value;
+
 
 
 
         const tipo =
 
-        document.getElementById('loteriaSelect').value;
+        document.getElementById("loteriaSelect").value;
+
 
 
 
@@ -148,13 +157,7 @@ window.App = {
         this.seleccionados.forEach(id=>{
 
 
-            const nombre =
-
-            window.DATA_LOTERIAS[tipo][id];
-
-
-
-            let existe = this.ticket.find(t =>
+            let existe = this.ticket.find(t=>
 
 
                 t.id === id &&
@@ -165,6 +168,7 @@ window.App = {
 
 
             );
+
 
 
 
@@ -183,11 +187,17 @@ window.App = {
 
                     id:id,
 
-                    nombre:nombre,
+
+                    nombre:
+
+                    window.DATA_LOTERIAS[tipo][id],
+
 
                     monto:monto,
 
+
                     hora:hora,
+
 
                     loteria:tipo
 
@@ -195,7 +205,9 @@ window.App = {
                 });
 
 
+
             }
+
 
 
         });
@@ -232,68 +244,47 @@ window.App = {
 
 
 
-        tbody.innerHTML =
+        tbody.innerHTML = this.ticket.map((t,i)=>`
 
 
-
-        this.ticket.map((t,i)=>{
-
-
-            return `
-
-            <tr>
-
-                <td>
-
-                ${t.id} ${t.nombre}
-
-                </td>
+        <tr>
 
 
-                <td>
-
-                ${t.hora}
-
-                </td>
+        <td>${t.id} ${t.nombre}</td>
 
 
-                <td>
-
-                Bs.${t.monto}
-
-                </td>
+        <td>${t.hora}</td>
 
 
-                <td>
-
-                <button onclick="window.App.remover(${i})">
-
-                X
-
-                </button>
+        <td>Bs.${t.monto}</td>
 
 
-                </td>
+        <td>
 
 
-            </tr>
+        <button onclick="window.App.remover(${i})">
 
-            `;
+        X
+
+        </button>
 
 
-        }).join("");
+        </td>
+
+
+        </tr>
+
+
+        `).join("");
 
 
 
 
         const total = this.ticket.reduce(
 
-
-            (suma,t)=> suma + t.monto,
-
+            (s,t)=>s+t.monto,
 
             0
-
 
         );
 
@@ -302,7 +293,6 @@ window.App = {
         document.getElementById("totalDisplay")
 
         .innerText =
-
 
         "Total: Bs. " + total;
 
@@ -314,19 +304,17 @@ window.App = {
 
 
 
+
     remover(i){
 
 
         this.ticket.splice(i,1);
 
 
-
         this.guardarTicket();
 
 
-
         this.renderTicket();
-
 
 
     },
@@ -335,23 +323,23 @@ window.App = {
 
 
 
+
+
     limpiarTodo(){
 
 
-        if(confirm("¿Limpiar todo el ticket?")){
+        if(confirm("¿Limpiar ticket?")){
 
 
-            this.ticket = [];
+            this.ticket=[];
 
-
-            this.seleccionados = [];
+            this.seleccionados=[];
 
 
             this.guardarTicket();
 
 
             this.renderMatriz();
-
 
             this.renderTicket();
 
@@ -365,17 +353,15 @@ window.App = {
 
 
 
+
     guardarTicket(){
 
 
         localStorage.setItem(
 
-
             "goldenking_ticket",
 
-
             JSON.stringify(this.ticket)
-
 
         );
 
@@ -386,12 +372,18 @@ window.App = {
 
 
 
+
+
     cargarTicket(){
 
 
-        const datos =
+        let datos =
 
-        localStorage.getItem("goldenking_ticket");
+        localStorage.getItem(
+
+            "goldenking_ticket"
+
+        );
 
 
 
@@ -405,6 +397,9 @@ window.App = {
 
 
     },
+
+
+
 
 
 
@@ -428,12 +423,9 @@ window.App = {
 
         const total = this.ticket.reduce(
 
-
-            (suma,t)=> suma + t.monto,
-
+            (s,t)=>s+t.monto,
 
             0
-
 
         );
 
@@ -441,13 +433,16 @@ window.App = {
 
 
 
-        // GUARDAR HISTORIAL
-
         let historial = JSON.parse(
 
-            localStorage.getItem("goldenking_historial")
+            localStorage.getItem(
+
+                "goldenking_historial"
+
+            )
 
         ) || [];
+
 
 
 
@@ -470,32 +465,24 @@ window.App = {
 
 
 
-        localStorage.setItem(
 
+        localStorage.setItem(
 
             "goldenking_historial",
 
-
             JSON.stringify(historial)
-
 
         );
 
 
 
 
-
-
-        // IMPRIMIR
 
         window.Impresion.generarTicket(
 
-
             this.ticket,
 
-
             total
-
 
         );
 
@@ -504,13 +491,10 @@ window.App = {
 
 
 
-        // LIMPIAR NUEVA VENTA
+        this.ticket=[];
 
 
-        this.ticket = [];
-
-
-        this.seleccionados = [];
+        this.seleccionados=[];
 
 
 
@@ -534,10 +518,100 @@ window.App = {
 
 
 
-window.onload = () => {
+
+
+window.onload = ()=>{
 
 
     window.App.init();
 
 
 };
+
+
+
+
+
+
+
+
+
+// ===============================
+// ATAJOS DE TECLADO TAQUILLA
+// ===============================
+
+
+
+document.addEventListener("keydown",function(e){
+
+
+
+    // ENTER AGREGAR
+
+    if(e.key==="Enter"){
+
+
+        const activo=document.activeElement;
+
+
+
+        if(
+
+            activo.tagName!=="INPUT" &&
+
+            activo.tagName!=="SELECT"
+
+        ){
+
+
+            window.App.agregarSeleccion();
+
+
+        }
+
+
+    }
+
+
+
+
+
+
+    // CTRL + P IMPRIMIR
+
+
+    if(e.ctrlKey && e.key.toLowerCase()==="p"){
+
+
+        e.preventDefault();
+
+
+        window.App.imprimirTicket();
+
+
+    }
+
+
+
+
+
+
+
+    // ESC CANCELAR SELECCION
+
+
+    if(e.key==="Escape"){
+
+
+        window.App.seleccionados=[];
+
+
+        window.App.renderMatriz();
+
+
+    }
+
+
+
+
+});
