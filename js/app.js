@@ -7,6 +7,7 @@ window.App = {
 
     init(){
 
+
         this.cargarSorteos();
 
 
@@ -24,7 +25,7 @@ window.App = {
         .getElementById("numero")
         .addEventListener("keydown",(e)=>{
 
-            if(e.key==="Enter"){
+            if(e.key === "Enter"){
 
                 document
                 .getElementById("monto")
@@ -40,13 +41,24 @@ window.App = {
         .getElementById("monto")
         .addEventListener("keydown",(e)=>{
 
-            if(e.key==="Enter"){
+            if(e.key === "Enter"){
 
                 this.agregarJugada();
 
             }
 
         });
+
+
+
+        document
+        .getElementById("imprimir")
+        .addEventListener("click",()=>{
+
+            this.imprimirTicket();
+
+        });
+
 
 
     },
@@ -63,14 +75,11 @@ window.App = {
 
 
 
-        const loterias = [
+        const loterias=[
 
             "LOTTO ACTIVO",
-
             "LA GRANJITA",
-
             "SELVA PLUS",
-
             "GUACHARO ACTIVO"
 
         ];
@@ -103,14 +112,8 @@ window.App = {
         loterias.forEach(loteria=>{
 
 
-            let bloque =
-            document.createElement("div");
-
-
-
             let titulo =
             document.createElement("button");
-
 
 
             titulo.className="titulo-loteria";
@@ -119,25 +122,28 @@ window.App = {
 
 
 
-            let horariosDiv =
+            let grupo =
             document.createElement("div");
 
-            horariosDiv.style.display="none";
+
+            grupo.style.display="none";
 
 
 
             titulo.onclick=()=>{
 
 
-                if(horariosDiv.style.display==="none"){
+                if(grupo.style.display==="none"){
 
-                    horariosDiv.style.display="block";
+                    grupo.style.display="block";
 
                     titulo.textContent="▲ "+loteria;
 
+
                 }else{
 
-                    horariosDiv.style.display="none";
+
+                    grupo.style.display="none";
 
                     titulo.textContent="▼ "+loteria;
 
@@ -184,11 +190,12 @@ window.App = {
                     loteria+" - "+hora;
 
 
+
                 };
 
 
 
-                horariosDiv.appendChild(boton);
+                grupo.appendChild(boton);
 
 
 
@@ -196,16 +203,14 @@ window.App = {
 
 
 
-            bloque.appendChild(titulo);
+            contenedor.appendChild(titulo);
 
-            bloque.appendChild(horariosDiv);
-
-
-            contenedor.appendChild(bloque);
+            contenedor.appendChild(grupo);
 
 
 
         });
+
 
 
     },
@@ -237,7 +242,7 @@ window.App = {
 
         if(!this.sorteoSeleccionado){
 
-            alert("Seleccione lotería y horario");
+            alert("Seleccione una lotería y horario");
 
             return;
 
@@ -255,14 +260,13 @@ window.App = {
 
 
 
-
         this.jugadas.push({
 
             sorteo:this.sorteoSeleccionado,
 
-            numero,
+            numero:numero,
 
-            monto
+            monto:monto
 
         });
 
@@ -276,8 +280,8 @@ window.App = {
 
         document.getElementById("monto").value="";
 
-        document.getElementById("numero").focus();
 
+        document.getElementById("numero").focus();
 
 
     },
@@ -294,41 +298,46 @@ window.App = {
         document.getElementById("ticket");
 
 
+
         ticket.innerHTML="";
+
 
 
         let total=0;
 
 
 
-        this.jugadas.forEach((j,index)=>{
+        this.jugadas.forEach(jugada=>{
 
 
-            total += j.monto;
+            total += jugada.monto;
 
 
 
             ticket.innerHTML += `
 
+
             <div class="ticket-item">
 
-                <span>
 
-                ${j.sorteo}<br>
+            <span>
 
-                Número: ${j.numero}
+            ${jugada.sorteo}<br>
 
-                </span>
+            Número: ${jugada.numero}
+
+            </span>
 
 
-                <b>
+            <b>
 
-                ${j.monto} Bs
+            ${jugada.monto} Bs
 
-                </b>
+            </b>
 
 
             </div>
+
 
             `;
 
@@ -340,6 +349,130 @@ window.App = {
         document
         .getElementById("total")
         .textContent=total;
+
+
+    },
+
+
+
+
+
+
+
+    imprimirTicket(){
+
+
+        let contenido =
+
+        document.getElementById("ticket").innerHTML;
+
+
+
+        let total =
+
+        document.getElementById("total").textContent;
+
+
+
+        let ventana =
+
+        window.open(
+        "",
+        "",
+        "width=350,height=600"
+        );
+
+
+
+        ventana.document.write(`
+
+
+        <html>
+
+        <head>
+
+        <title>Golden King</title>
+
+
+        <style>
+
+        body{
+
+            font-family:Arial;
+            padding:20px;
+
+        }
+
+
+        h2{
+
+            text-align:center;
+
+        }
+
+
+        .ticket-item{
+
+            border-bottom:1px solid #000;
+
+            padding:10px 0;
+
+        }
+
+
+        .total{
+
+            font-size:20px;
+
+            font-weight:bold;
+
+            margin-top:20px;
+
+        }
+
+
+        </style>
+
+
+        </head>
+
+
+        <body>
+
+
+        <h2>👑 GOLDEN KING</h2>
+
+
+        ${contenido}
+
+
+        <div class="total">
+
+        TOTAL: ${total} Bs
+
+        </div>
+
+
+        <br>
+
+        Gracias por su jugada
+
+
+        </body>
+
+
+        </html>
+
+
+        `);
+
+
+
+        ventana.document.close();
+
+
+        ventana.print();
+
 
 
     }
