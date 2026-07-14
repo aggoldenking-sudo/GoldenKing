@@ -5,7 +5,9 @@
 
 <meta charset="UTF-8">
 
-<title>Golden King - Reportes</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Golden King | Reportes</title>
 
 <link rel="stylesheet" href="../style.css">
 
@@ -15,25 +17,169 @@
 <body>
 
 
-<div class="card">
+<header class="top">
+
+
+<div class="logo">
+
+👑 GOLDEN KING
+
+</div>
+
+
+<button 
+onclick="window.location.href='../dashboard/index.html'">
+
+⬅ Volver Dashboard
+
+</button>
+
+
+</header>
+
+
+
+
+
+<main class="main-content">
+
 
 
 <h1>
+
 📊 Reportes
+
 </h1>
 
 
+
+
+<div class="cards">
+
+
+
+<div class="card">
+
+<h2 id="ventas">
+
+0 Bs
+
+</h2>
+
 <p>
-Módulo en construcción.
+
+Ventas del Día
+
 </p>
 
+</div>
 
-<a href="../dashboard/index.html">
-⬅ Volver al Dashboard
-</a>
+
+
+
+<div class="card">
+
+<h2 id="tickets">
+
+0
+
+</h2>
+
+<p>
+
+Tickets Emitidos
+
+</p>
+
+</div>
+
+
+
+
+
+<div class="card">
+
+<h2 id="jugadas">
+
+0
+
+</h2>
+
+<p>
+
+Jugadas
+
+</p>
+
+</div>
+
+
+
 
 
 </div>
+
+
+
+
+
+
+
+<div class="card">
+
+
+<h2>
+
+Detalle de Jugadas
+
+</h2>
+
+
+
+<table>
+
+
+<thead>
+
+<tr>
+
+<th>Lotería</th>
+
+<th>Hora</th>
+
+<th>Número</th>
+
+<th>Monto</th>
+
+</tr>
+
+</thead>
+
+
+
+<tbody id="tablaReporte">
+
+
+</tbody>
+
+
+
+</table>
+
+
+</div>
+
+
+
+
+
+
+</main>
+
+
+
+
+<script src="reportes.js"></script>
 
 
 </body>
