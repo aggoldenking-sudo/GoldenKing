@@ -9,7 +9,7 @@
 
 <title>Golden King | Taquilla</title>
 
-<link rel="stylesheet" href="sistema.css">
+<link rel="stylesheet" href="../style.css">
 
 </head>
 
@@ -17,92 +17,94 @@
 <body>
 
 
-<header class="topbar">
+<aside class="sidebar">
+
 
 <div class="logo">
+
 👑 GOLDEN KING
+
 </div>
 
 
-<button onclick="window.location.href='../dashboard/index.html'">
 
-⬅ Dashboard
+<button class="btn-volver"
+onclick="window.location.href='../dashboard/index.html'">
+
+⬅ VOLVER DASHBOARD
 
 </button>
 
 
-</header>
 
-
-
-
-
-<div class="contenedor">
-
-
-
-<!-- SORTEOS -->
-
-<section class="sorteos">
-
-
-<h2>
-🎰 Sorteos
-</h2>
+<h3>SORTEOS</h3>
 
 
 
 <div id="listaSorteos"></div>
 
 
-</section>
+
+</aside>
 
 
 
 
 
 
-<!-- JUGADA -->
 
-<section class="jugada">
-
-
-<h2>
-🎟️ Nueva Jugada
-</h2>
+<main class="main-content">
 
 
 
-<label>
-Número
-</label>
+<div class="card">
 
 
-<input 
+<h2>Nueva Jugada</h2>
+
+
+
+<label>Número</label>
+
+
+<input
+
 id="numero"
+
 type="text"
+
 maxlength="2"
-placeholder="00">
+
+placeholder="00"
+
+autocomplete="off">
+
+
+
+<div id="animalEncontrado">
+
+</div>
 
 
 
 
-
-<label>
-Monto Bs
-</label>
+<label>Monto Bs.</label>
 
 
-<input 
+<input
+
 id="monto"
+
 type="number"
+
 placeholder="50">
 
 
 
 
 
-<button id="agregar">
+<button id="agregar"
+class="btn-agregar">
 
 ➕ AGREGAR JUGADA
 
@@ -110,29 +112,26 @@ placeholder="50">
 
 
 
-
-</section>
-
+</div>
 
 
 
 
 
 
-<!-- TICKET -->
 
-<section class="ticket">
+<div class="ticket">
 
 
-<h2>
-🧾 Ticket
-</h2>
+<h2>🎟️ Ticket</h2>
 
 
 
 <div id="ticket">
 
+<p>
 No hay jugadas
+</p>
 
 </div>
 
@@ -145,7 +144,7 @@ TOTAL:
 
 <span id="total">
 
-0
+0.00
 
 </span>
 
@@ -157,23 +156,12 @@ Bs
 
 
 
-<button id="imprimir">
+<button id="imprimir"
+class="btn-imprimir">
 
 🖨️ IMPRIMIR
 
 </button>
-
-
-
-<button id="copiar">
-
-📲 WHATSAPP
-
-</button>
-
-
-
-</section>
 
 
 
@@ -184,9 +172,15 @@ Bs
 
 
 
-<script src="../js/datos.js"></script>
+</main>
+
+
+
+
+<script src="animales.js"></script>
 
 <script src="sistema.js"></script>
+
 
 
 </body>
