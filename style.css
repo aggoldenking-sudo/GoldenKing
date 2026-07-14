@@ -1,387 +1,273 @@
-/* =================================
-   GOLDEN KING POS
-   DISEÑO PROFESIONAL
-================================= */
+/* ==========================================
+   GOLDEN KING POS - VERDE ESMERALDA & DORADO
+   ========================================== */
+
+:root {
+    --bg-main: #061e14;        /* Verde selva muy oscuro */
+    --bg-sidebar: #0b291c;     /* Verde esmeralda profundo */
+    --bg-card: #123827;        /* Tarjetas e inputs */
+    --bg-card-hover: #1b4d36;  /* Hover suave */
+    
+    --accent-gold: #f3be3a;    /* Dorado rey */
+    --accent-gold-hover: #dca321;
+    --accent-green: #2ecc71;   /* Verde para acciones de éxito */
+    --accent-red: #e74c3c;     /* Rojo para limpiar */
+    
+    --text-primary: #f0fdf4;   /* Blanco menta muy suave */
+    --text-secondary: #86efac; /* Menta para labels/secundarios */
+    --border-color: #1a4d35;  /* Bordes integrados */
+    
+    --radius: 6px;
+}
 
 * {
+    box-sizing: border-box;
     margin: 0;
     padding: 0;
-    box-sizing: border-box;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
 }
-
 
 body {
-
     display: flex;
     height: 100vh;
-    background: #1c1f26;
-    color: white;
+    background-color: var(--bg-main);
+    color: var(--text-primary);
     overflow: hidden;
-
 }
 
-
-/* ================================
-   PANEL IZQUIERDO
-================================ */
+/* ==========================================
+   SIDEBAR (PANEL IZQUIERDO)
+   ========================================== */
 
 .sidebar {
-
-    width: 380px;
-    background: #273746;
-    padding: 15px;
-    border-right: 3px solid #f1c40f;
-
+    width: 360px;
+    background-color: var(--bg-sidebar);
+    border-right: 1px solid var(--border-color);
+    padding: 18px;
     display: flex;
     flex-direction: column;
-
+    gap: 12px;
+    overflow-y: auto;
 }
-
 
 .sidebar h2 {
-
+    color: var(--accent-gold);
+    font-size: 1.4rem;
+    letter-spacing: 1px;
     text-align: center;
-    color: #f1c40f;
-    margin-bottom: 5px;
-
 }
-
 
 .subtitulo {
-
+    color: var(--text-secondary);
+    font-size: 0.8rem;
     text-align: center;
-    color: #ddd;
-    font-size: 13px;
-    margin-bottom: 10px;
-
+    margin-top: -8px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
 }
 
+hr {
+    border: none;
+    border-top: 1px solid var(--border-color);
+    margin: 2px 0;
+}
 
 label {
-
-    margin-top: 8px;
-    margin-bottom: 5px;
-    font-weight: bold;
-
+    font-size: 0.75rem;
+    font-weight: 700;
+    color: var(--text-secondary);
+    text-transform: uppercase;
+    margin-bottom: -6px;
 }
 
-
-select,
-input {
-
+select, input {
     width: 100%;
-    padding: 8px;
-
-    border-radius: 5px;
-    border: none;
-
-    margin-bottom: 5px;
-
-    font-size: 14px;
-
+    padding: 9px 12px;
+    background-color: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius);
+    color: var(--text-primary);
+    font-size: 0.95rem;
+    outline: none;
+    transition: border-color 0.2s;
 }
 
-
-/* ================================
-   PANEL ANIMALES
-================================ */
-
-.grid-panel {
-
-    flex: 1;
-
-    padding: 10px;
-
-    overflow-y: auto;
-
-    background: #1c1f26;
-
+select:focus, input:focus {
+    border-color: var(--accent-gold);
 }
 
-
-
-/* MATRIZ DE ANIMALES */
-
-#matrizAnimalitos {
-
-    display: grid;
-
-    grid-template-columns: repeat(8, 1fr);
-
-    gap: 5px;
-
-    width: 100%;
-
-}
-
-
-
-/* BOTONES ANIMALES */
-
-.btn-animal {
-
-    background: white;
-
-    border: 1px solid #d5d8dc;
-
-    border-radius: 5px;
-
-    cursor: pointer;
-
-    height: 55px;
-
-
-    display: flex;
-
-    flex-direction: column;
-
-    justify-content: center;
-
-    align-items: center;
-
-
-    color: #2c3e50;
-
-    font-size: 10px;
-
-    font-weight: bold;
-
-
-    transition: 0.15s;
-
-}
-
-
-
-.btn-animal strong {
-
-    font-size: 15px;
-
-    color: black;
-
-}
-
-
-
-.btn-animal:hover {
-
-    background: #f1c40f;
-
-    transform: scale(1.05);
-
-}
-
-
-
-/* ================================
-   BOTONES DE ACCIÓN
-================================ */
-
+/* Botones de acción */
 .acciones {
-
-    display: flex;
-
-    gap: 5px;
-
-    margin-top: 8px;
-
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    margin-top: 4px;
 }
-
 
 .acciones button {
-
-    flex: 1;
-
     padding: 10px;
-
     border: none;
-
-    cursor: pointer;
-
+    border-radius: var(--radius);
     font-weight: bold;
-
-    border-radius: 5px;
-
+    cursor: pointer;
+    transition: background-color 0.2s, transform 0.1s;
+    font-size: 0.88rem;
 }
 
-
+.acciones button:active {
+    transform: scale(0.98);
+}
 
 #agregarBtn {
-
-    background: #27ae60;
-
-    color: white;
-
+    background-color: var(--accent-green);
+    color: #061e14;
 }
 
-
+#agregarBtn:hover {
+    background-color: #27ae60;
+}
 
 #limpiarBtn {
-
-    background: #c0392b;
-
-    color: white;
-
+    background-color: var(--accent-red);
+    color: #ffffff;
 }
 
+#limpiarBtn:hover {
+    background-color: #c0392b;
+}
 
+/* ==========================================
+   TABLA DEL TICKET
+   ========================================== */
 
-/* ================================
-   TABLA TICKET
-================================ */
-
-table {
-
+#ticketTable {
     width: 100%;
-
     border-collapse: collapse;
-
-    margin-top: 10px;
-
-    background: white;
-
-    color: black;
-
+    margin-top: 8px;
+    font-size: 0.85rem;
+    background-color: var(--bg-card);
+    border-radius: var(--radius);
+    overflow: hidden;
+    border: 1px solid var(--border-color);
 }
 
-
-
-th {
-
-    background: #34495e;
-
-    color: white;
-
-    padding: 6px;
-
-    font-size: 11px;
-
+#ticketTable th {
+    background-color: rgba(0, 0, 0, 0.2);
+    color: var(--text-secondary);
+    padding: 8px;
+    text-align: left;
+    font-weight: 700;
+    text-transform: uppercase;
+    font-size: 0.7rem;
 }
 
-
-
-td {
-
-    padding: 5px;
-
-    border-bottom: 1px solid #ddd;
-
-    text-align: center;
-
-    font-size: 12px;
-
+#ticketTable td {
+    padding: 8px;
+    border-bottom: 1px solid var(--border-color);
 }
 
-
-
-.btn-anular {
-
-    background: #e74c3c;
-
-    color: white;
-
+.btn-borrar {
+    background: none;
     border: none;
-
-    padding: 3px 7px;
-
     cursor: pointer;
-
-    border-radius: 3px;
-
+    font-size: 0.85rem;
+    opacity: 0.7;
+    transition: opacity 0.2s;
 }
 
+.btn-borrar:hover {
+    opacity: 1;
+}
 
-
-/* ================================
-   TOTAL
-================================ */
-
+/* Total e Imprimir */
 #totalDisplay {
-
-    margin-top: auto;
-
-    background: #27ae60;
-
-    padding: 15px;
-
+    background-color: var(--bg-card);
+    padding: 12px;
+    border-radius: var(--radius);
     text-align: center;
-
-    font-size: 20px;
-
+    color: var(--accent-gold);
+    font-size: 1.25rem;
+    font-weight: bold;
+    border: 1px solid var(--accent-gold);
+    margin-top: auto;
 }
-
-
-
-/* ================================
-   IMPRESIÓN
-================================ */
 
 .print-btn {
-
     width: 100%;
-
-    padding: 15px;
-
-    margin-top: 5px;
-
-
-    background: #f1c40f;
-
-    border: none;
-
+    padding: 11px;
+    background-color: var(--accent-gold);
+    color: #061e14;
     font-weight: bold;
-
+    border: none;
+    border-radius: var(--radius);
     cursor: pointer;
-
+    font-size: 0.95rem;
+    letter-spacing: 0.5px;
+    transition: background-color 0.2s;
 }
 
+.print-btn:hover {
+    background-color: var(--accent-gold-hover);
+}
 
+/* ==========================================
+   GRID PANEL (CUADRÍCULA DE ANIMALITOS)
+   ========================================== */
 
-@media print {
+.grid-panel {
+    flex: 1;
+    padding: 18px;
+    overflow-y: auto;
+    background-color: var(--bg-main);
+}
 
+#matrizAnimalitos {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(85px, 1fr));
+    gap: 8px;
+}
 
-    body {
+/* Botones de la cuadrícula */
+.btn-animal {
+    background-color: var(--bg-sidebar);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius);
+    color: var(--text-primary);
+    padding: 10px 4px;
+    text-align: center;
+    cursor: pointer;
+    transition: background-color 0.15s, border-color 0.15s;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    font-size: 0.78rem;
+    user-select: none;
+}
 
-        background: white;
+.btn-animal strong {
+    font-size: 1.15rem;
+    color: var(--accent-gold);
+    margin-bottom: 2px;
+}
 
-    }
+.btn-animal:hover {
+    background-color: var(--bg-card-hover);
+    border-color: var(--accent-gold);
+}
 
+.btn-animal:active {
+    transform: scale(0.97);
+}
 
-    .grid-panel,
-
-    .sidebar h2,
-
-    .subtitulo,
-
-    .acciones,
-
-    select,
-
-    label,
-
-    input,
-
-    .print-btn {
-
-        display: none !important;
-
-    }
-
-
-    .sidebar {
-
-        width: 100% !important;
-
-        display: block !important;
-
-    }
-
-
-    table {
-
-        border: 1px solid black;
-
-    }
-
+/* Scrollbar Personalizada */
+::-webkit-scrollbar {
+    width: 6px;
+}
+::-webkit-scrollbar-track {
+    background: var(--bg-main);
+}
+::-webkit-scrollbar-thumb {
+    background: var(--border-color);
+    border-radius: 3px;
 }
