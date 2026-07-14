@@ -26,12 +26,8 @@
             <option value="01:00 PM">01:00 PM</option>
         </select>
 
-        <div class="monto-box">
-            <p>Monto: <span id="displayMonto">50</span></p>
-            <button class="btn-monto" onclick="window.App.setMonto(10)">10</button>
-            <button class="btn-monto" onclick="window.App.setMonto(50)">50</button>
-            <button class="btn-monto" onclick="window.App.setMonto(100)">100</button>
-        </div>
+        <label>Monto a Apostar:</label>
+        <input type="number" id="montoInput" value="50" style="width: 90%; padding: 10px; margin-bottom: 10px;">
 
         <table id="ticketTable">
             <thead>
@@ -51,7 +47,6 @@
 
     <main class="grid-panel" id="matrizAnimalitos"></main>
 
-    <!-- SCRIPTS CARGADOS DE FORMA DIRECTA -->
     <script src="js/loterias.js"></script>
     <script src="js/impresion.js"></script>
     <script src="js/app.js"></script>
