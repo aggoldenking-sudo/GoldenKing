@@ -5,7 +5,9 @@ window.App = {
     monto: 50,
     ticket: [],
     
-    init() { this.renderMatriz(); },
+    init() { 
+        this.renderMatriz(); 
+    },
     
     setMonto(m) { 
         this.monto = m; 
@@ -15,8 +17,12 @@ window.App = {
     renderMatriz() {
         const tipo = document.getElementById('loteriaSelect').value;
         const contenedor = document.getElementById('matrizAnimalitos');
-        contenedor.innerHTML = "";
-        const items = DATA_LOTERIAS[tipo] || {};
+        contenedor.innerHTML = ""; // Limpiar antes de dibujar
+        
+        const items = DATA_LOTERIAS[tipo];
+        
+        // Si no encuentra datos, no hace nada
+        if (!items) return;
         
         for (let id in items) {
             let btn = document.createElement('button');
@@ -34,7 +40,12 @@ window.App = {
 
     renderTicket() {
         const tablaBody = document.querySelector('#ticketTable tbody');
-        tablaBody.innerHTML = this.ticket.map((t, i) => 
+        // Si la tabla no tiene tbody, lo creamos
+        if (!tablaBody) {
+            document.getElementById('ticketTable').innerHTML += "<tbody></tbody>";
+        }
+        const body = document.querySelector('#ticketTable tbody');
+        body.innerHTML = this.ticket.map((t, i) => 
             `<tr>
                 <td>${t.id} ${t.nombre}</td>
                 <td>${t.hora}</td>
@@ -44,7 +55,10 @@ window.App = {
         this.actualizarTotal();
     },
 
-    remover(i) { this.ticket.splice(i, 1); this.renderTicket(); },
+    remover(i) { 
+        this.ticket.splice(i, 1); 
+        this.renderTicket(); 
+    },
     
     actualizarTotal() { 
         const total = this.ticket.reduce((a, b) => a + b.monto, 0);
@@ -52,4 +66,5 @@ window.App = {
     }
 };
 
+// Iniciamos la app
 window.App.init();
