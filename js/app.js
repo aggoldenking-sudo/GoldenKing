@@ -1,6 +1,3 @@
-import { DATA_LOTERIAS } from './loterias.js';
-import { calcularPremio } from './impresion.js';
-
 window.App = {
     monto: 50,
     ticket: [],
@@ -20,15 +17,17 @@ window.App = {
         const contenedor = document.getElementById('matrizAnimalitos');
         
         if (!contenedor) {
-            console.error("No se encontró el contenedor 'matrizAnimalitos'");
+            console.error("No se encontró el contenedor");
             return;
         }
 
         contenedor.innerHTML = "";
-        const items = DATA_LOTERIAS[tipo];
+        
+        // Ahora busca los datos de forma directa
+        const items = window.DATA_LOTERIAS[tipo];
         
         if (!items) {
-            console.error("No hay datos para la lotería: " + tipo);
+            console.error("No hay datos para la lotería");
             return;
         }
         
@@ -38,7 +37,7 @@ window.App = {
             btn.innerHTML = `<strong>${id}</strong><br>${items[id]}`;
             btn.onclick = () => {
                 const hora = document.getElementById('horarioSelect').value;
-                let premio = calcularPremio(tipo, id, this.monto);
+                let premio = window.calcularPremio(tipo, id, this.monto);
                 this.ticket.push({id, nombre: items[id], monto: this.monto, premio, hora});
                 this.renderTicket();
             };
@@ -48,6 +47,8 @@ window.App = {
 
     renderTicket() {
         const tbody = document.querySelector('#ticketTable tbody');
+        if(!tbody) return;
+        
         tbody.innerHTML = this.ticket.map((t, i) => 
             `<tr>
                 <td>${t.id} ${t.nombre}</td>
