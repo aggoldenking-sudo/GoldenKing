@@ -9,101 +9,240 @@ window.App = {
 
         this.cargarSorteos();
 
+
         document
         .getElementById("agregar")
-        .onclick = () => this.agregarJugada();
+        .addEventListener("click",()=>{
+
+            this.agregarJugada();
+
+        });
+
+
+
+        document
+        .getElementById("numero")
+        .addEventListener("keydown",(e)=>{
+
+            if(e.key==="Enter"){
+
+                document
+                .getElementById("monto")
+                .focus();
+
+            }
+
+        });
+
+
+
+        document
+        .getElementById("monto")
+        .addEventListener("keydown",(e)=>{
+
+            if(e.key==="Enter"){
+
+                this.agregarJugada();
+
+            }
+
+        });
+
 
     },
+
+
+
 
 
     cargarSorteos(){
 
-        const lista = document.getElementById("listaSorteos");
+
+        const contenedor =
+        document.getElementById("listaSorteos");
 
 
-        const sorteos = [
-            "Lotto Activo - 8:00 AM",
-            "Lotto Activo - 9:00 AM",
-            "Lotto Activo - 10:00 AM",
-            "Lotto Activo - 11:00 AM",
-            "Lotto Activo - 12:00 PM",
-            "Lotto Activo - 1:00 PM",
-            "Lotto Activo - 2:00 PM",
-            "Lotto Activo - 3:00 PM",
-            "Lotto Activo - 4:00 PM",
-            "Lotto Activo - 5:00 PM",
-            "Lotto Activo - 6:00 PM",
-            "Lotto Activo - 7:00 PM",
 
-            "La Granjita - 8:00 AM",
-            "La Granjita - 9:00 AM",
-            "La Granjita - 10:00 AM",
-            "La Granjita - 11:00 AM",
-            "La Granjita - 12:00 PM",
-            "La Granjita - 1:00 PM",
-            "La Granjita - 2:00 PM",
-            "La Granjita - 3:00 PM",
-            "La Granjita - 4:00 PM",
-            "La Granjita - 5:00 PM",
-            "La Granjita - 6:00 PM",
-            "La Granjita - 7:00 PM"
+        const loterias = [
+
+            "LOTTO ACTIVO",
+
+            "LA GRANJITA",
+
+            "SELVA PLUS",
+
+            "GUACHARO ACTIVO"
+
         ];
 
 
-        lista.innerHTML="";
+
+        const horarios=[
+
+            "8:00 AM",
+            "9:00 AM",
+            "10:00 AM",
+            "11:00 AM",
+            "12:00 PM",
+            "1:00 PM",
+            "2:00 PM",
+            "3:00 PM",
+            "4:00 PM",
+            "5:00 PM",
+            "6:00 PM",
+            "7:00 PM"
+
+        ];
 
 
-        sorteos.forEach(sorteo=>{
+
+        contenedor.innerHTML="";
 
 
-            let btn=document.createElement("button");
 
-            btn.className="btn-sorteo";
-
-            btn.textContent=sorteo;
+        loterias.forEach(loteria=>{
 
 
-            btn.onclick=()=>{
-
-                document
-                .querySelectorAll(".btn-sorteo")
-                .forEach(b=>b.classList.remove("active"));
+            let bloque =
+            document.createElement("div");
 
 
-                btn.classList.add("active");
+
+            let titulo =
+            document.createElement("button");
 
 
-                this.sorteoSeleccionado=sorteo;
+
+            titulo.className="titulo-loteria";
+
+            titulo.textContent="▼ "+loteria;
+
+
+
+            let horariosDiv =
+            document.createElement("div");
+
+            horariosDiv.style.display="none";
+
+
+
+            titulo.onclick=()=>{
+
+
+                if(horariosDiv.style.display==="none"){
+
+                    horariosDiv.style.display="block";
+
+                    titulo.textContent="▲ "+loteria;
+
+                }else{
+
+                    horariosDiv.style.display="none";
+
+                    titulo.textContent="▼ "+loteria;
+
+                }
+
 
             };
 
 
-            lista.appendChild(btn);
+
+            horarios.forEach(hora=>{
+
+
+                let boton =
+                document.createElement("button");
+
+
+
+                boton.className="btn-sorteo";
+
+
+                boton.textContent=hora;
+
+
+
+                boton.onclick=()=>{
+
+
+                    document
+                    .querySelectorAll(".btn-sorteo")
+                    .forEach(b=>{
+
+                        b.classList.remove("active");
+
+                    });
+
+
+
+                    boton.classList.add("active");
+
+
+
+                    this.sorteoSeleccionado =
+                    loteria+" - "+hora;
+
+
+                };
+
+
+
+                horariosDiv.appendChild(boton);
+
+
+
+            });
+
+
+
+            bloque.appendChild(titulo);
+
+            bloque.appendChild(horariosDiv);
+
+
+            contenedor.appendChild(bloque);
+
+
 
         });
 
+
     },
+
+
+
+
 
 
     agregarJugada(){
 
 
-        let numero=document
+        let numero =
+        document
         .getElementById("numero")
-        .value.trim();
+        .value
+        .trim();
 
 
-        let monto=Number(
-        document.getElementById("monto").value
+
+        let monto =
+        Number(
+        document
+        .getElementById("monto")
+        .value
         );
+
 
 
         if(!this.sorteoSeleccionado){
 
-            alert("Seleccione un sorteo");
+            alert("Seleccione lotería y horario");
 
             return;
+
         }
+
 
 
         if(numero==="" || monto<=0){
@@ -111,7 +250,9 @@ window.App = {
             alert("Ingrese número y monto");
 
             return;
+
         }
+
 
 
 
@@ -119,27 +260,38 @@ window.App = {
 
             sorteo:this.sorteoSeleccionado,
 
-            numero:numero,
+            numero,
 
-            monto:monto
+            monto
 
         });
 
 
+
         this.mostrarTicket();
+
 
 
         document.getElementById("numero").value="";
 
         document.getElementById("monto").value="";
 
+        document.getElementById("numero").focus();
+
+
+
     },
+
+
+
+
 
 
     mostrarTicket(){
 
 
-        let ticket=document.getElementById("ticket");
+        const ticket =
+        document.getElementById("ticket");
 
 
         ticket.innerHTML="";
@@ -148,24 +300,33 @@ window.App = {
         let total=0;
 
 
+
         this.jugadas.forEach((j,index)=>{
 
 
             total += j.monto;
 
 
+
             ticket.innerHTML += `
 
             <div class="ticket-item">
 
-            <span>
-            ${j.sorteo}<br>
-            Número: ${j.numero}
-            </span>
+                <span>
 
-            <b>
-            ${j.monto} Bs
-            </b>
+                ${j.sorteo}<br>
+
+                Número: ${j.numero}
+
+                </span>
+
+
+                <b>
+
+                ${j.monto} Bs
+
+                </b>
+
 
             </div>
 
@@ -175,11 +336,17 @@ window.App = {
         });
 
 
-        document.getElementById("total").textContent=total;
+
+        document
+        .getElementById("total")
+        .textContent=total;
+
 
     }
 
+
 };
+
 
 
 App.init();
