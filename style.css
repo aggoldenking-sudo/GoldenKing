@@ -1,280 +1,387 @@
-/* ================================
+/* =================================
    GOLDEN KING POS
-================================ */
+   DISEÑO PROFESIONAL
+================================= */
 
-*{
-    margin:0;
-    padding:0;
-    box-sizing:border-box;
-    font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
-body{
-    display:flex;
-    height:100vh;
-    background:#1c1f26;
-    color:#fff;
-    overflow:hidden;
+
+body {
+
+    display: flex;
+    height: 100vh;
+    background: #1c1f26;
+    color: white;
+    overflow: hidden;
+
 }
+
 
 /* ================================
    PANEL IZQUIERDO
 ================================ */
 
-.sidebar{
-    width:360px;
-    background:#273746;
-    padding:15px;
-    overflow-y:auto;
-    border-right:3px solid #f1c40f;
+.sidebar {
+
+    width: 380px;
+    background: #273746;
+    padding: 15px;
+    border-right: 3px solid #f1c40f;
+
+    display: flex;
+    flex-direction: column;
+
 }
 
-.sidebar h2{
-    text-align:center;
-    color:#f1c40f;
-    margin-bottom:20px;
+
+.sidebar h2 {
+
+    text-align: center;
+    color: #f1c40f;
+    margin-bottom: 5px;
+
 }
 
-.sidebar label{
-    display:block;
-    margin-top:15px;
-    margin-bottom:5px;
-    font-weight:bold;
+
+.subtitulo {
+
+    text-align: center;
+    color: #ddd;
+    font-size: 13px;
+    margin-bottom: 10px;
+
 }
 
-.sidebar select{
-    width:100%;
-    padding:10px;
-    border:none;
-    border-radius:5px;
-    font-size:15px;
+
+label {
+
+    margin-top: 8px;
+    margin-bottom: 5px;
+    font-weight: bold;
+
 }
+
+
+select,
+input {
+
+    width: 100%;
+    padding: 8px;
+
+    border-radius: 5px;
+    border: none;
+
+    margin-bottom: 5px;
+
+    font-size: 14px;
+
+}
+
 
 /* ================================
-   BOTONES DE MONTO
+   PANEL ANIMALES
 ================================ */
 
-.monto-box{
-    margin-top:20px;
+.grid-panel {
+
+    flex: 1;
+
+    padding: 10px;
+
+    overflow-y: auto;
+
+    background: #1c1f26;
+
 }
 
-.monto-box p{
-    font-size:18px;
-    margin-bottom:10px;
+
+
+/* MATRIZ DE ANIMALES */
+
+#matrizAnimalitos {
+
+    display: grid;
+
+    grid-template-columns: repeat(8, 1fr);
+
+    gap: 5px;
+
+    width: 100%;
+
 }
 
-.btn-monto{
-    width:31%;
-    padding:10px;
-    margin-right:2%;
-    border:none;
-    border-radius:5px;
-    cursor:pointer;
-    background:#3498db;
-    color:white;
-    font-weight:bold;
-    transition:.2s;
+
+
+/* BOTONES ANIMALES */
+
+.btn-animal {
+
+    background: white;
+
+    border: 1px solid #d5d8dc;
+
+    border-radius: 5px;
+
+    cursor: pointer;
+
+    height: 55px;
+
+
+    display: flex;
+
+    flex-direction: column;
+
+    justify-content: center;
+
+    align-items: center;
+
+
+    color: #2c3e50;
+
+    font-size: 10px;
+
+    font-weight: bold;
+
+
+    transition: 0.15s;
+
 }
 
-.btn-monto:last-child{
-    margin-right:0;
+
+
+.btn-animal strong {
+
+    font-size: 15px;
+
+    color: black;
+
 }
 
-.btn-monto:hover{
-    background:#2980b9;
+
+
+.btn-animal:hover {
+
+    background: #f1c40f;
+
+    transform: scale(1.05);
+
 }
+
+
 
 /* ================================
-   TABLA DEL TICKET
+   BOTONES DE ACCIÓN
 ================================ */
 
-table{
-    width:100%;
-    margin-top:20px;
-    border-collapse:collapse;
-    background:white;
-    color:black;
+.acciones {
+
+    display: flex;
+
+    gap: 5px;
+
+    margin-top: 8px;
+
 }
 
-th{
-    background:#34495e;
-    color:white;
-    padding:8px;
-    font-size:12px;
+
+.acciones button {
+
+    flex: 1;
+
+    padding: 10px;
+
+    border: none;
+
+    cursor: pointer;
+
+    font-weight: bold;
+
+    border-radius: 5px;
+
 }
 
-td{
-    padding:8px;
-    border-bottom:1px solid #ddd;
-    text-align:center;
-    font-size:12px;
+
+
+#agregarBtn {
+
+    background: #27ae60;
+
+    color: white;
+
 }
 
-tr:nth-child(even){
-    background:#f5f5f5;
+
+
+#limpiarBtn {
+
+    background: #c0392b;
+
+    color: white;
+
 }
+
+
 
 /* ================================
-   BOTÓN ANULAR
+   TABLA TICKET
 ================================ */
 
-.btn-anular{
-    background:#e74c3c;
-    color:white;
-    border:none;
-    padding:5px 8px;
-    border-radius:4px;
-    cursor:pointer;
+table {
+
+    width: 100%;
+
+    border-collapse: collapse;
+
+    margin-top: 10px;
+
+    background: white;
+
+    color: black;
+
 }
 
-.btn-anular:hover{
-    background:#c0392b;
+
+
+th {
+
+    background: #34495e;
+
+    color: white;
+
+    padding: 6px;
+
+    font-size: 11px;
+
 }
+
+
+
+td {
+
+    padding: 5px;
+
+    border-bottom: 1px solid #ddd;
+
+    text-align: center;
+
+    font-size: 12px;
+
+}
+
+
+
+.btn-anular {
+
+    background: #e74c3c;
+
+    color: white;
+
+    border: none;
+
+    padding: 3px 7px;
+
+    cursor: pointer;
+
+    border-radius: 3px;
+
+}
+
+
 
 /* ================================
    TOTAL
 ================================ */
 
-#totalDisplay{
-    margin-top:15px;
-    background:#27ae60;
-    color:white;
-    padding:12px;
-    text-align:center;
-    border-radius:6px;
-    font-size:22px;
-    font-weight:bold;
+#totalDisplay {
+
+    margin-top: auto;
+
+    background: #27ae60;
+
+    padding: 15px;
+
+    text-align: center;
+
+    font-size: 20px;
+
 }
 
-/* ================================
-   BOTÓN IMPRIMIR
-================================ */
 
-.print-btn{
-    width:100%;
-    margin-top:15px;
-    padding:14px;
-    border:none;
-    border-radius:6px;
-    background:#f1c40f;
-    color:#000;
-    font-size:17px;
-    font-weight:bold;
-    cursor:pointer;
-    transition:.2s;
-}
-
-.print-btn:hover{
-    background:#f39c12;
-}
-
-/* ================================
-   PANEL DERECHO
-================================ */
-
-.grid-panel{
-    flex:1;
-    display:grid;
-    grid-template-columns:repeat(8,1fr);
-    gap:8px;
-    padding:15px;
-    overflow-y:auto;
-    align-content:start;
-}
-
-/* ================================
-   BOTONES DE ANIMALES
-================================ */
-
-.btn-animal{
-    background:white;
-    border:2px solid #d5d8dc;
-    border-radius:8px;
-    cursor:pointer;
-    min-height:70px;
-    padding:5px;
-    display:flex;
-    flex-direction:column;
-    justify-content:center;
-    align-items:center;
-    color:#2c3e50;
-    font-size:12px;
-    font-weight:bold;
-    transition:.15s;
-}
-
-.btn-animal strong{
-    font-size:18px;
-    color:#000;
-}
-
-.btn-animal:hover{
-    background:#f1c40f;
-    transform:scale(1.05);
-    border-color:#f39c12;
-}
-
-.btn-animal:active{
-    transform:scale(.98);
-}
-
-/* ================================
-   SCROLL
-================================ */
-
-::-webkit-scrollbar{
-    width:8px;
-}
-
-::-webkit-scrollbar-track{
-    background:#2c3e50;
-}
-
-::-webkit-scrollbar-thumb{
-    background:#f1c40f;
-    border-radius:10px;
-}
-
-::-webkit-scrollbar-thumb:hover{
-    background:#f39c12;
-}
 
 /* ================================
    IMPRESIÓN
 ================================ */
 
-@media print{
+.print-btn {
 
-    body{
-        background:white;
+    width: 100%;
+
+    padding: 15px;
+
+    margin-top: 5px;
+
+
+    background: #f1c40f;
+
+    border: none;
+
+    font-weight: bold;
+
+    cursor: pointer;
+
+}
+
+
+
+@media print {
+
+
+    body {
+
+        background: white;
+
     }
 
-    .grid-panel{
-        display:none;
-    }
 
-    .sidebar{
-        width:100%;
-        border:none;
-        background:white;
-        color:black;
-    }
+    .grid-panel,
 
-    .print-btn,
-    .btn-monto,
+    .sidebar h2,
+
+    .subtitulo,
+
+    .acciones,
+
     select,
-    label{
-        display:none;
+
+    label,
+
+    input,
+
+    .print-btn {
+
+        display: none !important;
+
     }
 
-    table{
-        font-size:12px;
+
+    .sidebar {
+
+        width: 100% !important;
+
+        display: block !important;
+
     }
 
-    #totalDisplay{
-        color:black;
-        background:white;
-        border:2px solid black;
+
+    table {
+
+        border: 1px solid black;
+
     }
 
 }
