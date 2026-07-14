@@ -16,39 +16,39 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
 
 </head>
 
+
 <body>
+
 
 <header>
 
-<div class="logo">
+    <div class="logo">
+        👑 GOLDEN KING
+    </div>
 
-👑 GOLDEN KING
 
-</div>
+    <div class="usuario">
 
-<div class="usuario">
+        <div id="saludo">
+            Buenos días
+        </div>
 
-<div id="saludo">
+        <div>
+            Administrador
+        </div>
 
-Buenos días
+        <div id="fechaHora">
+        </div>
 
-</div>
-
-<div>
-
-Administrador
-
-</div>
-
-<div id="fechaHora">
-
-</div>
-
-</div>
+    </div>
 
 </header>
 
+
+
+
 <nav>
+
 
 <div class="menu activo">
 
@@ -58,7 +58,9 @@ Administrador
 
 </div>
 
-<div class="menu" onclick="abrir('../sistema/index.html')">
+
+
+<div class="menu" onclick="window.location.href='../sistema/index.html'">
 
 <i class="fas fa-ticket"></i>
 
@@ -66,7 +68,9 @@ Administrador
 
 </div>
 
-<div class="menu">
+
+
+<div class="menu" onclick="window.location.href='../historial/index.html'">
 
 <i class="fas fa-clock-rotate-left"></i>
 
@@ -74,7 +78,9 @@ Administrador
 
 </div>
 
-<div class="menu">
+
+
+<div class="menu" onclick="window.location.href='../reportes/index.html'">
 
 <i class="fas fa-chart-column"></i>
 
@@ -82,7 +88,9 @@ Administrador
 
 </div>
 
-<div class="menu">
+
+
+<div class="menu" onclick="window.location.href='../usuarios/index.html'">
 
 <i class="fas fa-users"></i>
 
@@ -90,7 +98,9 @@ Administrador
 
 </div>
 
-<div class="menu">
+
+
+<div class="menu" onclick="window.location.href='../configuracion/index.html'">
 
 <i class="fas fa-gear"></i>
 
@@ -98,7 +108,9 @@ Administrador
 
 </div>
 
-<div class="menu salir" onclick="cerrarSesion()">
+
+
+<div class="menu salir" onclick="window.location.href='../index.html'">
 
 <i class="fas fa-right-from-bracket"></i>
 
@@ -106,129 +118,151 @@ Administrador
 
 </div>
 
+
+
 </nav>
+
+
+
+
 
 <main>
 
+
 <h1>
-
 Panel Principal
-
 </h1>
 
+
+
 <div class="cards">
+
+
 
 <div class="card">
 
 <i class="fas fa-money-bill-wave"></i>
 
-<h2 id="ventas">
-
+<h2>
 0,00 Bs
-
 </h2>
 
 <p>
-
 Ventas del Día
-
 </p>
 
 </div>
+
+
+
 
 <div class="card">
 
 <i class="fas fa-receipt"></i>
 
-<h2 id="tickets">
-
+<h2>
 0
-
 </h2>
 
 <p>
-
 Tickets Emitidos
-
 </p>
 
 </div>
+
+
+
 
 <div class="card">
 
 <i class="fas fa-trophy"></i>
 
-<h2 id="premios">
-
+<h2>
 0,00 Bs
-
 </h2>
 
 <p>
-
 Premios Pagados
-
 </p>
 
 </div>
+
+
+
 
 <div class="card">
 
 <i class="fas fa-wallet"></i>
 
-<h2 id="caja">
-
+<h2>
 ABIERTA
-
 </h2>
 
 <p>
-
 Estado de Caja
-
 </p>
 
 </div>
 
+
+
 </div>
+
+
+
+
 
 <div class="paneles">
 
+
+
 <div class="panel">
 
+
 <h3>
-
 Accesos Rápidos
-
 </h3>
 
-<button onclick="abrir('../sistema/index.html')">
+
+
+<button onclick="window.location.href='../sistema/index.html'">
 
 🎟️ Nueva Venta
 
 </button>
 
-<button>
+
+
+<button onclick="window.location.href='../historial/index.html'">
 
 📜 Historial
 
 </button>
 
-<button>
+
+
+<button onclick="window.location.href='../reportes/index.html'">
 
 📊 Reportes
 
 </button>
 
+
+
 </div>
+
+
+
+
 
 <div class="panel">
 
+
 <h3>
-
 Actividad
-
 </h3>
+
+
 
 <div id="actividad">
 
@@ -236,13 +270,22 @@ No hay actividad registrada.
 
 </div>
 
-</div>
+
 
 </div>
+
+
+
+</div>
+
 
 </main>
 
+
+
+
 <script src="dashboard.js"></script>
+
 
 </body>
 
