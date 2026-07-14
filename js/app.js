@@ -1,33 +1,36 @@
 window.App = {
 
     sorteosSeleccionados: [],
-
     jugadas: [],
-
     numeroTicket: 1,
 
 
     init(){
 
-
         this.cargarSorteos();
-
 
 
         document
         .getElementById("agregar")
-        .addEventListener("click",()=>{
+        .onclick = () => {
 
             this.agregarJugada();
 
-        });
+        };
 
+
+        document
+        .getElementById("imprimir")
+        .onclick = () => {
+
+            this.imprimirTicket();
+
+        };
 
 
         document
         .getElementById("numero")
         .addEventListener("keydown",(e)=>{
-
 
             if(e.key==="Enter"){
 
@@ -37,10 +40,7 @@ window.App = {
 
             }
 
-
         });
-
-
 
 
 
@@ -48,69 +48,65 @@ window.App = {
         .getElementById("monto")
         .addEventListener("keydown",(e)=>{
 
-
             if(e.key==="Enter"){
 
                 this.agregarJugada();
 
             }
 
-
         });
-
-
-
 
 
 
         document
-        .getElementById("imprimir")
-        .addEventListener("click",()=>{
+        .getElementById("limpiarSeleccion")
+        .onclick = () => {
 
-            this.imprimirTicket();
+            this.sorteosSeleccionados=[];
 
-        });
+            document
+            .querySelectorAll(".btn-sorteo")
+            .forEach(b=>{
 
+                b.classList.remove("active");
 
+            });
 
-
+        };
 
 
 
         document
         .getElementById("seleccionarTodos")
-        .addEventListener("click",()=>{
+        .onclick = () => {
 
 
             document
             .querySelectorAll(".btn-sorteo")
-            .forEach(btn=>{
+            .forEach(b=>{
 
 
-                btn.classList.add("active");
+                b.classList.add("active");
 
 
                 let existe =
-                this.sorteosSeleccionados.some(s=>
+                this.sorteosSeleccionados.find(s=>
 
-                    s.loteria===btn.dataset.loteria &&
-                    s.hora===btn.dataset.hora
+                    s.loteria==b.dataset.loteria &&
+                    s.hora==b.dataset.hora
 
                 );
 
 
-
                 if(!existe){
-
 
                     this.sorteosSeleccionados.push({
 
-                        loteria:btn.dataset.loteria,
+                        loteria:b.dataset.loteria,
 
-                        hora:btn.dataset.hora
+                        hora:b.dataset.hora
 
                     });
-
 
                 }
 
@@ -118,55 +114,18 @@ window.App = {
             });
 
 
-        });
-
-
-
-
-
-
-
-
-        document
-        .getElementById("limpiarSeleccion")
-        .addEventListener("click",()=>{
-
-
-            this.sorteosSeleccionados=[];
-
-
-
-            document
-            .querySelectorAll(".btn-sorteo")
-            .forEach(btn=>{
-
-                btn.classList.remove("active");
-
-            });
-
-
-
-        });
-
+        };
 
 
     },
 
 
 
-
-
-
-
-
-
-
     cargarSorteos(){
 
 
-        let contenedor =
+        let lista =
         document.getElementById("listaSorteos");
-
 
 
         let loterias=[
@@ -179,9 +138,7 @@ window.App = {
         ];
 
 
-
         let horarios=[
-
 
             "8:00 AM",
             "9:00 AM",
@@ -196,17 +153,11 @@ window.App = {
             "6:00 PM",
             "7:00 PM"
 
-
         ];
 
 
 
-
-
-        contenedor.innerHTML="";
-
-
-
+        lista.innerHTML="";
 
 
         loterias.forEach(loteria=>{
@@ -215,14 +166,9 @@ window.App = {
             let titulo =
             document.createElement("h4");
 
-
             titulo.textContent=loteria;
 
-
-
-            contenedor.appendChild(titulo);
-
-
+            lista.appendChild(titulo);
 
 
 
@@ -233,12 +179,9 @@ window.App = {
                 document.createElement("button");
 
 
-
-                boton.className="btn-sorteo";
-
-
                 boton.textContent=hora;
 
+                boton.className="btn-sorteo";
 
 
                 boton.dataset.loteria=loteria;
@@ -247,10 +190,7 @@ window.App = {
 
 
 
-
-
                 boton.onclick=()=>{
-
 
 
                     boton.classList.toggle("active");
@@ -258,14 +198,12 @@ window.App = {
 
 
                     let existe =
-                    this.sorteosSeleccionados.some(s=>
+                    this.sorteosSeleccionados.find(s=>
 
-                        s.loteria===loteria &&
-                        s.hora===hora
+                        s.loteria==loteria &&
+                        s.hora==hora
 
                     );
-
-
 
 
 
@@ -275,11 +213,10 @@ window.App = {
                         this.sorteosSeleccionados =
                         this.sorteosSeleccionados.filter(s=>
 
-                            !(s.loteria===loteria &&
-                            s.hora===hora)
+                            !(s.loteria==loteria &&
+                            s.hora==hora)
 
                         );
-
 
 
                     }else{
@@ -302,10 +239,7 @@ window.App = {
 
 
 
-
-
-                contenedor.appendChild(boton);
-
+                lista.appendChild(boton);
 
 
             });
@@ -315,13 +249,7 @@ window.App = {
         });
 
 
-
     },
-
-
-
-
-
 
 
 
@@ -330,21 +258,13 @@ window.App = {
 
 
         let numero =
-        document
-        .getElementById("numero")
-        .value.trim();
-
-
+        document.getElementById("numero").value.trim();
 
 
         let monto =
         Number(
-        document
-        .getElementById("monto")
-        .value
+        document.getElementById("monto").value
         );
-
-
 
 
 
@@ -358,8 +278,7 @@ window.App = {
 
 
 
-
-        if(numero==="" || monto<=0){
+        if(numero=="" || monto<=0){
 
             alert("Ingrese número y monto");
 
@@ -370,16 +289,14 @@ window.App = {
 
 
 
-
-        this.sorteosSeleccionados.forEach(sorteo=>{
+        this.sorteosSeleccionados.forEach(s=>{
 
 
             let animal =
-            this.buscarAnimal(
-                sorteo.loteria,
+            this.obtenerAnimal(
+                s.loteria,
                 numero
             );
-
 
 
             if(animal){
@@ -387,9 +304,9 @@ window.App = {
 
                 this.jugadas.push({
 
-                    loteria:sorteo.loteria,
+                    loteria:s.loteria,
 
-                    hora:sorteo.hora,
+                    hora:s.hora,
 
                     numero:numero,
 
@@ -397,32 +314,17 @@ window.App = {
 
                     monto:monto
 
-
                 });
 
 
             }
 
 
-
         });
 
 
 
-
-
         this.mostrarTicket();
-
-
-
-
-
-        document.getElementById("numero").value="";
-
-        document.getElementById("monto").value="";
-
-        document.getElementById("numero").focus();
-
 
 
     },
@@ -430,57 +332,26 @@ window.App = {
 
 
 
+    obtenerAnimal(loteria,numero){
 
 
+        let tabla=null;
 
 
-
-
-
-    buscarAnimal(loteria,numero){
-
-
-        let tabla;
-
-
-
-        switch(loteria){
-
-
-            case "LOTTO ACTIVO":
-
+        if(loteria=="LOTTO ACTIVO")
             tabla=DATA_LOTERIAS.LottoActivo;
 
-            break;
 
-
-
-            case "LA GRANJITA":
-
+        if(loteria=="LA GRANJITA")
             tabla=DATA_LOTERIAS.Granjita;
 
-            break;
 
-
-
-            case "SELVA PLUS":
-
+        if(loteria=="SELVA PLUS")
             tabla=DATA_LOTERIAS.SelvaPlus;
 
-            break;
 
-
-
-            case "GUACHARO ACTIVO":
-
+        if(loteria=="GUACHARO ACTIVO")
             tabla=DATA_LOTERIAS.Guacharo;
-
-            break;
-
-
-        }
-
-
 
 
 
@@ -494,14 +365,7 @@ window.App = {
         }
 
 
-
-
-
-        alert("Número no existe en "+loteria);
-
-
-        return null;
-
+        return "Desconocido";
 
 
     },
@@ -509,28 +373,17 @@ window.App = {
 
 
 
-
-
-
-
-
     mostrarTicket(){
 
 
-
-        let ticket =
+        let div =
         document.getElementById("ticket");
 
 
-
-        ticket.innerHTML="";
-
+        div.innerHTML="";
 
 
         let total=0;
-
-
-
 
 
         this.jugadas.forEach(j=>{
@@ -539,45 +392,30 @@ window.App = {
             total+=j.monto;
 
 
-
-            ticket.innerHTML += `
-
+            div.innerHTML += `
 
             <div class="ticket-item">
 
-
             <b>${j.loteria}</b><br>
-
 
             ${j.hora}<br>
 
-
             ${j.numero} ${j.animal}
 
-
-            <strong>
-
-            ${j.monto.toFixed(2)} Bs
-
-            </strong>
-
+            <strong>${j.monto} Bs</strong>
 
             </div>
 
-
             `;
-
 
 
         });
 
 
 
-
         document
         .getElementById("total")
-        .textContent =
-        total.toFixed(2);
+        .innerHTML=total.toFixed(2);
 
 
 
@@ -586,18 +424,12 @@ window.App = {
 
 
 
-
-
-
-
-
     imprimirTicket(){
 
 
+        if(this.jugadas.length==0){
 
-        if(this.jugadas.length===0){
-
-            alert("No hay jugadas");
+            alert("Ticket vacío");
 
             return;
 
@@ -605,153 +437,66 @@ window.App = {
 
 
 
-
-        let fecha =
-        new Date()
-        .toLocaleString();
-
-
-
-
-
-        let total =
-        document
-        .getElementById("total")
-        .textContent;
-
-
-
-
-
-        let ticket =
-        String(this.numeroTicket)
-        .padStart(6,"0");
-
-
-
-
-
-
-
-        let contenido="";
-
-
+        let texto="";
 
 
 
         this.jugadas.forEach(j=>{
 
 
-            contenido += `
+            texto += `
 
 ${j.loteria} ${j.hora}
 
 ${j.numero} ${j.animal}
 
-${j.monto.toFixed(2)} Bs
+${j.monto} Bs
 
---------------------
+----------------
 
 `;
-
-
 
         });
 
 
 
-
-
-
-
         let ventana =
-        window.open(
-        "",
-        "",
-        "width=350,height=600"
-        );
-
-
-
+        window.open("","", "width=350,height=600");
 
 
         ventana.document.write(`
 
+        <h3 align="center">
+        AGENCIA GOLDEN KING
+        </h3>
 
-        <html>
-
-        <body style="font-family:Arial">
-
-
-        <center>
-
-        <b>AGENCIA GOLDEN KING</b>
-
-        </center>
-
-
-        <br>
-
-
-        TICKET: ${ticket}
-
-        <br>
-
-        SERIAL: GK${ticket}
-
-        <br>
-
-        ${fecha}
-
+        TICKET: ${this.numeroTicket}
 
         <hr>
 
+        ${texto}
 
-        ${contenido}
-
-
-        TOTAL TICKET VES:
-
-        ${total} Bs
-
+        TOTAL:
+        ${document.getElementById("total").innerHTML}
+        Bs
 
         <hr>
-
 
         El Ticket caduca a los 3 días.
 
-
-        </body>
-
-        </html>
-
-
-
         `);
-
-
-
-
-
-        ventana.document.close();
 
 
         ventana.print();
 
 
-
-
         this.numeroTicket++;
-
 
 
     }
 
 
-
 };
-
-
 
 
 App.init();
