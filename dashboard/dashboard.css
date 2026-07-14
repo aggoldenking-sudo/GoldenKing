@@ -1,1 +1,375 @@
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;
+}
 
+body{
+    background:#edf2f7;
+    color:#2c3e50;
+}
+
+/* ===========================
+   CABECERA
+=========================== */
+
+header{
+
+    height:80px;
+
+    background:#174a7c;
+
+    color:#fff;
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+    padding:0 30px;
+
+    box-shadow:0 3px 12px rgba(0,0,0,.15);
+
+}
+
+.logo{
+
+    font-size:30px;
+
+    font-weight:bold;
+
+    color:#FFD700;
+
+}
+
+.usuario{
+
+    text-align:right;
+
+    line-height:24px;
+
+}
+
+#saludo{
+
+    font-size:18px;
+
+    font-weight:bold;
+
+}
+
+#fechaHora{
+
+    font-size:14px;
+
+    color:#d8e6f5;
+
+}
+
+/* ===========================
+   MENU
+=========================== */
+
+nav{
+
+    width:100%;
+
+    background:white;
+
+    display:flex;
+
+    justify-content:center;
+
+    gap:20px;
+
+    padding:15px;
+
+    box-shadow:0 2px 10px rgba(0,0,0,.08);
+
+    flex-wrap:wrap;
+
+}
+
+.menu{
+
+    width:150px;
+
+    height:110px;
+
+    background:white;
+
+    border-radius:15px;
+
+    cursor:pointer;
+
+    display:flex;
+
+    flex-direction:column;
+
+    justify-content:center;
+
+    align-items:center;
+
+    transition:.25s;
+
+    border:2px solid transparent;
+
+}
+
+.menu:hover{
+
+    transform:translateY(-6px);
+
+    border-color:#FFD700;
+
+    box-shadow:0 10px 20px rgba(0,0,0,.12);
+
+}
+
+.menu i{
+
+    font-size:32px;
+
+    color:#174a7c;
+
+    margin-bottom:10px;
+
+}
+
+.menu span{
+
+    font-size:15px;
+
+    font-weight:bold;
+
+}
+
+.activo{
+
+    background:#174a7c;
+
+}
+
+.activo i{
+
+    color:#FFD700;
+
+}
+
+.activo span{
+
+    color:white;
+
+}
+
+.salir i{
+
+    color:#d63031;
+
+}
+
+.salir span{
+
+    color:#d63031;
+
+}
+
+/* ===========================
+   CONTENIDO
+=========================== */
+
+main{
+
+    padding:35px;
+
+}
+
+main h1{
+
+    margin-bottom:25px;
+
+    color:#174a7c;
+
+}
+
+/* ===========================
+   TARJETAS
+=========================== */
+
+.cards{
+
+    display:grid;
+
+    grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+
+    gap:25px;
+
+    margin-bottom:35px;
+
+}
+
+.card{
+
+    background:white;
+
+    border-radius:18px;
+
+    padding:30px;
+
+    text-align:center;
+
+    box-shadow:0 6px 18px rgba(0,0,0,.08);
+
+    transition:.25s;
+
+}
+
+.card:hover{
+
+    transform:translateY(-8px);
+
+}
+
+.card i{
+
+    font-size:45px;
+
+    color:#174a7c;
+
+    margin-bottom:15px;
+
+}
+
+.card h2{
+
+    color:#174a7c;
+
+    margin-bottom:10px;
+
+}
+
+.card p{
+
+    color:#777;
+
+}
+
+/* ===========================
+   PANELES
+=========================== */
+
+.paneles{
+
+    display:grid;
+
+    grid-template-columns:1fr 1fr;
+
+    gap:25px;
+
+}
+
+.panel{
+
+    background:white;
+
+    border-radius:18px;
+
+    padding:25px;
+
+    box-shadow:0 6px 18px rgba(0,0,0,.08);
+
+}
+
+.panel h3{
+
+    color:#174a7c;
+
+    margin-bottom:20px;
+
+}
+
+.panel button{
+
+    width:100%;
+
+    padding:14px;
+
+    margin-bottom:12px;
+
+    border:none;
+
+    border-radius:10px;
+
+    background:#174a7c;
+
+    color:white;
+
+    font-size:16px;
+
+    cursor:pointer;
+
+    transition:.25s;
+
+}
+
+.panel button:hover{
+
+    background:#FFD700;
+
+    color:#174a7c;
+
+}
+
+#actividad{
+
+    min-height:180px;
+
+    border:2px dashed #dcdcdc;
+
+    border-radius:12px;
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    color:#888;
+
+    font-size:15px;
+
+}
+
+/* ===========================
+   RESPONSIVE
+=========================== */
+
+@media(max-width:900px){
+
+.paneles{
+
+    grid-template-columns:1fr;
+
+}
+
+header{
+
+    flex-direction:column;
+
+    height:auto;
+
+    padding:20px;
+
+}
+
+.usuario{
+
+    margin-top:10px;
+
+    text-align:center;
+
+}
+
+}
