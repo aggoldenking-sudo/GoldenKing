@@ -9,7 +9,7 @@
 
 <title>Golden King | Reportes</title>
 
-<link rel="stylesheet" href="../style.css">
+<link rel="stylesheet" href="reportes.css">
 
 </head>
 
@@ -17,22 +17,32 @@
 <body>
 
 
-<header class="top">
+<header>
 
 
 <div class="logo">
-
 👑 GOLDEN KING
-
 </div>
 
 
-<button 
-onclick="window.location.href='../dashboard/index.html'">
+<div>
 
-⬅ Volver Dashboard
+
+<button onclick="window.location.href='../dashboard/index.html'">
+
+⬅ Dashboard
 
 </button>
+
+
+<button onclick="window.print()">
+
+🖨️ Imprimir
+
+</button>
+
+
+</div>
 
 
 </header>
@@ -41,58 +51,72 @@ onclick="window.location.href='../dashboard/index.html'">
 
 
 
-<main class="main-content">
-
+<main>
 
 
 <h1>
-
-📊 Reportes
-
+📊 Reportes de Agencia
 </h1>
 
 
 
+<div class="filtros">
 
-<div class="cards">
 
+<label>
+
+Fecha:
+
+</label>
+
+
+<input 
+type="date"
+id="fecha">
+
+
+<button id="buscar">
+
+🔎 Buscar
+
+</button>
+
+
+</div>
+
+
+
+
+
+
+<section class="resumen">
 
 
 <div class="card">
 
 <h2 id="ventas">
-
 0 Bs
-
 </h2>
 
 <p>
-
-Ventas del Día
-
+Ventas Totales
 </p>
 
 </div>
-
 
 
 
 <div class="card">
 
 <h2 id="tickets">
-
 0
-
 </h2>
 
 <p>
-
-Tickets Emitidos
-
+Tickets
 </p>
 
 </div>
-
 
 
 
@@ -100,15 +124,11 @@ Tickets Emitidos
 <div class="card">
 
 <h2 id="jugadas">
-
 0
-
 </h2>
 
 <p>
-
 Jugadas
-
 </p>
 
 </div>
@@ -116,22 +136,33 @@ Jugadas
 
 
 
+<div class="card">
+
+<h2 id="ganancia">
+0 Bs
+</h2>
+
+<p>
+Ganancia Estimada
+</p>
 
 </div>
 
 
 
+</section>
 
 
 
 
-<div class="card">
+
+
+
+<div class="tabla">
 
 
 <h2>
-
-Detalle de Jugadas
-
+Detalle de Ventas
 </h2>
 
 
@@ -143,15 +174,19 @@ Detalle de Jugadas
 
 <tr>
 
-<th>Lotería</th>
-
 <th>Hora</th>
+
+<th>Lotería</th>
 
 <th>Número</th>
 
+<th>Animal</th>
+
 <th>Monto</th>
 
+
 </tr>
+
 
 </thead>
 
@@ -167,6 +202,7 @@ Detalle de Jugadas
 </table>
 
 
+
 </div>
 
 
@@ -174,8 +210,47 @@ Detalle de Jugadas
 
 
 
-</main>
 
+
+<div class="cierre">
+
+
+<h2>
+Cierre de Caja
+</h2>
+
+
+<p>
+Total vendido:
+<b id="cierreVenta">
+0 Bs
+</b>
+</p>
+
+
+<p>
+Premios pagados:
+<b id="premios">
+0 Bs
+</b>
+</p>
+
+
+<p>
+Caja final:
+<b id="cajaFinal">
+0 Bs
+</b>
+</p>
+
+
+
+</div>
+
+
+
+
+</main>
 
 
 
