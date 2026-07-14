@@ -1,5 +1,5 @@
 body { display: flex; font-family: 'Segoe UI', sans-serif; background-color: #f8f9fa; margin: 0; height: 100vh; }
-.sidebar { width: 350px; background: #ffffff; padding: 20px; border-right: 2px solid #ddd; overflow-y: auto; flex-shrink: 0; }
+.sidebar { width: 400px; background: #ffffff; padding: 20px; border-right: 2px solid #ddd; overflow-y: auto; }
 .grid-panel { flex-grow: 1; display: grid; grid-template-columns: repeat(auto-fill, minmax(70px, 1fr)); gap: 8px; padding: 20px; align-content: start; overflow-y: auto; }
 .btn-animal { background: #fff; border: 1px solid #ccc; padding: 5px; cursor: pointer; border-radius: 4px; font-size: 11px; text-align: center; height: 60px; display: flex; flex-direction: column; justify-content: center; align-items: center; }
 .btn-animal:hover { background: #e9ecef; border-color: #007bff; }
@@ -8,4 +8,6 @@ body { display: flex; font-family: 'Segoe UI', sans-serif; background-color: #f8
 label { display: block; margin-top: 15px; font-weight: bold; font-size: 14px; }
 select { width: 100%; padding: 8px; margin-bottom: 5px; }
 table { width: 100%; margin-top: 20px; border-collapse: collapse; }
+th { background: #eee; text-align: left; padding: 8px; font-size: 12px; }
 td { border-bottom: 1px solid #eee; padding: 8px; font-size: 13px; }
+.btn-anular { background: #dc3545; color: white; border: none; padding: 5px 10px; cursor: pointer; border-radius: 3px; font-size: 11px; }
