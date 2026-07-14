@@ -1,1 +1,249 @@
+<!DOCTYPE html>
+<html lang="es">
 
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Golden King | Dashboard</title>
+
+<link rel="stylesheet" href="dashboard.css">
+
+<link rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+
+</head>
+
+<body>
+
+<header>
+
+<div class="logo">
+
+👑 GOLDEN KING
+
+</div>
+
+<div class="usuario">
+
+<div id="saludo">
+
+Buenos días
+
+</div>
+
+<div>
+
+Administrador
+
+</div>
+
+<div id="fechaHora">
+
+</div>
+
+</div>
+
+</header>
+
+<nav>
+
+<div class="menu activo">
+
+<i class="fas fa-house"></i>
+
+<span>Inicio</span>
+
+</div>
+
+<div class="menu" onclick="abrir('../sistema/index.html')">
+
+<i class="fas fa-ticket"></i>
+
+<span>Taquilla</span>
+
+</div>
+
+<div class="menu">
+
+<i class="fas fa-clock-rotate-left"></i>
+
+<span>Historial</span>
+
+</div>
+
+<div class="menu">
+
+<i class="fas fa-chart-column"></i>
+
+<span>Reportes</span>
+
+</div>
+
+<div class="menu">
+
+<i class="fas fa-users"></i>
+
+<span>Usuarios</span>
+
+</div>
+
+<div class="menu">
+
+<i class="fas fa-gear"></i>
+
+<span>Configuración</span>
+
+</div>
+
+<div class="menu salir" onclick="cerrarSesion()">
+
+<i class="fas fa-right-from-bracket"></i>
+
+<span>Salir</span>
+
+</div>
+
+</nav>
+
+<main>
+
+<h1>
+
+Panel Principal
+
+</h1>
+
+<div class="cards">
+
+<div class="card">
+
+<i class="fas fa-money-bill-wave"></i>
+
+<h2 id="ventas">
+
+0,00 Bs
+
+</h2>
+
+<p>
+
+Ventas del Día
+
+</p>
+
+</div>
+
+<div class="card">
+
+<i class="fas fa-receipt"></i>
+
+<h2 id="tickets">
+
+0
+
+</h2>
+
+<p>
+
+Tickets Emitidos
+
+</p>
+
+</div>
+
+<div class="card">
+
+<i class="fas fa-trophy"></i>
+
+<h2 id="premios">
+
+0,00 Bs
+
+</h2>
+
+<p>
+
+Premios Pagados
+
+</p>
+
+</div>
+
+<div class="card">
+
+<i class="fas fa-wallet"></i>
+
+<h2 id="caja">
+
+ABIERTA
+
+</h2>
+
+<p>
+
+Estado de Caja
+
+</p>
+
+</div>
+
+</div>
+
+<div class="paneles">
+
+<div class="panel">
+
+<h3>
+
+Accesos Rápidos
+
+</h3>
+
+<button onclick="abrir('../sistema/index.html')">
+
+🎟️ Nueva Venta
+
+</button>
+
+<button>
+
+📜 Historial
+
+</button>
+
+<button>
+
+📊 Reportes
+
+</button>
+
+</div>
+
+<div class="panel">
+
+<h3>
+
+Actividad
+
+</h3>
+
+<div id="actividad">
+
+No hay actividad registrada.
+
+</div>
+
+</div>
+
+</div>
+
+</main>
+
+<script src="dashboard.js"></script>
+
+</body>
+
+</html>
