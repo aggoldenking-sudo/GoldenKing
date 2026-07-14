@@ -8,56 +8,35 @@ window.App = {
 
         this.cargarTicket();
 
-        this.cargarLoterias();
-
         this.renderMatriz();
 
         this.renderTicket();
 
-    },
-
-
-
-    cargarLoterias(){
-
-        const select = document.getElementById("loteriaSelect");
-
-        select.innerHTML = "";
-
-
-        Object.keys(window.DATA_LOTERIAS).forEach(l => {
-
-
-            let option = document.createElement("option");
-
-            option.value = l;
-
-            option.textContent = l;
-
-            select.appendChild(option);
-
-
-        });
-
 
     },
 
 
 
-    renderMatriz(){
+    renderMatriz() {
 
 
-        const contenedor =
-        document.getElementById("matrizAnimalitos");
+        const contenedor = document.getElementById("matrizAnimalitos");
 
 
-        const tipo =
-        document.getElementById("loteriaSelect").value;
+        const tipo = document.getElementById("loteriaSelect").value;
+
+
+        const items = window.DATA_LOTERIAS[tipo];
 
 
 
-        const items =
-        window.DATA_LOTERIAS[tipo];
+        if(!items){
+
+            console.error("No hay datos de lotería");
+
+            return;
+
+        }
 
 
 
@@ -66,7 +45,6 @@ window.App = {
 
 
         Object.keys(items)
-
         .sort((a,b)=>{
 
 
@@ -84,7 +62,6 @@ window.App = {
 
 
         })
-
 
         .forEach(id=>{
 
@@ -117,19 +94,13 @@ window.App = {
 
                     this.seleccionados =
 
-                    this.seleccionados.filter(
-
-                    x=>x!==id
-
-                    );
+                    this.seleccionados.filter(x=>x!==id);
 
 
                     btn.classList.remove("seleccionado");
 
 
-                }
-
-                else{
+                }else{
 
 
                     this.seleccionados.push(id);
@@ -141,13 +112,11 @@ window.App = {
                 }
 
 
-
             };
 
 
 
             contenedor.appendChild(btn);
-
 
 
         });
@@ -176,21 +145,19 @@ window.App = {
 
 
 
-        const monto = Number(
+        const monto=
 
-        document.getElementById("montoInput").value
-
-        );
+        Number(document.getElementById("montoInput").value);
 
 
 
-        const hora =
+        const hora=
 
         document.getElementById("horarioSelect").value;
 
 
 
-        const tipo =
+        const loteria=
 
         document.getElementById("loteriaSelect").value;
 
@@ -200,23 +167,21 @@ window.App = {
         this.seleccionados.forEach(id=>{
 
 
-            this.agregarJugada(id,monto,hora,tipo);
-
+            this.agregarJugada(id,monto,hora,loteria);
 
 
         });
 
 
 
-
         this.seleccionados=[];
-
 
 
         this.guardarTicket();
 
 
         this.renderMatriz();
+
 
         this.renderTicket();
 
@@ -228,22 +193,22 @@ window.App = {
 
 
 
-    agregarJugada(id,monto,hora,tipo){
+
+    agregarJugada(id,monto,hora,loteria){
 
 
 
-        let existe = this.ticket.find(t=>
+        let existe=this.ticket.find(t=>
 
 
             t.id===id &&
 
             t.hora===hora &&
 
-            t.loteria===tipo
+            t.loteria===loteria
 
 
         );
-
 
 
 
@@ -253,9 +218,7 @@ window.App = {
             existe.monto += monto;
 
 
-        }
-
-        else{
+        }else{
 
 
             this.ticket.push({
@@ -266,7 +229,7 @@ window.App = {
 
                 nombre:
 
-                window.DATA_LOTERIAS[tipo][id],
+                window.DATA_LOTERIAS[loteria][id],
 
 
                 monto:monto,
@@ -275,15 +238,13 @@ window.App = {
                 hora:hora,
 
 
-                loteria:tipo
+                loteria:loteria
 
 
             });
 
 
-
         }
-
 
 
     },
@@ -293,24 +254,22 @@ window.App = {
 
 
 
-
     agregarCodigoRapido(codigo){
 
 
-
-        const tipo =
+        const loteria=
 
         document.getElementById("loteriaSelect").value;
 
 
 
-        const animales =
+        const animales=
 
-        window.DATA_LOTERIAS[tipo];
+        window.DATA_LOTERIAS[loteria];
 
 
 
-        if(animales[codigo] === undefined){
+        if(!animales[codigo]){
 
 
             alert("Código no existe");
@@ -323,17 +282,13 @@ window.App = {
 
 
 
+        const monto=
 
-
-        const monto = Number(
-
-        document.getElementById("montoInput").value
-
-        );
+        Number(document.getElementById("montoInput").value);
 
 
 
-        const hora =
+        const hora=
 
         document.getElementById("horarioSelect").value;
 
@@ -347,7 +302,7 @@ window.App = {
 
             hora,
 
-            tipo
+            loteria
 
         );
 
@@ -367,17 +322,20 @@ window.App = {
 
 
 
-
     renderTicket(){
 
 
-        const tbody =
+        const tbody=
 
         document.querySelector("#ticketTable tbody");
 
 
 
-        tbody.innerHTML = this.ticket.map((t,i)=>`
+        if(!tbody) return;
+
+
+
+        tbody.innerHTML=this.ticket.map((t,i)=>`
 
 
         <tr>
@@ -386,7 +344,7 @@ window.App = {
 
         <td>${t.hora}</td>
 
-        <td>Bs.${t.monto}</td>
+        <td>${t.monto}</td>
 
         <td>
 
@@ -407,11 +365,13 @@ window.App = {
 
 
 
-        const total = this.ticket.reduce(
+        const total=
 
-        (s,t)=>s+t.monto,
+        this.ticket.reduce(
 
-        0
+            (s,t)=>s+t.monto,
+
+            0
 
         );
 
@@ -445,9 +405,7 @@ window.App = {
         this.renderTicket();
 
 
-
     },
-
 
 
 
@@ -457,31 +415,22 @@ window.App = {
     limpiarTodo(){
 
 
-        if(confirm("¿Limpiar ticket?")){
+        this.ticket=[];
 
 
-            this.ticket=[];
+        this.seleccionados=[];
 
 
-            this.seleccionados=[];
+        this.guardarTicket();
 
 
-            this.guardarTicket();
+        this.renderMatriz();
 
 
-            this.renderMatriz();
-
-
-            this.renderTicket();
-
-
-
-        }
-
+        this.renderTicket();
 
 
     },
-
 
 
 
@@ -494,9 +443,9 @@ window.App = {
 
         localStorage.setItem(
 
-        "goldenking_ticket",
+            "goldenking_ticket",
 
-        JSON.stringify(this.ticket)
+            JSON.stringify(this.ticket)
 
         );
 
@@ -515,7 +464,7 @@ window.App = {
 
         localStorage.getItem(
 
-        "goldenking_ticket"
+            "goldenking_ticket"
 
         );
 
@@ -524,11 +473,12 @@ window.App = {
         if(datos){
 
 
-            this.ticket=JSON.parse(datos);
+            this.ticket=
+
+            JSON.parse(datos);
 
 
         }
-
 
 
     },
@@ -555,11 +505,13 @@ window.App = {
 
 
 
-        const total=this.ticket.reduce(
+        let total=
 
-        (s,t)=>s+t.monto,
+        this.ticket.reduce(
 
-        0
+            (s,t)=>s+t.monto,
+
+            0
 
         );
 
@@ -584,6 +536,7 @@ window.App = {
         this.renderTicket();
 
 
+
     }
 
 
@@ -593,8 +546,7 @@ window.App = {
 
 
 
-
-window.onload=()=>{
+window.onload=function(){
 
 
     window.App.init();
@@ -606,68 +558,31 @@ window.onload=()=>{
 
 
 
-
-
-// ENTER PARA CODIGO RAPIDO
+// CODIGO RAPIDO
 
 document.addEventListener("keydown",function(e){
-
 
 
     if(e.key==="Enter"){
 
 
-
-        const campo=
-
-        document.activeElement;
+        let campo=document.activeElement;
 
 
-
-        if(campo.id==="codigoAnimal"){
-
+        if(campo && campo.id==="codigoAnimal"){
 
 
             window.App.agregarCodigoRapido(
 
-            campo.value.trim()
+                campo.value.trim()
 
             );
-
 
 
             campo.value="";
 
 
-
         }
-
-
-
-    }
-
-
-
-});
-
-
-
-
-
-
-
-// ESC CANCELAR SELECCION
-
-document.addEventListener("keydown",function(e){
-
-
-    if(e.key==="Escape"){
-
-
-        window.App.seleccionados=[];
-
-
-        window.App.renderMatriz();
 
 
     }
