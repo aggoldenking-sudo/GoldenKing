@@ -5,73 +5,98 @@ window.App = {
     numeroTicket: 1,
 
 
-    init:function(){
-
+    init(){
 
         this.cargarSorteos();
 
 
-        document
-        .getElementById("agregar")
-        .onclick = () => {
+        const agregar = document.getElementById("agregar");
 
-            this.agregarJugada();
+        if(agregar){
 
-        };
+            agregar.onclick = () => {
 
+                this.agregarJugada();
 
+            };
 
-        document
-        .getElementById("imprimir")
-        .onclick = () => {
-
-            this.imprimirTicket();
-
-        };
+        }
 
 
 
-        document
-        .getElementById("copiarTicket")
-        .onclick = () => {
+        const imprimir = document.getElementById("imprimir");
 
-            this.copiarTicket();
+        if(imprimir){
 
-        };
+            imprimir.onclick = () => {
 
+                this.imprimirTicket();
 
+            };
 
-        document
-        .getElementById("seleccionarTodos")
-        .onclick = () => {
-
-            this.seleccionarTodos();
-
-        };
+        }
 
 
 
-        document
-        .getElementById("limpiarSeleccion")
-        .onclick = () => {
+        const copiar = document.getElementById("copiarTicket");
 
-            this.limpiarSeleccion();
+        if(copiar){
 
-        };
+            copiar.onclick = () => {
+
+                this.copiarTicket();
+
+            };
+
+        }
+
+
+
+        const todos = document.getElementById("seleccionarTodos");
+
+        if(todos){
+
+            todos.onclick = () => {
+
+                this.seleccionarTodos();
+
+            };
+
+        }
+
+
+
+        const limpiar = document.getElementById("limpiarSeleccion");
+
+        if(limpiar){
+
+            limpiar.onclick = () => {
+
+                this.limpiarSeleccion();
+
+            };
+
+        }
 
 
     },
 
 
 
-    cargarSorteos:function(){
 
 
-        let lista =
+    cargarSorteos(){
+
+
+        const lista =
         document.getElementById("listaSorteos");
 
 
-        let loterias = [
+        if(!lista) return;
+
+
+
+        const loterias = [
 
             "LOTTO ACTIVO",
             "LA GRANJITA",
@@ -82,7 +107,7 @@ window.App = {
 
 
 
-        let horarios=[
+        const horarios = [
 
             "8:00 AM",
             "9:00 AM",
@@ -119,40 +144,42 @@ window.App = {
 
 
 
+
             horarios.forEach(hora=>{
 
 
-                let btn =
+                let boton =
                 document.createElement("button");
 
 
-                btn.className="btn-sorteo";
+                boton.className="btn-sorteo";
 
 
-                btn.textContent=hora;
+                boton.textContent=hora;
+
+
+                boton.dataset.loteria=loteria;
+
+                boton.dataset.hora=hora;
 
 
 
-                btn.dataset.loteria=loteria;
 
-                btn.dataset.hora=hora;
-
+                boton.onclick=()=>{
 
 
-                btn.onclick=()=>{
-
-
-                    btn.classList.toggle("active");
+                    boton.classList.toggle("active");
 
 
 
                     let existe =
-                    this.sorteosSeleccionados.find(x=>
+                    this.sorteosSeleccionados.some(s=>
 
-                        x.loteria==loteria &&
-                        x.hora==hora
+                        s.loteria===loteria &&
+                        s.hora===hora
 
                     );
+
 
 
 
@@ -160,10 +187,10 @@ window.App = {
 
 
                         this.sorteosSeleccionados =
-                        this.sorteosSeleccionados.filter(x=>
+                        this.sorteosSeleccionados.filter(s=>
 
-                            !(x.loteria==loteria &&
-                            x.hora==hora)
+                            !(s.loteria===loteria &&
+                            s.hora===hora)
 
                         );
 
@@ -188,16 +215,13 @@ window.App = {
 
 
 
-                lista.appendChild(btn);
-
+                lista.appendChild(boton);
 
 
             });
 
 
-
         });
-
 
 
     },
@@ -205,7 +229,9 @@ window.App = {
 
 
 
-    agregarJugada:function(){
+
+
+    agregarJugada(){
 
 
 
@@ -221,9 +247,10 @@ window.App = {
 
 
 
-        if(this.sorteosSeleccionados.length==0){
 
-            alert("Seleccione una lotería y horario");
+        if(this.sorteosSeleccionados.length===0){
+
+            alert("Seleccione un sorteo");
 
             return;
 
@@ -231,13 +258,15 @@ window.App = {
 
 
 
-        if(numero==""){
+
+        if(numero===""){
 
             alert("Ingrese número");
 
             return;
 
         }
+
 
 
 
@@ -252,15 +281,9 @@ window.App = {
 
 
 
+
+
         this.sorteosSeleccionados.forEach(s=>{
-
-
-            let animal =
-            this.buscarAnimal(
-                s.loteria,
-                numero
-            );
-
 
 
             this.jugadas.push({
@@ -272,7 +295,10 @@ window.App = {
 
                 numero:numero,
 
-                animal:animal,
+                animal:this.buscarAnimal(
+                    s.loteria,
+                    numero
+                ),
 
                 monto:monto
 
@@ -280,8 +306,8 @@ window.App = {
             });
 
 
-
         });
+
 
 
 
@@ -301,46 +327,38 @@ window.App = {
 
 
 
-    buscarAnimal:function(loteria,numero){
 
 
 
-        let tabla;
+    buscarAnimal(loteria,numero){
 
 
 
-        switch(loteria){
+        let tabla=null;
 
 
-            case "LOTTO ACTIVO":
+
+        if(loteria==="LOTTO ACTIVO")
             tabla=DATA_LOTERIAS.LottoActivo;
-            break;
 
 
-            case "LA GRANJITA":
+        if(loteria==="LA GRANJITA")
             tabla=DATA_LOTERIAS.Granjita;
-            break;
 
 
-            case "SELVA PLUS":
+        if(loteria==="SELVA PLUS")
             tabla=DATA_LOTERIAS.SelvaPlus;
-            break;
 
 
-            case "GUACHARO ACTIVO":
+        if(loteria==="GUACHARO ACTIVO")
             tabla=DATA_LOTERIAS.Guacharo;
-            break;
 
-
-        }
 
 
 
         if(tabla && tabla[numero]){
 
-
             return tabla[numero];
-
 
         }
 
@@ -348,24 +366,30 @@ window.App = {
 
         return "Animal";
 
-
     },
 
 
 
 
-    mostrarTicket:function(){
 
+
+
+    mostrarTicket(){
 
 
         let caja =
         document.getElementById("ticket");
 
 
+        let totalBox =
+        document.getElementById("total");
+
+
+        if(!caja) return;
+
+
 
         caja.innerHTML="";
-
-
 
         let total=0;
 
@@ -374,7 +398,7 @@ window.App = {
         this.jugadas.forEach(j=>{
 
 
-            total += j.monto;
+            total+=j.monto;
 
 
 
@@ -396,15 +420,16 @@ window.App = {
             `;
 
 
-
         });
 
 
 
-        document
-        .getElementById("total")
-        .innerHTML =
-        total.toFixed(2);
+        if(totalBox){
+
+            totalBox.innerHTML =
+            total.toFixed(2);
+
+        }
 
 
 
@@ -413,7 +438,11 @@ window.App = {
 
 
 
-    seleccionarTodos:function(){
+
+
+
+
+    seleccionarTodos(){
 
 
         document
@@ -424,13 +453,27 @@ window.App = {
             b.classList.add("active");
 
 
-            this.sorteosSeleccionados.push({
+            let existe =
+            this.sorteosSeleccionados.some(s=>
 
-                loteria:b.dataset.loteria,
+                s.loteria===b.dataset.loteria &&
+                s.hora===b.dataset.hora
 
-                hora:b.dataset.hora
+            );
 
-            });
+
+
+            if(!existe){
+
+                this.sorteosSeleccionados.push({
+
+                    loteria:b.dataset.loteria,
+
+                    hora:b.dataset.hora
+
+                });
+
+            }
 
 
         });
@@ -441,7 +484,10 @@ window.App = {
 
 
 
-    limpiarSeleccion:function(){
+
+
+
+    limpiarSeleccion(){
 
 
         this.sorteosSeleccionados=[];
@@ -462,7 +508,9 @@ window.App = {
 
 
 
-    copiarTicket:function(){
+
+
+    copiarTicket(){
 
 
         let texto="👑 GOLDEN KING\n\n";
@@ -483,15 +531,14 @@ window.App = {
 
 
 
-        texto +=
-
-        "TOTAL: "+
-        document.getElementById("total").innerHTML+
+        texto += "TOTAL: "+
+        document.getElementById("total").innerText+
         " Bs";
 
 
 
         navigator.clipboard.writeText(texto);
+
 
 
         alert("Ticket copiado para WhatsApp");
@@ -503,11 +550,17 @@ window.App = {
 
 
 
-    imprimirTicket:function(){
+
+
+    imprimirTicket(){
 
 
         let ventana =
-        window.open("","", "width=250,height=600");
+        window.open(
+        "",
+        "",
+        "width=250,height=600"
+        );
 
 
 
@@ -522,10 +575,12 @@ ${document.getElementById("ticket").innerText}
 
 
 TOTAL:
-${document.getElementById("total").innerHTML} Bs
+
+${document.getElementById("total").innerText} Bs
 
 
 Gracias por su jugada
+
 
         </pre>
 
@@ -537,6 +592,7 @@ Gracias por su jugada
 
 
     }
+
 
 
 };
