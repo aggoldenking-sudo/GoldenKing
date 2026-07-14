@@ -9,7 +9,7 @@
     <aside class="sidebar">
         <h2>Golden King POS</h2>
         
-        <label>Seleccionar Lotería:</label>
+        <label>Lotería:</label>
         <select id="loteriaSelect" onchange="window.App.renderMatriz()">
             <option value="Granjita">La Granjita</option>
             <option value="Guacharo">Guacharo Activo</option>
@@ -17,27 +17,20 @@
             <option value="SelvaPlus">Selva Plus</option>
         </select>
 
-        <label>Sorteo (Hora):</label>
+        <label>Sorteo:</label>
         <select id="horarioSelect">
-            <option value="09:00 AM">09:00 AM</option>
-            <option value="10:00 AM">10:00 AM</option>
-            <option value="11:00 AM">11:00 AM</option>
-            <option value="12:00 PM">12:00 PM</option>
-            <option value="01:00 PM">01:00 PM</option>
+            <option value="09:00 AM">09:00 AM</option><option value="10:00 AM">10:00 AM</option>
+            <option value="11:00 AM">11:00 AM</option><option value="12:00 PM">12:00 PM</option>
         </select>
 
-        <label>Monto a Apostar:</label>
-        <input type="number" id="montoInput" value="50" style="width: 90%; padding: 10px; margin-bottom: 10px;">
+        <label>Código Animal (Enter):</label>
+        <input type="text" id="inputRapido" placeholder="Ej: 05" style="width:100%; padding:8px; border-radius:5px; border:none;">
+        
+        <label>Monto:</label>
+        <input type="number" id="montoInput" value="50" style="width:100%; padding:8px; border-radius:5px; border:none;">
 
         <table id="ticketTable">
-            <thead>
-                <tr>
-                    <th>Jugada</th>
-                    <th>Sorteo</th>
-                    <th>Monto</th>
-                    <th>Acción</th>
-                </tr>
-            </thead>
+            <thead><tr><th>Jugada</th><th>Sorteo</th><th>Monto</th><th>Acción</th></tr></thead>
             <tbody></tbody>
         </table>
         
