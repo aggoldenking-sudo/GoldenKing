@@ -19,19 +19,26 @@ sorteosSeleccionados: [],
 init(){
 
 
-this.cargarSorteos();
+this.generarSorteos();
+
+
+this.mostrarSorteos();
+
 
 this.mostrarAnimales();
 
+
 this.mostrarHorarios();
+
 
 this.cargarEventos();
 
-this.conectarTicket();
 
 this.mostrarTicket();
 
+
 this.reloj();
+
 
 
 setInterval(()=>{
@@ -48,20 +55,86 @@ this.reloj();
 
 
 
+/*
+===========================
+ GENERAR SORTEOS
+===========================
+*/
 
-/* ==========================
-   SORTEOS
-========================== */
+
+generarSorteos(){
 
 
-cargarSorteos(){
+window.SORTEOS=[];
+
+
+
+if(!window.LOTTO_ACTIVO_HORARIOS)
+
+return;
+
+
+
+LOTTO_ACTIVO_HORARIOS.forEach(hora=>{
+
+
+
+SORTEOS.push({
+
+
+id:
+"LOTTO_ACTIVO_"+hora,
+
+
+loteria:
+"LOTTO_ACTIVO",
+
+
+nombre:
+"LOTTO ACTIVO",
+
+
+hora:
+hora
+
+
+
+});
+
+
+
+});
+
+
+
+},
+
+
+
+
+
+
+
+/*
+===========================
+ MOSTRAR SORTEOS
+===========================
+*/
+
+
+mostrarSorteos(){
+
 
 
 const contenedor =
-document.getElementById("listaSorteos");
+document.getElementById(
+"listaSorteos"
+);
 
 
-if(!contenedor || !window.SORTEOS)
+
+if(!contenedor)
+
 return;
 
 
@@ -70,21 +143,29 @@ contenedor.innerHTML="";
 
 
 
+
+
 SORTEOS.forEach(sorteo=>{
+
 
 
 contenedor.innerHTML += `
 
 
-<button class="btn-sorteo"
+<button
+
+class="btn-sorteo"
+
 data-id="${sorteo.id}">
 
 
 ${sorteo.nombre}
 
+
 <br>
 
-<b>${sorteo.hora}</b>
+
+🕒 ${sorteo.hora}
 
 
 </button>
@@ -95,6 +176,7 @@ ${sorteo.nombre}
 
 
 });
+
 
 
 
@@ -113,7 +195,6 @@ this.seleccionarSorteo(btn);
 };
 
 
-
 });
 
 
@@ -129,14 +210,18 @@ this.seleccionarSorteo(btn);
 seleccionarSorteo(btn){
 
 
-const id =
+
+let id =
 btn.dataset.id;
 
 
 
-const existe =
+
+let existe =
 this.sorteosSeleccionados
 .find(s=>s.id===id);
+
+
 
 
 
@@ -148,7 +233,6 @@ this.sorteosSeleccionados
 .filter(s=>s.id!==id);
 
 
-
 btn.classList.remove("activo");
 
 
@@ -156,14 +240,17 @@ btn.classList.remove("activo");
 }else{
 
 
-const sorteo =
+
+let sorteo =
 SORTEOS.find(
 s=>s.id===id
 );
 
 
 
-this.sorteosSeleccionados.push(sorteo);
+this.sorteosSeleccionados.push(
+sorteo
+);
 
 
 
@@ -175,22 +262,14 @@ btn.classList.add("activo");
 
 
 
-
-const contador =
 document.getElementById(
 "contadorSorteos"
-);
+).textContent =
 
 
+this.sorteosSeleccionados.length+
 
-if(contador){
-
-contador.textContent =
-this.sorteosSeleccionados.length
-+
 " sorteos seleccionados";
-
-}
 
 
 
@@ -202,25 +281,27 @@ this.sorteosSeleccionados.length
 
 
 
-/* ==========================
-   MOSTRAR ANIMALES
-========================== */
+/*
+===========================
+ ANIMALES
+===========================
+*/
 
 
 mostrarAnimales(){
 
 
+
 const contenedor =
-document.getElementById("listaAnimales");
+document.getElementById(
+"listaAnimales"
+);
 
 
-if(!contenedor || !window.DATA_LOTERIAS)
+
+if(!contenedor)
+
 return;
-
-
-
-let animales =
-DATA_LOTERIAS.Guacharo;
 
 
 
@@ -228,9 +309,12 @@ let html="";
 
 
 
-Object.entries(animales)
+Object.entries(
+LOTTO_ACTIVO_ANIMALES
+)
 
-.forEach(([numero,nombre])=>{
+.forEach(([numero,animal])=>{
+
 
 
 html += `
@@ -245,7 +329,7 @@ html += `
 <br>
 
 
-${nombre}
+${animal}
 
 
 </div>
@@ -272,20 +356,26 @@ contenedor.innerHTML=html;
 
 
 
-/* ==========================
-   HORARIOS
-========================== */
+
+/*
+===========================
+ HORARIOS
+===========================
+*/
 
 
 mostrarHorarios(){
 
 
 const contenedor =
-document.getElementById("listaHorarios");
+document.getElementById(
+"listaHorarios"
+);
 
 
 
-if(!contenedor || !window.HORARIOS)
+if(!contenedor)
+
 return;
 
 
@@ -294,17 +384,15 @@ let html="";
 
 
 
-HORARIOS.forEach(hora=>{
+LOTTO_ACTIVO_HORARIOS.forEach(hora=>{
 
 
-html += `
+html+=`
 
 
 <div class="horario-item">
 
-
 🕒 ${hora}
-
 
 </div>
 
@@ -329,23 +417,28 @@ contenedor.innerHTML=html;
 
 
 
-
-/* ==========================
-   EVENTOS
-========================== */
+/*
+===========================
+ EVENTOS
+===========================
+*/
 
 
 cargarEventos(){
 
 
 
-const numero =
-document.getElementById("numero");
+let numero =
+document.getElementById(
+"numero"
+);
 
 
 
-const agregar =
-document.getElementById("agregar");
+let agregar =
+document.getElementById(
+"agregar"
+);
 
 
 
@@ -354,25 +447,26 @@ document.getElementById("agregar");
 if(numero){
 
 
+
 numero.addEventListener(
 "input",
 ()=>{
 
+
 this.buscarAnimal();
 
+
+});
+
+
+
 }
-
-);
-
-
-}
-
-
 
 
 
 
 if(agregar){
+
 
 
 agregar.onclick=()=>{
@@ -389,6 +483,7 @@ this.agregarJugada();
 
 
 
+
 },
 
 
@@ -397,10 +492,11 @@ this.agregarJugada();
 
 
 
-
-/* ==========================
-   BUSCAR ANIMAL
-========================== */
+/*
+===========================
+ BUSCAR ANIMAL
+===========================
+*/
 
 
 buscarAnimal(){
@@ -408,9 +504,9 @@ buscarAnimal(){
 
 
 let numero =
-document
-.getElementById("numero")
-.value;
+document.getElementById(
+"numero"
+).value;
 
 
 
@@ -422,41 +518,28 @@ document.getElementById(
 
 
 
+
 if(!numero){
+
 
 resultado.innerHTML="";
 
 return;
 
-}
-
-
-
-
-let animal="";
-
-
-
-Object.values(DATA_LOTERIAS)
-
-.forEach(lista=>{
-
-
-if(lista[numero]){
-
-
-animal=lista[numero];
-
 
 }
 
 
-});
+
+
+let animal =
+LOTTO_ACTIVO_ANIMALES[numero];
 
 
 
 
 resultado.innerHTML =
+
 
 animal
 
@@ -478,9 +561,13 @@ animal
 
 
 
-/* ==========================
-   AGREGAR JUGADA
-========================== */
+
+
+/*
+===========================
+ AGREGAR JUGADA
+===========================
+*/
 
 
 agregarJugada(){
@@ -488,16 +575,19 @@ agregarJugada(){
 
 
 let numero =
-document.getElementById("numero")
-.value;
+document.getElementById(
+"numero"
+).value;
 
 
 
 let monto =
 Number(
-document.getElementById("monto")
-.value
+document.getElementById(
+"monto"
+).value
 );
+
 
 
 
@@ -512,6 +602,8 @@ return;
 
 
 
+
+
 if(!numero){
 
 alert("Ingrese número");
@@ -522,7 +614,8 @@ return;
 
 
 
-if(!monto || monto<=0){
+
+if(!monto){
 
 alert("Ingrese monto");
 
@@ -533,30 +626,28 @@ return;
 
 
 
-this.sorteosSeleccionados
 
-.forEach(sorteo=>{
-
-
-let animal =
-DATA_LOTERIAS
-[sorteo.loteria]
-[numero]
-||
-"Sin animal";
+this.sorteosSeleccionados.forEach(sorteo=>{
 
 
 
 this.jugadas.push({
 
 
-loteria:sorteo.nombre,
+loteria:
+sorteo.nombre,
 
-hora:sorteo.hora,
+
+hora:
+sorteo.hora,
+
 
 numero,
 
-animal,
+
+animal:
+LOTTO_ACTIVO_ANIMALES[numero],
+
 
 monto
 
@@ -586,11 +677,11 @@ this.limpiar();
 
 
 
-
-
-/* ==========================
-   TICKET
-========================== */
+/*
+===========================
+ TICKET
+===========================
+*/
 
 
 mostrarTicket(){
@@ -598,17 +689,22 @@ mostrarTicket(){
 
 
 let contenedor =
-document.getElementById("ticket");
-
+document.getElementById(
+"ticket"
+);
 
 
 let total =
-document.getElementById("total");
+document.getElementById(
+"total"
+);
 
 
 
 if(!contenedor)
+
 return;
+
 
 
 
@@ -616,13 +712,11 @@ if(this.jugadas.length===0){
 
 
 contenedor.innerHTML=
-
 `
 <p class="vacio">
 No hay jugadas
 </p>
 `;
-
 
 
 total.textContent="0.00";
@@ -635,7 +729,10 @@ return;
 
 
 
+
+
 let html="";
+
 
 let suma=0;
 
@@ -644,7 +741,9 @@ let suma=0;
 this.jugadas.forEach((j,index)=>{
 
 
-suma+=j.monto;
+
+suma += j.monto;
+
 
 
 
@@ -656,22 +755,27 @@ html+=`
 
 <b>${j.loteria}</b>
 
+
 <br>
+
 
 🕒 ${j.hora}
 
+
 <br>
+
 
 ${j.numero}
 
 ${j.animal}
 
 
-<strong>
 
-${j.monto} Bs
+<br>
 
-</strong>
+
+💰 ${j.monto} Bs
+
 
 
 <button onclick="Taquilla.eliminar(${index})">
@@ -679,6 +783,7 @@ ${j.monto} Bs
 ❌
 
 </button>
+
 
 
 </div>
@@ -695,13 +800,13 @@ ${j.monto} Bs
 contenedor.innerHTML=html;
 
 
-total.textContent=
+
+total.textContent =
 suma.toFixed(2);
 
 
 
 },
-
 
 
 
@@ -718,7 +823,6 @@ this.jugadas.splice(index,1);
 this.mostrarTicket();
 
 
-
 },
 
 
@@ -730,14 +834,19 @@ this.mostrarTicket();
 limpiar(){
 
 
-document.getElementById("numero").value="";
+document.getElementById(
+"numero"
+).value="";
 
 
-document.getElementById("monto").value="";
+document.getElementById(
+"monto"
+).value="";
 
 
-document.getElementById("animalEncontrado").innerHTML="";
-
+document.getElementById(
+"animalEncontrado"
+).innerHTML="";
 
 
 },
@@ -749,16 +858,14 @@ document.getElementById("animalEncontrado").innerHTML="";
 
 
 
-/* ==========================
-   RELOJ
-========================== */
-
 
 reloj(){
 
 
 let hora =
-document.getElementById("hora");
+document.getElementById(
+"hora"
+);
 
 
 
@@ -775,7 +882,6 @@ new Date()
 
 
 }
-
 
 
 
