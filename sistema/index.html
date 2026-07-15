@@ -33,7 +33,7 @@
 
         <button class="btn-dashboard">
 
-            Dashboard
+            ⬅ Dashboard
 
         </button>
 
@@ -49,25 +49,25 @@
 
         <h2>Nueva Jugada</h2>
 
-        <!-- SELECTOR DE SORTEOS -->
-
         <div class="campo">
 
             <label>Sorteos</label>
 
-            <button id="abrirSelector" class="selector">
+            <button
+                id="abrirSelector"
+                class="selector">
 
                 🎯 Seleccionar sorteos
 
             </button>
 
-            <div id="selectorSorteos" class="selector-panel">
+            <div
+                id="selectorSorteos"
+                class="selector-panel">
 
             </div>
 
         </div>
-
-        <!-- NUMEROS -->
 
         <div class="campo">
 
@@ -75,7 +75,7 @@
 
             <textarea
                 id="numeros"
-                rows="4"
+                rows="5"
                 placeholder="Ejemplo:
 
 12 25 36
@@ -86,21 +86,17 @@
 
         </div>
 
-        <!-- VISTA PREVIA -->
-
         <div class="campo">
 
-            <label>Animales</label>
+            <label>Vista previa</label>
 
             <div id="animalesPreview" class="preview">
 
-                Escriba un número...
+                Escriba uno o varios números.
 
             </div>
 
         </div>
-
-        <!-- MODALIDAD -->
 
         <div class="campo">
 
@@ -112,11 +108,9 @@
 
         </div>
 
-        <!-- MONTO -->
-
         <div class="campo">
 
-            <label>Monto</label>
+            <label>Monto (Bs)</label>
 
             <input
                 id="monto"
@@ -125,7 +119,9 @@
 
         </div>
 
-        <button id="agregar" class="btn-principal">
+        <button
+            id="agregar"
+            class="btn-principal">
 
             ➕ Agregar al Ticket
 
@@ -165,13 +161,7 @@
 
             <strong>
 
-                Bs
-
-                <span id="total">
-
-                    0.00
-
-                </span>
+                Bs <span id="total">0.00</span>
 
             </strong>
 
@@ -203,7 +193,11 @@
 
 </main>
 
-<!-- DATOS -->
+<!-- REGISTRO DE LOTERÍAS -->
+
+<script src="datos/loterias.js"></script>
+
+<!-- LOTTO ACTIVO -->
 
 <script src="datos/LottoActivo/animales.js"></script>
 
