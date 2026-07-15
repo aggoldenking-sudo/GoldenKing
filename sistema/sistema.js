@@ -20,6 +20,9 @@ window.Taquilla = {
         this.cargarLoterias();
 
 
+        this.cargarHorarios();
+
+
         this.cargarEventos();
 
 
@@ -37,8 +40,8 @@ window.Taquilla = {
         },1000);
 
 
-
     },
+
 
 
 
@@ -80,7 +83,53 @@ window.Taquilla = {
         });
 
 
+
     },
+
+
+
+
+    cargarHorarios(){
+
+
+        const select =
+        document.getElementById("sorteo");
+
+
+
+        if(!select || !window.HORARIOS)
+        return;
+
+
+
+        select.innerHTML = `
+
+        <option value="">
+        Seleccione horario
+        </option>
+
+        `;
+
+
+
+        HORARIOS.forEach(hora=>{
+
+
+            select.innerHTML += `
+
+            <option value="${hora}">
+            ${hora}
+            </option>
+
+            `;
+
+
+        });
+
+
+
+    },
+
 
 
 
@@ -98,30 +147,10 @@ window.Taquilla = {
 
 
 
-        const loteria =
-        document.getElementById("loteria");
-
-
-
-
         numero.addEventListener("input",()=>{
 
 
             this.buscarAnimal();
-
-
-        });
-
-
-
-
-        loteria.addEventListener("change",()=>{
-
-
-            document.getElementById("numero").value="";
-
-
-            document.getElementById("animalEncontrado").innerHTML="";
 
 
         });
@@ -140,6 +169,7 @@ window.Taquilla = {
 
 
     },
+
 
 
 
@@ -162,7 +192,7 @@ window.Taquilla = {
 
 
 
-        if(numero.length !== 2){
+        if(numero.length < 1){
 
 
             resultado.innerHTML="";
@@ -190,9 +220,11 @@ window.Taquilla = {
 
 
 
+
         const animal =
 
         DATA_LOTERIAS[loteria][numero];
+
 
 
 
@@ -203,7 +235,6 @@ window.Taquilla = {
             resultado.innerHTML =
 
             animal;
-
 
 
         }else{
@@ -222,7 +253,19 @@ window.Taquilla = {
 
 
 
+
+
     agregarJugada(){
+
+
+
+        const loteria =
+        document.getElementById("loteria").value;
+
+
+
+        const sorteo =
+        document.getElementById("sorteo").value;
 
 
 
@@ -238,14 +281,6 @@ window.Taquilla = {
 
 
 
-        const loteria =
-        document.getElementById("loteria").value;
-
-
-
-        const sorteo =
-        document.getElementById("sorteo").value;
-
 
 
         if(!loteria){
@@ -253,6 +288,19 @@ window.Taquilla = {
 
             alert("Seleccione una lotería");
 
+            return;
+
+
+        }
+
+
+
+
+
+        if(!sorteo){
+
+
+            alert("Seleccione horario");
 
             return;
 
@@ -262,16 +310,17 @@ window.Taquilla = {
 
 
 
-        if(numero.length !== 2){
+
+        if(numero.length < 1){
 
 
-            alert("Ingrese un número válido");
-
+            alert("Ingrese número");
 
             return;
 
 
         }
+
 
 
 
@@ -279,8 +328,7 @@ window.Taquilla = {
         if(!monto || monto<=0){
 
 
-            alert("Ingrese un monto");
-
+            alert("Ingrese monto");
 
             return;
 
@@ -289,16 +337,21 @@ window.Taquilla = {
 
 
 
+
+
         const animal =
 
         DATA_LOTERIAS[loteria][numero]
+
         ||
+
         "Sin animal";
 
 
 
 
-        const jugada = {
+
+        const jugada={
 
 
             loteria,
@@ -316,6 +369,8 @@ window.Taquilla = {
 
 
 
+
+
         this.jugadas.push(jugada);
 
 
@@ -329,6 +384,8 @@ window.Taquilla = {
 
 
     },
+
+
 
 
 
@@ -352,8 +409,9 @@ window.Taquilla = {
 
 
 
-        if(this.jugadas.length===0){
 
+
+        if(this.jugadas.length===0){
 
 
             contenedor.innerHTML=
@@ -363,7 +421,6 @@ window.Taquilla = {
             No hay jugadas
             </p>
             `;
-
 
 
             total.textContent="0.00";
@@ -377,10 +434,13 @@ window.Taquilla = {
 
 
 
+
         let html="";
 
 
         let suma=0;
+
+
 
 
 
@@ -391,21 +451,27 @@ window.Taquilla = {
 
 
 
+
             html += `
 
 
             <div class="fila-ticket">
 
 
-                <span>
+                <div>
 
-                ${j.loteria}
+                <b>${j.loteria}</b>
+
+                <br>
+
+                🕒 ${j.sorteo}
+
                 <br>
 
                 ${j.numero}
                 ${j.animal}
 
-                </span>
+                </div>
 
 
 
@@ -417,20 +483,18 @@ window.Taquilla = {
 
 
 
-                <button
-                onclick="Taquilla.eliminar(${index})">
+                <button onclick="Taquilla.eliminar(${index})">
 
                 ❌
 
                 </button>
 
 
-
             </div>
 
 
-            `;
 
+            `;
 
 
         });
@@ -451,8 +515,10 @@ window.Taquilla = {
 
 
 
-    eliminar(index){
 
+
+
+    eliminar(index){
 
 
         this.jugadas.splice(index,1);
@@ -462,8 +528,10 @@ window.Taquilla = {
         this.mostrarTicket();
 
 
-
     },
+
+
+
 
 
 
@@ -480,6 +548,9 @@ window.Taquilla = {
 
 
     },
+
+
+
 
 
 
