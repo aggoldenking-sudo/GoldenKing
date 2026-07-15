@@ -9,6 +9,7 @@
 
 const animales38 = {
 
+
 "00":"🐳 Ballena",
 "0":"🐬 Delfín",
 "01":"🐏 Carnero",
@@ -48,13 +49,16 @@ const animales38 = {
 "35":"🦒 Jirafa",
 "36":"🐍 Culebra"
 
+
 };
 
 
 
 
 
+
 window.DATA_LOTERIAS={
+
 
 
 LottoActivo: animales38,
@@ -114,10 +118,37 @@ Guacharo:{
 "75":"🦇 Guácharo"
 
 
-}
-
-
 };
+
+
+
+
+
+/*
+=====================================================
+ HORARIOS GENERALES
+=====================================================
+*/
+
+
+window.HORARIOS=[
+
+
+"8:00 AM",
+"9:00 AM",
+"10:00 AM",
+"11:00 AM",
+"12:00 PM",
+"1:00 PM",
+"2:00 PM",
+"3:00 PM",
+"4:00 PM",
+"5:00 PM",
+"6:00 PM",
+"7:00 PM"
+
+
+];
 
 
 
@@ -127,7 +158,7 @@ Guacharo:{
 
 /*
 =====================================================
- CONFIGURACIÓN DE SORTEOS
+ SORTEOS GENERADOS
  LOTERIA + HORARIO
 =====================================================
 */
@@ -155,6 +186,8 @@ Guacharo:"GUÁCHARO"
 
 
 
+
+
 Object.keys(nombresLoterias)
 
 .forEach(loteria=>{
@@ -167,20 +200,35 @@ SORTEOS.push({
 
 
 id:
+
 loteria+"_"+hora,
 
 
-loteria:loteria,
+
+loteria:
+
+
+loteria,
+
 
 
 nombre:
+
+
 nombresLoterias[loteria],
 
 
-hora:hora,
+
+hora:
+
+
+hora,
+
 
 
 titulo:
+
+
 nombresLoterias[loteria]
 +
 " "
@@ -203,37 +251,6 @@ hora
 
 
 
-
-/*
-=====================================================
- HORARIOS GENERALES
- 8:00 AM - 7:00 PM
-=====================================================
-*/
-
-
-window.HORARIOS=[
-
-
-"8:00 AM",
-"9:00 AM",
-"10:00 AM",
-"11:00 AM",
-"12:00 PM",
-"1:00 PM",
-"2:00 PM",
-"3:00 PM",
-"4:00 PM",
-"5:00 PM",
-"6:00 PM",
-"7:00 PM"
-
-
-];
-
-
-
-
 console.log(
-"DATA LOTERIAS Y SORTEOS CARGADOS"
+"✅ DATA LOTERIAS + HORARIOS + SORTEOS CARGADOS"
 );
