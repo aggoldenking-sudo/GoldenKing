@@ -10,357 +10,386 @@
 window.Taquilla = {
 
 
-    jugadas: [],
+jugadas: [],
 
+sorteosSeleccionados: [],
 
-    sorteosSeleccionados: [],
 
 
+init(){
 
 
-    init(){
+this.cargarSorteos();
 
+this.mostrarAnimales();
 
-        this.cargarSorteos();
+this.mostrarHorarios();
 
+this.cargarEventos();
 
-        this.cargarEventos();
+this.conectarTicket();
 
+this.mostrarTicket();
 
-        this.conectarTicket();
+this.reloj();
 
 
-        this.mostrarTicket();
+setInterval(()=>{
 
+this.reloj();
 
-        this.reloj();
+},1000);
 
 
 
-        setInterval(()=>{
+},
 
-            this.reloj();
 
-        },1000);
 
 
 
-    },
 
+/* ==========================
+   SORTEOS
+========================== */
 
 
+cargarSorteos(){
 
 
+const contenedor =
+document.getElementById("listaSorteos");
 
-    cargarSorteos(){
 
+if(!contenedor || !window.SORTEOS)
+return;
 
 
-        const contenedor =
 
-        document.getElementById("listaSorteos");
+contenedor.innerHTML="";
 
 
 
-        if(!contenedor || !window.SORTEOS)
+SORTEOS.forEach(sorteo=>{
 
-        return;
 
+contenedor.innerHTML += `
 
 
+<button class="btn-sorteo"
+data-id="${sorteo.id}">
 
-        contenedor.innerHTML="";
 
+${sorteo.nombre}
 
+<br>
 
+<b>${sorteo.hora}</b>
 
 
-        SORTEOS.forEach(sorteo=>{
+</button>
 
 
-            contenedor.innerHTML += `
+`;
 
 
-            <button
 
-            class="btn-sorteo"
+});
 
-            data-id="${sorteo.id}">
 
 
-            ${sorteo.nombre}
 
-            <br>
+document
+.querySelectorAll(".btn-sorteo")
+.forEach(btn=>{
 
-            <b>${sorteo.hora}</b>
 
+btn.onclick=()=>{
 
-            </button>
 
+this.seleccionarSorteo(btn);
 
-            `;
 
+};
 
-        });
 
 
+});
 
 
 
+},
 
-        document
 
-        .querySelectorAll(".btn-sorteo")
 
-        .forEach(btn=>{
 
 
-            btn.onclick=()=>{
 
 
-                this.seleccionarSorteo(btn);
+seleccionarSorteo(btn){
 
 
-            };
+const id =
+btn.dataset.id;
 
 
-        });
 
+const existe =
+this.sorteosSeleccionados
+.find(s=>s.id===id);
 
 
-    },
 
+if(existe){
 
 
+this.sorteosSeleccionados =
+this.sorteosSeleccionados
+.filter(s=>s.id!==id);
 
 
 
+btn.classList.remove("activo");
 
-    seleccionarSorteo(btn){
 
 
+}else{
 
-        const id =
 
-        btn.dataset.id;
+const sorteo =
+SORTEOS.find(
+s=>s.id===id
+);
 
 
 
+this.sorteosSeleccionados.push(sorteo);
 
 
-        const existe =
 
-        this.sorteosSeleccionados
+btn.classList.add("activo");
 
-        .find(s=>s.id===id);
 
 
+}
 
 
 
 
-        if(existe){
+const contador =
+document.getElementById(
+"contadorSorteos"
+);
 
 
-            this.sorteosSeleccionados =
 
-            this.sorteosSeleccionados
+if(contador){
 
-            .filter(s=>s.id!==id);
+contador.textContent =
+this.sorteosSeleccionados.length
++
+" sorteos seleccionados";
 
+}
 
 
-            btn.classList.remove("activo");
 
+},
 
 
-        }else{
 
 
-            const sorteo =
 
-            SORTEOS.find(
 
-            s=>s.id===id
 
-            );
+/* ==========================
+   MOSTRAR ANIMALES
+========================== */
 
 
+mostrarAnimales(){
 
-            this.sorteosSeleccionados.push(sorteo);
 
+const contenedor =
+document.getElementById("listaAnimales");
 
 
-            btn.classList.add("activo");
+if(!contenedor || !window.DATA_LOTERIAS)
+return;
 
 
-        }
 
+let animales =
+DATA_LOTERIAS.Guacharo;
 
 
 
+let html="";
 
 
-        const contador =
 
-        document.getElementById(
-        "contadorSorteos"
-        );
+Object.entries(animales)
 
+.forEach(([numero,nombre])=>{
 
 
-        if(contador){
+html += `
 
 
-            contador.innerHTML =
+<div class="animal-item">
 
-            this.sorteosSeleccionados.length
 
-            +
+<b>${numero}</b>
 
-            " sorteos seleccionados";
 
+<br>
 
-        }
 
+${nombre}
 
 
-    },
+</div>
 
 
+`;
 
 
 
+});
 
 
-    cargarEventos(){
 
+contenedor.innerHTML=html;
 
 
-        const numero =
 
-        document.getElementById("numero");
+},
 
 
 
-        const agregar =
 
-        document.getElementById("agregar");
 
 
 
 
+/* ==========================
+   HORARIOS
+========================== */
 
-        if(numero){
 
+mostrarHorarios(){
 
-            numero.addEventListener(
 
-            "input",
+const contenedor =
+document.getElementById("listaHorarios");
 
-            ()=>{
 
 
-                this.buscarAnimal();
+if(!contenedor || !window.HORARIOS)
+return;
 
 
-            });
 
+let html="";
 
-        }
 
 
+HORARIOS.forEach(hora=>{
 
 
+html += `
 
 
+<div class="horario-item">
 
-        if(agregar){
 
+🕒 ${hora}
 
-            agregar.onclick=()=>{
 
+</div>
 
-                this.agregarJugada();
 
+`;
 
-            };
 
 
-        }
+});
 
 
 
-    },
+contenedor.innerHTML=html;
 
 
 
+},
 
 
 
 
-    buscarAnimal(){
 
 
 
-        const numero =
 
-        document
+/* ==========================
+   EVENTOS
+========================== */
 
-        .getElementById("numero")
 
-        .value;
+cargarEventos(){
 
 
 
+const numero =
+document.getElementById("numero");
 
 
-        const resultado =
 
-        document.getElementById(
-        "animalEncontrado"
-        );
+const agregar =
+document.getElementById("agregar");
 
 
 
 
 
-        if(!numero){
+if(numero){
 
 
-            resultado.innerHTML="";
+numero.addEventListener(
+"input",
+()=>{
 
+this.buscarAnimal();
 
-            return;
+}
 
+);
 
-        }
 
+}
 
 
 
 
-        let animal = "";
 
 
+if(agregar){
 
 
+agregar.onclick=()=>{
 
-        Object.values(DATA_LOTERIAS)
 
-        .forEach(lista=>{
+this.agregarJugada();
 
 
-            if(lista[numero]){
+};
 
 
-                animal = lista[numero];
 
+}
 
-            }
 
 
-        });
+},
 
 
 
@@ -368,275 +397,311 @@ window.Taquilla = {
 
 
 
-        resultado.innerHTML =
 
-        animal
+/* ==========================
+   BUSCAR ANIMAL
+========================== */
 
-        ?
 
-        animal
+buscarAnimal(){
 
-        :
 
-        "❌ Número no disponible";
 
+let numero =
+document
+.getElementById("numero")
+.value;
 
 
-    },
 
+let resultado =
+document.getElementById(
+"animalEncontrado"
+);
 
 
 
 
+if(!numero){
 
+resultado.innerHTML="";
 
-    agregarJugada(){
+return;
 
+}
 
 
-        const numero =
 
-        document
 
-        .getElementById("numero")
+let animal="";
 
-        .value;
 
 
+Object.values(DATA_LOTERIAS)
 
+.forEach(lista=>{
 
 
-        const monto =
+if(lista[numero]){
 
-        Number(
 
-        document
+animal=lista[numero];
 
-        .getElementById("monto")
 
-        .value
+}
 
-        );
 
+});
 
 
 
 
+resultado.innerHTML =
 
+animal
 
+?
 
-        if(this.sorteosSeleccionados.length===0){
+animal
 
+:
 
-            alert(
-            "Seleccione al menos un sorteo"
-            );
+"❌ Número no disponible";
 
 
-            return;
 
+},
 
-        }
 
 
 
 
 
 
+/* ==========================
+   AGREGAR JUGADA
+========================== */
 
-        if(!numero){
 
+agregarJugada(){
 
-            alert(
-            "Ingrese número"
-            );
 
 
-            return;
+let numero =
+document.getElementById("numero")
+.value;
 
 
-        }
 
+let monto =
+Number(
+document.getElementById("monto")
+.value
+);
 
 
 
 
+if(this.sorteosSeleccionados.length===0){
 
+alert("Seleccione un sorteo");
 
-        if(!monto || monto<=0){
+return;
 
+}
 
-            alert(
-            "Ingrese monto"
-            );
 
 
-            return;
+if(!numero){
 
+alert("Ingrese número");
 
-        }
+return;
 
+}
 
 
 
+if(!monto || monto<=0){
 
+alert("Ingrese monto");
 
+return;
 
+}
 
-        this.sorteosSeleccionados
 
-        .forEach(sorteo=>{
 
 
+this.sorteosSeleccionados
 
+.forEach(sorteo=>{
 
 
-            let animal =
+let animal =
+DATA_LOTERIAS
+[sorteo.loteria]
+[numero]
+||
+"Sin animal";
 
-            DATA_LOTERIAS
 
-            [sorteo.loteria]
 
-            [numero]
+this.jugadas.push({
 
-            ||
 
-            "Sin animal";
+loteria:sorteo.nombre,
 
+hora:sorteo.hora,
 
+numero,
 
+animal,
 
+monto
 
 
-            this.jugadas.push({
 
+});
 
 
-                loteria:
-                sorteo.nombre,
 
+});
 
-                sorteo:
-                sorteo.hora,
 
 
-                numero,
 
+this.mostrarTicket();
 
-                animal,
 
+this.limpiar();
 
-                monto
 
 
+},
 
-            });
 
 
 
 
 
-        });
 
 
 
+/* ==========================
+   TICKET
+========================== */
 
 
+mostrarTicket(){
 
-        this.mostrarTicket();
 
 
-        this.limpiar();
+let contenedor =
+document.getElementById("ticket");
 
 
 
+let total =
+document.getElementById("total");
 
-    },
 
 
+if(!contenedor)
+return;
 
 
 
+if(this.jugadas.length===0){
 
 
+contenedor.innerHTML=
 
+`
+<p class="vacio">
+No hay jugadas
+</p>
+`;
 
-    mostrarTicket(){
 
 
+total.textContent="0.00";
 
-        const contenedor =
 
-        document.getElementById(
-        "ticket"
-        );
+return;
 
 
+}
 
-        const total =
 
-        document.getElementById(
-        "total"
-        );
 
+let html="";
 
+let suma=0;
 
 
 
-        if(!contenedor)
+this.jugadas.forEach((j,index)=>{
 
-        return;
 
+suma+=j.monto;
 
 
 
+html+=`
 
 
+<div class="fila-ticket">
 
-        if(this.jugadas.length===0){
 
+<b>${j.loteria}</b>
 
+<br>
 
-            contenedor.innerHTML=
+🕒 ${j.hora}
 
-            `
-            <p class="vacio">
-            No hay jugadas
-            </p>
-            `;
+<br>
 
+${j.numero}
 
+${j.animal}
 
-            total.textContent="0.00";
 
+<strong>
 
-            return;
+${j.monto} Bs
 
+</strong>
 
-        }
 
+<button onclick="Taquilla.eliminar(${index})">
 
+❌
 
+</button>
 
 
+</div>
 
 
-        let html="";
+`;
 
 
-        let suma=0;
 
+});
 
 
 
+contenedor.innerHTML=html;
 
 
+total.textContent=
+suma.toFixed(2);
 
-        this.jugadas.forEach((j,index)=>{
 
 
+},
 
-            suma += Number(j.monto);
 
 
 
@@ -644,313 +709,73 @@ window.Taquilla = {
 
 
 
-            html += `
+eliminar(index){
 
 
+this.jugadas.splice(index,1);
 
-            <div class="fila-ticket">
 
+this.mostrarTicket();
 
-            <div>
 
 
-            <b>${j.loteria}</b>
+},
 
 
-            <br>
 
 
-            🕒 ${j.sorteo}
 
 
-            <br>
 
+limpiar(){
 
-            ${j.numero}
 
-            ${j.animal}
+document.getElementById("numero").value="";
 
 
-            </div>
+document.getElementById("monto").value="";
 
 
+document.getElementById("animalEncontrado").innerHTML="";
 
-            <strong>
 
-            ${j.monto.toFixed(2)}
 
-            Bs
+},
 
-            </strong>
 
 
 
-            <button
 
-            onclick="Taquilla.eliminar(${index})">
 
-            ❌
 
-            </button>
 
+/* ==========================
+   RELOJ
+========================== */
 
-            </div>
 
+reloj(){
 
 
-            `;
+let hora =
+document.getElementById("hora");
 
 
 
-        });
+if(hora){
 
 
+hora.textContent =
+new Date()
+.toLocaleTimeString();
 
 
+}
 
 
 
-        contenedor.innerHTML=html;
+}
 
-
-
-        total.textContent=
-
-        suma.toFixed(2);
-
-
-
-    },
-
-
-
-
-
-
-
-
-
-    conectarTicket(){
-
-
-
-        const imprimir =
-
-        document.getElementById(
-        "imprimir"
-        );
-
-
-
-        const whatsapp =
-
-        document.getElementById(
-        "whatsapp"
-        );
-
-
-
-
-
-
-        if(imprimir){
-
-
-
-            imprimir.onclick=()=>{
-
-
-                let ticket =
-
-                this.generarTicket();
-
-
-
-                TicketImprimir.imprimir(ticket);
-
-
-
-            };
-
-
-        }
-
-
-
-
-
-
-
-        if(whatsapp){
-
-
-
-            whatsapp.onclick=()=>{
-
-
-                let ticket =
-
-                this.generarTicket();
-
-
-
-
-                let telefono =
-
-                prompt(
-                "Número WhatsApp"
-                );
-
-
-
-                TicketWhatsApp.enviar(
-
-                ticket,
-
-                telefono
-
-                );
-
-
-
-            };
-
-
-        }
-
-
-
-
-    },
-
-
-
-
-
-
-
-
-    generarTicket(){
-
-
-
-        let numeroTicket =
-
-        "#"+
-
-        Date.now()
-
-        .toString()
-
-        .slice(-6);
-
-
-
-
-
-        return TicketModelo.generar(
-
-        this.jugadas,
-
-        numeroTicket
-
-        );
-
-
-
-    },
-
-
-
-
-
-
-
-
-
-    eliminar(index){
-
-
-
-        this.jugadas.splice(index,1);
-
-
-
-        this.mostrarTicket();
-
-
-
-    },
-
-
-
-
-
-
-
-
-
-    limpiar(){
-
-
-
-        document.getElementById(
-        "numero"
-        ).value="";
-
-
-
-        document.getElementById(
-        "monto"
-        ).value="";
-
-
-
-        document.getElementById(
-        "animalEncontrado"
-        ).innerHTML="";
-
-
-
-    },
-
-
-
-
-
-
-
-
-    reloj(){
-
-
-
-        const hora =
-
-        document.getElementById(
-        "hora"
-        );
-
-
-
-
-        if(hora){
-
-
-
-            hora.textContent =
-
-            new Date()
-
-            .toLocaleTimeString();
-
-
-
-        }
-
-
-
-    }
 
 
 
@@ -963,15 +788,12 @@ window.Taquilla = {
 
 
 
-
 document.addEventListener(
-
 "DOMContentLoaded",
-
 ()=>{
 
 
-    Taquilla.init();
+Taquilla.init();
 
 
 });
