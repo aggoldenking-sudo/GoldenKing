@@ -1,3 +1,4 @@
+/* --- Paleta de Colores --- */
 :root {
     --primary: #174a7c;
     --accent: #d4af37;
@@ -5,7 +6,7 @@
     --card-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
 }
 
-/* Base */
+/* --- Base --- */
 body {
     margin: 0;
     background: var(--bg);
@@ -13,7 +14,7 @@ body {
     font-family: 'Segoe UI', system-ui, sans-serif;
 }
 
-/* Header tipo App */
+/* --- Barra Superior (Topbar) --- */
 .topbar {
     background: var(--primary);
     color: white;
@@ -24,9 +25,13 @@ body {
     box-shadow: 0 2px 10px rgba(0,0,0,0.1);
 }
 
-.logo { font-size: 1.5rem; font-weight: 800; color: var(--accent); }
+.logo { 
+    font-size: 1.5rem; 
+    font-weight: 800; 
+    color: var(--accent); 
+}
 
-/* Estructura de Contenedor */
+/* --- Contenedor Principal (Grid de Taquilla) --- */
 .contenedor {
     display: grid;
     grid-template-columns: 280px 1fr 350px;
@@ -36,7 +41,7 @@ body {
     margin: auto;
 }
 
-/* Tarjetas (Cards) */
+/* --- Tarjetas (Sorteos, Jugada, Ticket) --- */
 .sorteos, .jugada, .ticket {
     background: white;
     padding: 24px;
@@ -45,16 +50,22 @@ body {
     border: 1px solid #e2e8f0;
 }
 
-h2 { margin-bottom: 20px; color: var(--primary); font-size: 1.2rem; }
+h2 { 
+    margin-top: 0; 
+    margin-bottom: 20px; 
+    color: var(--primary); 
+    font-size: 1.2rem; 
+    text-align: center;
+}
 
-/* Botones: Estilo 'Soft' */
+/* --- Botones de Sorteo --- */
 .btn-sorteo {
     width: 100%;
     padding: 12px;
     margin-bottom: 10px;
     border: 1px solid #e2e8f0;
     border-radius: 12px;
-    background: #fdfdfd;
+    background: white;
     cursor: pointer;
     transition: all 0.2s ease;
     font-weight: 500;
@@ -67,19 +78,21 @@ h2 { margin-bottom: 20px; color: var(--primary); font-size: 1.2rem; }
     border-color: var(--primary);
 }
 
-/* Inputs de acción */
+/* --- Inputs --- */
 .jugada input {
     width: 100%;
     padding: 14px;
+    margin: 10px 0;
     border: 2px solid #e2e8f0;
     border-radius: 12px;
     font-size: 1.1rem;
     transition: 0.3s;
+    box-sizing: border-box;
 }
 
 .jugada input:focus { border-color: var(--accent); outline: none; }
 
-/* Botones de acción principales */
+/* --- Botones de Acción (Oro) --- */
 .jugada button, .ticket button {
     width: 100%;
     padding: 14px;
@@ -92,9 +105,29 @@ h2 { margin-bottom: 20px; color: var(--primary); font-size: 1.2rem; }
     font-size: 1rem;
     cursor: pointer;
     box-shadow: 0 4px 6px rgba(212, 175, 55, 0.2);
+    transition: transform 0.2s, filter 0.2s;
 }
 
-.jugada button:hover { filter: brightness(1.1); transform: translateY(-2px); }
+.jugada button:hover, .ticket button:hover { 
+    filter: brightness(1.1); 
+    transform: translateY(-2px); 
+}
 
-/* Ticket item */
-.ticket-item { border-bottom: 1px dashed #cbd5e1; padding: 12px 0; }
+/* --- Elementos del Ticket --- */
+.ticket-item { 
+    border-bottom: 1px dashed #cbd5e1; 
+    padding: 12px 0; 
+}
+
+.total {
+    margin-top: 20px;
+    font-size: 1.4rem;
+    font-weight: 800;
+    text-align: center;
+    color: var(--primary);
+}
+
+/* --- Responsividad --- */
+@media(max-width:900px) {
+    .contenedor { grid-template-columns: 1fr; }
+}
