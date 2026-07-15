@@ -1,7 +1,8 @@
 /**
  * Proyecto Golden King
  * Archivo: sistema/ticket/modelo.js
- * Generador de tickets con 3 columnas
+ * Formato ticket térmico
+ * 3 jugadas por fila
  */
 
 
@@ -24,6 +25,67 @@ function quitarEmoji(texto){
 
 
 
+function abreviarAnimal(animal){
+
+
+    animal = quitarEmoji(animal)
+    .toUpperCase();
+
+
+
+    const palabras = {
+
+        "BALLENA":"BAL",
+        "DELFIN":"DEL",
+        "CARNERO":"CAR",
+        "TORO":"TOR",
+        "CIEMPIES":"CIE",
+        "ALACRAN":"ALC",
+        "LEON":"LEO",
+        "RANA":"RAN",
+        "PERICO":"PER",
+        "RATON":"RAT",
+        "AGUILA":"AGU",
+        "TIGRE":"TIG",
+        "GATO":"GAT",
+        "CABALLO":"CAB",
+        "MONO":"MON",
+        "PALOMA":"PAL",
+        "ZORRO":"ZOR",
+        "OSO":"OSO",
+        "PAVO":"PAV",
+        "BURRO":"BUR",
+        "CHIVO":"CHI",
+        "COCHINO":"COC",
+        "GALLO":"GAL",
+        "CAMELLO":"CAM",
+        "CEBRA":"CEB",
+        "IGUANA":"IGU",
+        "GALLINA":"GALL",
+        "VACA":"VAC",
+        "PERRO":"PER",
+        "ZAMURO":"ZAM",
+        "ELEFANTE":"ELE",
+        "CAIMAN":"CAI",
+        "LAPA":"LAP",
+        "ARDILLA":"ARD",
+        "PESCADO":"PES",
+        "VENADO":"VEN",
+        "JIRAFA":"JIR",
+        "CULEBRA":"CUL"
+
+    };
+
+
+
+    return palabras[animal] || animal.substring(0,3);
+
+
+
+}
+
+
+
 
 function fechaActual(){
 
@@ -31,6 +93,7 @@ function fechaActual(){
     .toLocaleDateString("es-VE");
 
 }
+
 
 
 
@@ -61,9 +124,10 @@ function agruparJugadas(jugadas){
     jugadas.forEach(j=>{
 
 
+
         let clave =
 
-        j.loteria + " - " + j.hora;
+        j.loteria + " " + j.sorteo;
 
 
 
@@ -77,17 +141,13 @@ function agruparJugadas(jugadas){
 
         grupos[clave].push({
 
-            numero:
-            j.numero,
-
+            numero:j.numero,
 
             animal:
-            quitarEmoji(j.animal),
-
+            abreviarAnimal(j.animal),
 
             monto:
             Number(j.monto)
-
 
         });
 
@@ -101,8 +161,6 @@ function agruparJugadas(jugadas){
 
 
 }
-
-
 
 
 
@@ -141,34 +199,29 @@ function crearFilas(lista){
 function generarTexto(datos){
 
 
-
 let texto="";
 
 
 
-texto += "================================\n";
-texto += "        GOLDEN KING\n";
-texto += "   AGENCIA DE APUESTAS\n";
-texto += "================================\n";
+texto += "========================\n";
+
+texto += "      GOLDEN KING\n";
+
+texto += "========================\n\n";
+
 
 
 texto +=
 
-`Ticket: ${datos.ticket}\n`;
+"Ticket: "+datos.ticket+"\n";
 
 texto +=
 
-`Fecha: ${datos.fecha}\n`;
+"Fecha: "+datos.fecha+"\n";
 
 texto +=
 
-`Hora: ${datos.hora}\n`;
-
-
-
-texto += "--------------------------------\n";
-
-
+"Hora: "+datos.hora+"\n\n";
 
 
 
@@ -178,27 +231,11 @@ Object.entries(datos.grupos)
 
 
 
-    let partes =
-    grupo.split(" - ");
-
-
-
-    let loteria =
-    partes[0];
-
-
-    let hora =
-    partes[1];
-
-
-
     texto += "\n";
 
-    texto += loteria+"\n";
+    texto += grupo.toUpperCase()+"\n";
 
-    texto += hora+"\n";
-
-    texto += "--------------------------------\n";
+    texto += "------------------------\n\n";
 
 
 
@@ -217,15 +254,15 @@ Object.entries(datos.grupos)
         fila.forEach(j=>{
 
 
-            let animal =
+            let item =
 
-            `${j.numero} ${j.animal}`;
+            `${j.numero}-${j.animal} x${j.monto}`;
 
 
 
             linea +=
 
-            animal.padEnd(16);
+            item.padEnd(12);
 
 
 
@@ -241,40 +278,31 @@ Object.entries(datos.grupos)
 
 
 
-    if(jugadas.length>0){
-
-
-        texto +=
-
-        `Bs ${jugadas[0].monto.toFixed(2)} c/u\n`;
-
-    }
-
-
-
 });
 
 
 
 
 
-texto += "\n================================\n";
+texto += "\n------------------------\n";
+
+
 
 texto +=
 
-`TOTAL Bs. ${datos.total.toFixed(2)}\n`;
+"TOTAL Bs. "+datos.total.toFixed(2)+"\n";
+
+
 
 texto +=
 
-"================================\n";
+"------------------------\n\n";
+
+
 
 texto +=
 
-"Gracias por su preferencia.\n";
-
-texto +=
-
-"Conserve su ticket.";
+"Gracias por su preferencia";
 
 
 
@@ -296,7 +324,6 @@ return texto;
 return {
 
 
-
 generar(jugadas,numeroTicket){
 
 
@@ -305,9 +332,7 @@ let total =
 
 jugadas.reduce(
 
-(total,j)=>
-
-total + Number(j.monto),
+(t,j)=>t + Number(j.monto),
 
 0
 
@@ -319,28 +344,24 @@ total + Number(j.monto),
 let datos={
 
 
-ticket:
-numeroTicket,
+ticket:numeroTicket,
 
 
-fecha:
-fechaActual(),
+fecha:fechaActual(),
 
 
-hora:
-horaActual(),
+hora:horaActual(),
 
 
 grupos:
+
 agruparJugadas(jugadas),
 
 
-total:
-total
+total:total
 
 
 };
-
 
 
 
@@ -356,29 +377,24 @@ generarTexto(datos);
 return {
 
 
-ticket:
-numeroTicket,
+ticket:numeroTicket,
 
+fecha:datos.fecha,
 
-fecha:
-datos.fecha,
+hora:datos.hora,
 
+total:total,
 
-hora:
-datos.hora,
-
-
-total:
-total,
-
-
-texto:
-texto,
+texto:texto,
 
 
 html:
 
-`<pre style="font-family:monospace;font-size:14px">${texto}</pre>`
+`
+<pre style="font-family:monospace;font-size:13px">
+${texto}
+</pre>
+`
 
 
 };
@@ -390,7 +406,6 @@ html:
 
 
 };
-
 
 
 })();
