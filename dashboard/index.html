@@ -3,210 +3,168 @@
 
 <head>
 
-<meta charset="UTF-8">
+    <meta charset="UTF-8">
 
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Golden King</title>
+    <title>Golden King | Dashboard</title>
 
-<link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="stylesheet" href="dashboard.css">
 
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
 
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
-<link rel="stylesheet" href="css/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
 
 </head>
 
 <body>
 
-<div class="container">
+    <!-- Barra Superior -->
 
-    <!-- PANEL IZQUIERDO -->
-
-    <aside class="card">
+    <header class="topbar">
 
         <div class="logo">
 
-            👑 GOLDEN KING
+            <img src="../assets/logo.png" alt="Golden King">
 
-        </div>
+            <div>
 
-        <br>
+                <h2>Golden King</h2>
 
-        <label>Lotería</label>
-
-        <select id="loteria"></select>
-
-        <label>Sorteo</label>
-
-        <select id="sorteo"></select>
-
-        <label>Modalidad</label>
-
-        <select id="tipo">
-
-            <option value="animal">Animal</option>
-
-            <option value="terminal">Terminal</option>
-
-            <option value="triple">Triple</option>
-
-            <option value="tripleta">Tripleta</option>
-
-        </select>
-
-        <label>Número</label>
-
-        <input
-            id="numero"
-            maxlength="3"
-            autocomplete="off"
-            placeholder="Ej: 25">
-
-        <label>Animal</label>
-
-        <input
-            id="animal"
-            readonly>
-
-        <label>Monto</label>
-
-        <input
-            id="monto"
-            type="number"
-            placeholder="0">
-
-        <button
-            id="agregar"
-            class="btn-primary">
-
-            ➕ Agregar Jugada
-
-        </button>
-
-    </aside>
-
-    <!-- PANEL DERECHO -->
-
-    <main>
-
-        <div class="card">
-
-            <div class="header">
-
-                <h2>
-
-                    Ticket Actual
-
-                </h2>
-
-                <span class="badge">
-
-                    En Proceso
-
-                </span>
-
-            </div>
-
-            <table>
-
-                <thead>
-
-                <tr>
-
-                    <th>Lotería</th>
-
-                    <th>Sorteo</th>
-
-                    <th>Número</th>
-
-                    <th>Animal</th>
-
-                    <th>Monto</th>
-
-                    <th></th>
-
-                </tr>
-
-                </thead>
-
-                <tbody id="tablaJugadas">
-
-                </tbody>
-
-            </table>
-
-            <div
-                class="total">
-
-                Total Bs.
-
-                <span id="total">
-
-                    0.00
-
-                </span>
-
-            </div>
-
-            <br>
-
-            <div
-                style="display:grid;grid-template-columns:repeat(4,1fr);gap:15px;">
-
-                <button
-                    id="guardar"
-                    class="btn-success">
-
-                    💾 Guardar
-
-                </button>
-
-                <button
-                    id="imprimir"
-                    class="btn-primary">
-
-                    🖨 Imprimir
-
-                </button>
-
-                <button
-                    id="nuevo"
-                    class="btn-warning">
-
-                    📄 Nuevo
-
-                </button>
-
-                <button
-                    id="cancelar"
-                    class="btn-danger">
-
-                    ❌ Cancelar
-
-                </button>
+                <span>Centro de Control</span>
 
             </div>
 
         </div>
+
+        <div class="topbar-right">
+
+            <div class="clock">
+
+                <i class="fa-regular fa-clock"></i>
+
+                <span id="hora">00:00:00</span>
+
+            </div>
+
+            <div class="user">
+
+                <i class="fa-solid fa-user"></i>
+
+                <span id="usuario">Administrador</span>
+
+            </div>
+
+        </div>
+
+    </header>
+
+    <!-- Contenido -->
+
+    <main class="dashboard">
+
+        <h1>¿Qué deseas hacer?</h1>
+
+        <p>Selecciona un módulo para continuar.</p>
+
+        <section class="cards">
+
+            <div class="card" data-link="../sistema/index.html">
+
+                <i class="fa-solid fa-ticket"></i>
+
+                <h3>Sistema</h3>
+
+                <span>Registrar jugadas</span>
+
+            </div>
+
+            <div class="card" data-link="../resultados/index.html">
+
+                <i class="fa-solid fa-trophy"></i>
+
+                <h3>Resultados</h3>
+
+                <span>Cargar resultados</span>
+
+            </div>
+
+            <div class="card" data-link="../reportes/index.html">
+
+                <i class="fa-solid fa-chart-column"></i>
+
+                <h3>Reportes</h3>
+
+                <span>Consultar ventas</span>
+
+            </div>
+
+            <div class="card" data-link="../historial/index.html">
+
+                <i class="fa-solid fa-clock-rotate-left"></i>
+
+                <h3>Historial</h3>
+
+                <span>Tickets emitidos</span>
+
+            </div>
+
+            <div class="card" data-link="../usuarios/index.html">
+
+                <i class="fa-solid fa-users"></i>
+
+                <h3>Usuarios</h3>
+
+                <span>Administrar operadores</span>
+
+            </div>
+
+            <div class="card" data-link="../configuracion/index.html">
+
+                <i class="fa-solid fa-gear"></i>
+
+                <h3>Configuración</h3>
+
+                <span>Opciones del sistema</span>
+
+            </div>
+
+            <div class="card">
+
+                <i class="fa-solid fa-database"></i>
+
+                <h3>Respaldos</h3>
+
+                <span>Copias de seguridad</span>
+
+            </div>
+
+            <div class="card salir">
+
+                <i class="fa-solid fa-right-from-bracket"></i>
+
+                <h3>Salir</h3>
+
+                <span>Cerrar sesión</span>
+
+            </div>
+
+        </section>
 
     </main>
 
-</div>
+    <footer>
 
-<script src="js/datos.js"></script>
+        Golden King © 2026 | Versión 2.0
 
-<script src="js/utilidades.js"></script>
+    </footer>
 
-<script src="js/ui.js"></script>
-
-<script src="sistema/sorteos.js"></script>
-
-<script src="sistema/sistema.js"></script>
-
-<script src="js/app.js"></script>
+    <script src="dashboard.js"></script>
 
 </body>
 
