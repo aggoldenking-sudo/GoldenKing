@@ -1,1 +1,315 @@
+/*
+=====================================================
+ GOLDEN KING POS
+ SISTEMA DE TAQUILLA
+ sistema.css
+=====================================================
+*/
 
+
+*{
+
+    box-sizing:border-box;
+    font-family:Arial, Helvetica, sans-serif;
+
+}
+
+
+
+body{
+
+    margin:0;
+
+    background:#eef3f8;
+
+    color:#333;
+
+}
+
+
+
+/* CONTENEDOR PRINCIPAL */
+
+#app{
+
+    width:100%;
+
+    min-height:100vh;
+
+}
+
+
+
+/* CABECERA */
+
+header{
+
+    background:linear-gradient(135deg,#d4af37,#f5d76e);
+
+    color:white;
+
+    text-align:center;
+
+    padding:20px;
+
+    box-shadow:0 3px 10px #bbb;
+
+}
+
+
+
+header h1{
+
+    margin:0;
+
+    font-size:32px;
+
+}
+
+
+header p{
+
+    margin:5px;
+
+    font-size:18px;
+
+}
+
+
+
+/* AREA PRINCIPAL */
+
+
+main{
+
+    display:flex;
+
+    justify-content:center;
+
+    padding:25px;
+
+}
+
+
+
+#sales-form{
+
+    width:100%;
+
+    max-width:900px;
+
+    display:grid;
+
+    grid-template-columns:1fr 1fr;
+
+    gap:20px;
+
+}
+
+
+
+/* TARJETAS */
+
+
+.bloque{
+
+    background:white;
+
+    padding:25px;
+
+    border-radius:15px;
+
+    box-shadow:0 5px 15px rgba(0,0,0,.12);
+
+}
+
+
+
+.bloque h2{
+
+    margin-top:0;
+
+    color:#b8860b;
+
+    border-bottom:2px solid #eee;
+
+    padding-bottom:10px;
+
+}
+
+
+
+/* FORMULARIOS */
+
+
+label{
+
+    display:block;
+
+    margin-top:15px;
+
+    font-weight:bold;
+
+}
+
+
+
+select,
+input{
+
+
+    width:100%;
+
+    padding:12px;
+
+    margin-top:5px;
+
+    border:1px solid #ccc;
+
+    border-radius:8px;
+
+    font-size:16px;
+
+
+}
+
+
+
+input:focus,
+select:focus{
+
+    outline:none;
+
+    border-color:#d4af37;
+
+}
+
+
+
+/* ANIMAL */
+
+
+#animal{
+
+    margin-top:15px;
+
+    padding:15px;
+
+    background:#f8f8f8;
+
+    border-radius:10px;
+
+    text-align:center;
+
+    font-size:20px;
+
+}
+
+
+
+/* BOTONES */
+
+
+button{
+
+    width:100%;
+
+    margin-top:20px;
+
+    padding:13px;
+
+    border:none;
+
+    border-radius:10px;
+
+    background:#d4af37;
+
+    color:white;
+
+    font-size:16px;
+
+    font-weight:bold;
+
+    cursor:pointer;
+
+    transition:.3s;
+
+}
+
+
+
+button:hover{
+
+    background:#b8860b;
+
+}
+
+
+
+/* TICKET */
+
+
+#ticket{
+
+    min-height:200px;
+
+    background:#fafafa;
+
+    border-radius:10px;
+
+    padding:15px;
+
+}
+
+
+
+.jugada{
+
+    padding:10px;
+
+    margin-bottom:10px;
+
+    background:white;
+
+    border-left:5px solid #d4af37;
+
+    box-shadow:0 2px 5px #ddd;
+
+}
+
+
+
+/* TOTAL */
+
+
+#total{
+
+    color:#b8860b;
+
+    font-size:25px;
+
+}
+
+
+
+/* RESPONSIVE CELULAR */
+
+
+@media(max-width:700px){
+
+
+#sales-form{
+
+    grid-template-columns:1fr;
+
+}
+
+
+header h1{
+
+    font-size:25px;
+
+}
+
+
+}
