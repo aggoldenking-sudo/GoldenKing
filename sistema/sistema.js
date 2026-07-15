@@ -13,7 +13,11 @@ window.Taquilla = {
     jugadas: [],
 
 
+
     init(){
+
+
+        this.cargarLoterias();
 
 
         this.cargarEventos();
@@ -38,6 +42,48 @@ window.Taquilla = {
 
 
 
+    cargarLoterias(){
+
+
+        const select =
+        document.getElementById("loteria");
+
+
+
+        if(!select || !window.DATA_LOTERIAS)
+        return;
+
+
+
+        select.innerHTML = `
+
+        <option value="">
+        Seleccione lotería
+        </option>
+
+        `;
+
+
+
+        Object.keys(DATA_LOTERIAS).forEach(nombre=>{
+
+
+            select.innerHTML += `
+
+            <option value="${nombre}">
+            ${nombre}
+            </option>
+
+            `;
+
+
+        });
+
+
+    },
+
+
+
     cargarEventos(){
 
 
@@ -52,6 +98,12 @@ window.Taquilla = {
 
 
 
+        const loteria =
+        document.getElementById("loteria");
+
+
+
+
         numero.addEventListener("input",()=>{
 
 
@@ -59,6 +111,21 @@ window.Taquilla = {
 
 
         });
+
+
+
+
+        loteria.addEventListener("change",()=>{
+
+
+            document.getElementById("numero").value="";
+
+
+            document.getElementById("animalEncontrado").innerHTML="";
+
+
+        });
+
 
 
 
@@ -85,6 +152,11 @@ window.Taquilla = {
 
 
 
+        const loteria =
+        document.getElementById("loteria").value;
+
+
+
         const resultado =
         document.getElementById("animalEncontrado");
 
@@ -103,12 +175,34 @@ window.Taquilla = {
 
 
 
-        if(window.ANIMALES && ANIMALES[numero]){
+        if(!loteria){
+
+
+            resultado.innerHTML =
+            "Seleccione una lotería";
+
+
+            return;
+
+
+        }
+
+
+
+
+        const animal =
+
+        DATA_LOTERIAS[loteria][numero];
+
+
+
+
+        if(animal){
 
 
             resultado.innerHTML =
 
-            "🐾 " + ANIMALES[numero];
+            animal;
 
 
 
@@ -117,7 +211,7 @@ window.Taquilla = {
 
             resultado.innerHTML =
 
-            "Número no encontrado";
+            "❌ Número no disponible";
 
 
         }
@@ -144,6 +238,30 @@ window.Taquilla = {
 
 
 
+        const loteria =
+        document.getElementById("loteria").value;
+
+
+
+        const sorteo =
+        document.getElementById("sorteo").value;
+
+
+
+        if(!loteria){
+
+
+            alert("Seleccione una lotería");
+
+
+            return;
+
+
+        }
+
+
+
+
         if(numero.length !== 2){
 
 
@@ -154,6 +272,7 @@ window.Taquilla = {
 
 
         }
+
 
 
 
@@ -171,12 +290,20 @@ window.Taquilla = {
 
 
         const animal =
-        ANIMALES[numero] || "Sin animal";
+
+        DATA_LOTERIAS[loteria][numero]
+        ||
+        "Sin animal";
 
 
 
-        const jugada={
 
+        const jugada = {
+
+
+            loteria,
+
+            sorteo,
 
             numero,
 
@@ -228,11 +355,15 @@ window.Taquilla = {
         if(this.jugadas.length===0){
 
 
+
             contenedor.innerHTML=
 
-            `<p class="vacio">
+            `
+            <p class="vacio">
             No hay jugadas
-            </p>`;
+            </p>
+            `;
+
 
 
             total.textContent="0.00";
@@ -242,6 +373,7 @@ window.Taquilla = {
 
 
         }
+
 
 
 
@@ -261,18 +393,28 @@ window.Taquilla = {
 
             html += `
 
+
             <div class="fila-ticket">
 
 
                 <span>
+
+                ${j.loteria}
+                <br>
+
                 ${j.numero}
                 ${j.animal}
+
                 </span>
 
 
+
                 <strong>
+
                 ${j.monto.toFixed(2)} Bs
+
                 </strong>
+
 
 
                 <button
@@ -283,7 +425,9 @@ window.Taquilla = {
                 </button>
 
 
+
             </div>
+
 
             `;
 
@@ -293,11 +437,12 @@ window.Taquilla = {
 
 
 
+
         contenedor.innerHTML=html;
 
 
 
-        total.textContent=
+        total.textContent =
         suma.toFixed(2);
 
 
@@ -325,13 +470,13 @@ window.Taquilla = {
     limpiar(){
 
 
-
         document.getElementById("numero").value="";
+
 
         document.getElementById("monto").value="";
 
-        document.getElementById("animalEncontrado").innerHTML="";
 
+        document.getElementById("animalEncontrado").innerHTML="";
 
 
     },
@@ -345,10 +490,12 @@ window.Taquilla = {
         document.getElementById("hora");
 
 
+
         if(hora){
 
 
             hora.textContent =
+
             new Date()
             .toLocaleTimeString();
 
@@ -361,6 +508,8 @@ window.Taquilla = {
 
 
 };
+
+
 
 
 
