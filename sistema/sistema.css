@@ -20,6 +20,8 @@
   --border-subtle: #eeeeee;
   --shadow-light: rgba(0, 0, 0, 0.12);
   --shadow-medium: rgba(0, 0, 0, 0.15);
+  --color-danger: #e74c3c;
+  --color-danger-hover: #c0392b;
   
   /* Espaciado */
   --spacing-xs: 5px;
@@ -159,10 +161,8 @@ select:disabled {
   border: 2px solid var(--border-light);
 }
 
-/* BOTONES */
+/* BOTONES GENERALES */
 button {
-  width: 100%;
-  margin-top: var(--spacing-lg);
   padding: 13px;
   border: none;
   border-radius: 10px;
@@ -198,6 +198,12 @@ button:disabled {
   transform: none;
 }
 
+/* BOTONES DE ANCHO COMPLETO EN FORMULARIO */
+#sales-form button:not(.btn-eliminar) {
+  width: 100%;
+  margin-top: var(--spacing-lg);
+}
+
 /* TICKET */
 #ticket {
   min-height: 200px;
@@ -207,19 +213,70 @@ button:disabled {
   border: 1px solid var(--border-light);
 }
 
+/* JUGADA - ELEMENTO DEL TICKET */
 .jugada {
-  padding: var(--spacing-sm);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: var(--spacing-sm) var(--spacing-md);
   margin-bottom: var(--spacing-sm);
   background: var(--bg-white);
   border-left: 5px solid var(--primary-gold);
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.08);
   border-radius: 4px;
   transition: all var(--transition-speed) ease;
+  gap: var(--spacing-md);
 }
 
 .jugada:hover {
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.12);
   transform: translateX(2px);
+}
+
+/* CONTENIDO DE JUGADA */
+.jugada-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-xs);
+}
+
+.jugada-content strong {
+  font-size: 1.1rem;
+  color: var(--text-dark);
+}
+
+.jugada-content small {
+  color: #666;
+  font-size: 0.9rem;
+}
+
+/* BOTÓN ELIMINAR JUGADA */
+.btn-eliminar {
+  width: auto;
+  padding: 8px 12px;
+  background: var(--color-danger);
+  font-size: 0.9rem;
+  border-radius: 6px;
+  white-space: nowrap;
+  flex-shrink: 0;
+  margin-top: 0;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.btn-eliminar:hover {
+  background: var(--color-danger-hover);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+  transform: translateY(-1px);
+}
+
+.btn-eliminar:active {
+  transform: translateY(0);
+}
+
+.btn-eliminar:focus {
+  outline: 2px solid var(--color-danger-hover);
+  outline-offset: 2px;
 }
 
 /* TOTAL */
@@ -251,6 +308,16 @@ button:disabled {
 
   header p {
     font-size: 1rem;
+  }
+
+  .jugada {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .btn-eliminar {
+    width: 100%;
+    margin-top: var(--spacing-sm);
   }
 }
 
@@ -284,7 +351,7 @@ button:disabled {
 
   input,
   select,
-  button {
+  button:not(.btn-eliminar) {
     font-size: 1rem;
     padding: 14px;
   }
@@ -295,5 +362,17 @@ button:disabled {
 
   #total {
     font-size: 1.375rem;
+  }
+
+  .jugada {
+    flex-direction: column;
+    align-items: flex-start;
+    padding: var(--spacing-md);
+  }
+
+  .btn-eliminar {
+    width: 100%;
+    margin-top: var(--spacing-sm);
+    padding: 10px;
   }
 }
