@@ -1,1 +1,417 @@
+```css
+/* =====================================================
+   GOLDEN KING V2
+   TAQUILLA
+===================================================== */
 
+:root{
+
+    --azul:#2563eb;
+    --azul-hover:#1d4ed8;
+    --verde:#16a34a;
+    --gris:#64748b;
+    --borde:#e2e8f0;
+    --fondo:#f6f8fb;
+    --panel:#ffffff;
+    --texto:#1e293b;
+    --radio:16px;
+
+}
+
+*{
+
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+
+}
+
+body{
+
+    font-family:"Inter",sans-serif;
+    background:var(--fondo);
+    color:var(--texto);
+
+}
+
+/*=============================
+ TOPBAR
+=============================*/
+
+.topbar{
+
+    height:70px;
+    background:white;
+
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+
+    padding:0 30px;
+
+    border-bottom:1px solid var(--borde);
+
+}
+
+.logo{
+
+    display:flex;
+    gap:10px;
+    align-items:center;
+
+    font-size:24px;
+    font-weight:800;
+
+}
+
+.logo span{
+
+    color:var(--gris);
+    font-size:15px;
+
+}
+
+.topbar-right{
+
+    display:flex;
+    align-items:center;
+    gap:20px;
+
+}
+
+.btn-dashboard{
+
+    border:none;
+    background:var(--azul);
+    color:white;
+
+    padding:10px 18px;
+
+    border-radius:30px;
+
+    cursor:pointer;
+
+}
+
+.btn-dashboard:hover{
+
+    background:var(--azul-hover);
+
+}
+
+/*=============================
+ CONTENEDOR
+=============================*/
+
+.contenedor{
+
+    max-width:1400px;
+
+    margin:30px auto;
+
+    display:grid;
+
+    grid-template-columns:
+
+    420px
+
+    1fr;
+
+    gap:25px;
+
+    padding:0 20px;
+
+}
+
+/*=============================
+ PANELES
+=============================*/
+
+.panel{
+
+    background:var(--panel);
+
+    border-radius:var(--radio);
+
+    padding:25px;
+
+    border:1px solid var(--borde);
+
+}
+
+.panel h2{
+
+    margin-bottom:25px;
+
+}
+
+/*=============================
+ CAMPOS
+=============================*/
+
+.campo{
+
+    margin-bottom:20px;
+
+}
+
+.campo label{
+
+    display:block;
+
+    margin-bottom:8px;
+
+    font-size:14px;
+
+    font-weight:700;
+
+    color:var(--gris);
+
+}
+
+input,
+textarea,
+select{
+
+    width:100%;
+
+    border:1px solid var(--borde);
+
+    border-radius:12px;
+
+    padding:14px;
+
+    font-size:15px;
+
+    resize:none;
+
+}
+
+input:focus,
+textarea:focus,
+select:focus{
+
+    outline:none;
+
+    border-color:var(--azul);
+
+}
+
+/*=============================
+ SELECTOR
+=============================*/
+
+.selector{
+
+    width:100%;
+
+    background:white;
+
+    border:1px solid var(--borde);
+
+    border-radius:12px;
+
+    padding:15px;
+
+    text-align:left;
+
+    cursor:pointer;
+
+    font-size:15px;
+
+}
+
+.selector:hover{
+
+    border-color:var(--azul);
+
+}
+
+.selector-panel{
+
+    display:none;
+
+    margin-top:10px;
+
+    border:1px solid var(--borde);
+
+    border-radius:12px;
+
+    background:white;
+
+    max-height:350px;
+
+    overflow:auto;
+
+    padding:15px;
+
+}
+
+/*=============================
+ PREVIEW
+=============================*/
+
+.preview{
+
+    border:1px solid var(--borde);
+
+    border-radius:12px;
+
+    padding:15px;
+
+    min-height:90px;
+
+    background:#fafafa;
+
+    overflow:auto;
+
+}
+
+/*=============================
+ BOTON
+=============================*/
+
+.btn-principal{
+
+    width:100%;
+
+    border:none;
+
+    background:var(--azul);
+
+    color:white;
+
+    border-radius:12px;
+
+    padding:16px;
+
+    font-size:16px;
+
+    cursor:pointer;
+
+}
+
+.btn-principal:hover{
+
+    background:var(--azul-hover);
+
+}
+
+/*=============================
+ TICKET
+=============================*/
+
+.ticket-header{
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+    margin-bottom:20px;
+
+}
+
+#numeroTicket{
+
+    background:#dbeafe;
+
+    color:var(--azul);
+
+    padding:8px 14px;
+
+    border-radius:30px;
+
+    font-weight:bold;
+
+}
+
+#ticket{
+
+    min-height:420px;
+
+}
+
+.vacio{
+
+    text-align:center;
+
+    color:var(--gris);
+
+    margin-top:80px;
+
+}
+
+.total{
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+    margin-top:25px;
+
+    padding-top:20px;
+
+    border-top:1px solid var(--borde);
+
+    font-size:22px;
+
+}
+
+.acciones{
+
+    display:flex;
+
+    gap:10px;
+
+    margin-top:20px;
+
+}
+
+.acciones button{
+
+    flex:1;
+
+    border:none;
+
+    padding:14px;
+
+    border-radius:12px;
+
+    cursor:pointer;
+
+    background:var(--azul);
+
+    color:white;
+
+}
+
+.acciones button:nth-child(1){
+
+    background:var(--verde);
+
+}
+
+/*=============================
+ RESPONSIVE
+=============================*/
+
+@media(max-width:1000px){
+
+.contenedor{
+
+grid-template-columns:1fr;
+
+}
+
+.acciones{
+
+flex-direction:column;
+
+}
+
+}
+```
