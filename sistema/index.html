@@ -1,235 +1,53 @@
 <!DOCTYPE html>
 <html lang="es">
-
 <head>
-
-<meta charset="UTF-8">
-
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<title>Golden King | Taquilla</title>
-
-
-<link rel="stylesheet" href="../style.css">
-
-<link rel="stylesheet" href="ticket/ticket.css">
-
-
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Golden King | Taquilla</title>
+    <link rel="stylesheet" href="../style.css">
 </head>
-
 
 <body>
 
-
-<aside class="sidebar">
-
-
-<div class="logo">
-
-👑 GOLDEN KING
-
-</div>
-
-
-
-<button class="btn-volver"
-onclick="window.location.href='../dashboard/index.html'">
-
-⬅ VOLVER DASHBOARD
-
-</button>
-
-
-
-<h3>SORTEOS</h3>
-
-
-<div id="listaSorteos"></div>
-
-
-</aside>
-
-
-
-
-
-
-
-<main class="main-content">
-
-
-
-<div class="card">
-
-
-<h2>Nueva Jugada</h2>
-
-
-
-<label>Número</label>
-
-
-<input
-
-id="numero"
-
-type="text"
-
-maxlength="2"
-
-placeholder="00"
-
-autocomplete="off">
-
-
-
-<div id="animalEncontrado">
-
-</div>
-
-
-
-
-
-<label>Monto Bs.</label>
-
-
-<input
-
-id="monto"
-
-type="number"
-
-placeholder="50">
-
-
-
-
-
-<button id="agregar"
-class="btn-agregar">
-
-➕ AGREGAR JUGADA
-
-</button>
-
-
-
-</div>
-
-
-
-
-
-
-
-
-
-
-<div class="ticket">
-
-
-<h2>🎟️ Ticket</h2>
-
-
-
-
-<div id="ticket">
-
-<p>
-No hay jugadas
-</p>
-
-</div>
-
-
-
-
-
-<div class="total">
-
-
-TOTAL:
-
-<span id="total">
-
-0.00
-
-</span>
-
-Bs
-
-
-</div>
-
-
-
-
-
-
-
-<button id="imprimir"
-class="btn-imprimir">
-
-🖨️ IMPRIMIR
-
-</button>
-
-
-
-<br><br>
-
-
-
-<button id="whatsapp"
-class="btn-whatsapp">
-
-📲 ENVIAR WHATSAPP
-
-</button>
-
-
-
-
-</div>
-
-
-
-
-
-
-
-</main>
-
-
-
-
-
-
-
-
-<!-- DATOS ANIMALES -->
-
-<script src="animales.js"></script>
-
-
-
-<!-- SISTEMA DE TICKET -->
-
-<script src="ticket/modelo.js"></script>
-
-<script src="ticket/imprimir.js"></script>
-
-<script src="ticket/whatsapp.js"></script>
-
-
-
-<!-- SISTEMA PRINCIPAL -->
-
-<script src="sistema.js"></script>
-
-
-
+    <aside class="sidebar">
+        <div class="logo">👑 GOLDEN KING</div>
+        <button class="btn-volver" onclick="window.location.href='../dashboard/index.html'">
+            ⬅ VOLVER DASHBOARD
+        </button>
+        <h3>SORTEOS</h3>
+        <div id="listaSorteos"></div>
+    </aside>
+
+    <main class="main-content">
+        <div class="card">
+            <h2>Nueva Jugada</h2>
+            <label>Número</label>
+            <input id="numero" type="text" maxlength="2" placeholder="00" autocomplete="off">
+            <div id="animalEncontrado"></div>
+            
+            <label>Monto Bs.</label>
+            <input id="monto" type="number" placeholder="50">
+            
+            <button id="agregar" class="btn-agregar">➕ AGREGAR JUGADA</button>
+        </div>
+
+        <div class="ticket">
+            <h2>🎟️ Ticket</h2>
+            <div id="ticket"><p>No hay jugadas</p></div>
+            
+            <div class="total">
+                TOTAL: <span id="total">0.00</span> Bs
+            </div>
+
+            <button id="imprimir" class="btn-imprimir">🖨️ IMPRIMIR</button>
+            <button id="whatsapp" class="btn-whatsapp">📲 ENVIAR WHATSAPP</button>
+        </div>
+    </main>
+
+    <script src="animales.js"></script>
+    <script src="ticket/modelo.js"></script>
+    <script src="ticket/imprimir.js"></script>
+    <script src="ticket/whatsapp.js"></script>
+    <script src="sistema.js"></script>
 </body>
-
 </html>
