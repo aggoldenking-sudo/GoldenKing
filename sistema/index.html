@@ -11,10 +11,6 @@
 
 <link rel="stylesheet" href="sistema.css">
 
-<link rel="preconnect" href="https://fonts.googleapis.com">
-
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 
 </head>
@@ -25,69 +21,73 @@
 
 <header class="topbar">
 
-    <div class="logo">
 
-        👑 GOLDEN KING
+<div class="logo">
 
-        <span> | TAQUILLA</span>
+👑 GOLDEN KING
 
-    </div>
+<span>| TAQUILLA</span>
+
+</div>
 
 
-    <div class="top-info">
 
-        <span id="hora">
-            00:00:00
-        </span>
+<div class="top-info">
 
-        <button 
-        onclick="window.location.href='../dashboard/index.html'"
-        class="btn-volver">
 
-        ⬅ Dashboard
+<span id="hora">
+00:00:00
+</span>
 
-        </button>
 
-    </div>
+<button 
+class="btn-volver"
+onclick="window.location.href='../dashboard/index.html'">
+
+⬅ Dashboard
+
+</button>
+
+
+</div>
+
 
 </header>
+
+
 
 
 
 <main class="taquilla">
 
 
+
 <section class="panel jugada">
+
 
 
 <h2>🎟 Nueva Jugada</h2>
 
 
-<label>
-Lotería
-</label>
-
-<select id="loteria">
-
-<option>
-Seleccione
-</option>
-
-</select>
-
-
 
 <label>
-Sorteo
+🎯 Seleccione Sorteos
 </label>
 
-<select id="sorteo">
 
-<option>
-Seleccione
-</option>
 
-</select>
+<div id="listaSorteos" class="lista-sorteos">
+
+</div>
+
+
+
+<div id="contadorSorteos" class="contador">
+
+0 sorteos seleccionados
+
+</div>
+
 
 
 
@@ -95,18 +95,26 @@ Seleccione
 Número
 </label>
 
-<input 
+
+<input
+
 id="numero"
+
 type="text"
+
 maxlength="2"
+
 placeholder="00"
+
 autocomplete="off">
 
 
-
-<div id="animalEncontrado" class="animal">
+<div 
+id="animalEncontrado"
+class="animal">
 
 </div>
+
 
 
 
@@ -114,20 +122,29 @@ autocomplete="off">
 Monto Bs.
 </label>
 
-<input 
+
+<input
+
 id="monto"
+
 type="number"
+
 placeholder="50">
 
 
 
-<button 
+
+
+<button
+
 id="agregar"
+
 class="btn-primary">
 
 ➕ Agregar Jugada
 
 </button>
+
 
 
 </section>
@@ -136,20 +153,29 @@ class="btn-primary">
 
 
 
+
+
 <section class="panel ticket">
 
 
+
 <div class="ticket-header">
+
 
 <h2>
 🎟 Ticket
 </h2>
 
+
 <span id="numeroTicket">
+
 #000001
+
 </span>
 
+
 </div>
+
 
 
 
@@ -167,7 +193,10 @@ No hay jugadas
 
 
 
+
+
 <div class="total">
+
 
 TOTAL:
 
@@ -181,15 +210,20 @@ Bs
 
 </strong>
 
+
 </div>
+
+
 
 
 
 <div class="acciones">
 
 
-<button 
+<button
+
 id="guardar"
+
 class="btn-success">
 
 💾 Guardar
@@ -197,8 +231,12 @@ class="btn-success">
 </button>
 
 
-<button 
+
+
+<button
+
 id="imprimir"
+
 class="btn-primary">
 
 🖨 Imprimir
@@ -206,8 +244,12 @@ class="btn-primary">
 </button>
 
 
-<button 
+
+
+<button
+
 id="whatsapp"
+
 class="btn-whatsapp">
 
 📲 WhatsApp
@@ -218,20 +260,20 @@ class="btn-whatsapp">
 </div>
 
 
+
 </section>
+
 
 
 </main>
 
 
 
+
+
 <script src="animales.js"></script>
 
 <script src="ticket/modelo.js"></script>
-
-<script src="ticket/calcular.js"></script>
-
-<script src="ticket/guardar.js"></script>
 
 <script src="ticket/imprimir.js"></script>
 
