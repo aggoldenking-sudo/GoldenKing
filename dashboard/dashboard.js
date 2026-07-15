@@ -1,45 +1,111 @@
+/*
+====================================================
+GOLDEN KING
+Dashboard JS
+====================================================
+*/
+
 window.Dashboard = {
 
     init() {
-        this.actualizarHora();
-        this.actualizarFecha();
+
+        this.reloj();
+
+        this.eventos();
+
+        this.animarTarjetas();
 
         setInterval(() => {
-            this.actualizarHora();
+
+            this.reloj();
+
         }, 1000);
+
     },
 
-    actualizarHora() {
+    reloj() {
+
         const hora = document.getElementById("hora");
+
         if (!hora) return;
 
-        hora.textContent = new Date().toLocaleTimeString();
+        const ahora = new Date();
+
+        hora.textContent = ahora.toLocaleTimeString("es-VE", {
+            hour: "2-digit",
+            minute: "2-digit",
+            second: "2-digit"
+        });
+
     },
 
-    actualizarFecha() {
-        const fecha = document.getElementById("fecha");
-        if (!fecha) return;
+    eventos() {
 
-        fecha.textContent = new Date().toLocaleDateString();
+        document.querySelectorAll(".card").forEach(card => {
+
+            card.addEventListener("click", () => {
+
+                // Tarjeta Salir
+                if (card.classList.contains("salir")) {
+
+                    this.salir();
+
+                    return;
+
+                }
+
+                const destino = card.dataset.link;
+
+                if (destino) {
+
+                    window.location.href = destino;
+
+                }
+
+            });
+
+        });
+
     },
 
-    actualizarTotal(total) {
-        const t = document.getElementById("total");
-        if (!t) return;
+    salir() {
 
-        t.textContent = total.toFixed(2);
+        const ok = confirm("¿Desea cerrar la sesión?");
+
+        if (!ok) return;
+
+        window.location.href = "../login.html";
+
     },
 
-    actualizarCantidad(cantidad) {
-        const c = document.getElementById("cantidadJugadas");
-        if (!c) return;
+    animarTarjetas() {
 
-        c.textContent = cantidad;
-    },
+        const cards = document.querySelectorAll(".card");
 
-    notificar(mensaje, tipo = "ok") {
-        console.log(`[${tipo}] ${mensaje}`);
-        // Más adelante aquí podemos mostrar un toast visual.
+        cards.forEach((card, index) => {
+
+            card.style.opacity = "0";
+
+            card.style.transform = "translateY(40px)";
+
+            setTimeout(() => {
+
+                card.style.transition = ".45s ease";
+
+                card.style.opacity = "1";
+
+                card.style.transform = "translateY(0)";
+
+            }, index * 80);
+
+        });
+
     }
 
 };
+
+document.addEventListener("DOMContentLoaded", () => {
+
+    Dashboard.init();
+
+});
