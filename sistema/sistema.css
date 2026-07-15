@@ -7,27 +7,16 @@
 :root{
 
     --bg:#f4f7fb;
-
     --card:#ffffff;
-
     --primary:#2563eb;
-
     --primary-dark:#1d4ed8;
-
     --gold:#fbbf24;
-
     --success:#22c55e;
-
     --whatsapp:#16a34a;
-
     --danger:#ef4444;
-
     --text:#1f2937;
-
     --text-light:#64748b;
-
     --border:#e5e7eb;
-
     --radius:18px;
 
     --shadow:
@@ -40,9 +29,7 @@
 *{
 
     margin:0;
-
     padding:0;
-
     box-sizing:border-box;
 
 }
@@ -52,13 +39,8 @@
 body{
 
     background:var(--bg);
-
     color:var(--text);
-
-    font-family:
-    "Inter",
-    sans-serif;
-
+    font-family:"Inter",sans-serif;
     min-height:100vh;
 
 }
@@ -73,19 +55,12 @@ body{
 .topbar{
 
     height:70px;
-
     background:white;
-
     display:flex;
-
     justify-content:space-between;
-
     align-items:center;
-
     padding:0 25px;
-
     border-bottom:1px solid var(--border);
-
     box-shadow:0 4px 15px rgba(0,0,0,.04);
 
 }
@@ -95,9 +70,7 @@ body{
 .logo{
 
     font-size:22px;
-
     font-weight:800;
-
     color:var(--primary);
 
 }
@@ -107,7 +80,6 @@ body{
 .logo span{
 
     color:var(--text-light);
-
     font-weight:600;
 
 }
@@ -117,12 +89,12 @@ body{
 .top-info{
 
     display:flex;
-
     align-items:center;
-
     gap:20px;
 
 }
+
+
 
 
 
@@ -134,17 +106,11 @@ body{
 .btn-volver{
 
     background:#eef4ff;
-
     color:var(--primary);
-
     border:none;
-
     padding:10px 18px;
-
     border-radius:50px;
-
     cursor:pointer;
-
     font-weight:700;
 
 }
@@ -159,8 +125,10 @@ body{
 
 
 
+
+
 /* ==========================
-   CONTENEDOR TAQUILLA
+   CONTENEDOR PRINCIPAL
 ========================== */
 
 
@@ -183,6 +151,8 @@ body{
     gap:25px;
 
 }
+
+
 
 
 
@@ -214,6 +184,8 @@ body{
     font-size:22px;
 
 }
+
+
 
 
 
@@ -265,10 +237,11 @@ select:focus{
     border-color:var(--primary);
 
     box-shadow:
-    0 0 0 4px
-    rgba(37,99,235,.15);
+    0 0 0 4px rgba(37,99,235,.15);
 
 }
+
+
 
 
 
@@ -294,6 +267,8 @@ select:focus{
     font-weight:700;
 
 }
+
+
 
 
 
@@ -360,6 +335,67 @@ button{
 
 
 
+
+
+/* ==========================
+   LISTA DE SORTEOS
+========================== */
+
+
+.lista-sorteos{
+
+    display:flex;
+
+    flex-wrap:wrap;
+
+    gap:10px;
+
+}
+
+
+
+.sorteo-item{
+
+    background:#eef4ff;
+
+    color:var(--primary);
+
+    padding:10px 14px;
+
+    border-radius:50px;
+
+    cursor:pointer;
+
+    font-weight:700;
+
+}
+
+
+
+.sorteo-item.activo{
+
+    background:var(--primary);
+
+    color:white;
+
+}
+
+
+
+
+
+.contador{
+
+    margin-bottom:20px;
+
+    color:var(--text-light);
+
+}
+
+
+
+
+
 /* ==========================
    TICKET
 ========================== */
@@ -415,6 +451,8 @@ button{
 
 
 
+
+
 /* ==========================
    TOTAL
 ========================== */
@@ -446,6 +484,8 @@ button{
 
 
 
+
+
 /* ==========================
    ACCIONES
 ========================== */
@@ -471,6 +511,85 @@ button{
 
 
 
+
+
+/* ==========================
+   ANIMALES Y HORARIOS
+========================== */
+
+
+.animales-panel{
+
+    grid-column:1 / -1;
+
+}
+
+
+
+#listaAnimales{
+
+    display:grid;
+
+    grid-template-columns:
+
+    repeat(auto-fill,minmax(130px,1fr));
+
+    gap:12px;
+
+    margin-bottom:30px;
+
+}
+
+
+
+.animal-item{
+
+    background:#f8fafc;
+
+    border:1px solid var(--border);
+
+    padding:12px;
+
+    border-radius:14px;
+
+    text-align:center;
+
+    font-weight:700;
+
+}
+
+
+
+#listaHorarios{
+
+    display:flex;
+
+    flex-wrap:wrap;
+
+    gap:12px;
+
+}
+
+
+
+.horario-item{
+
+    background:#eef4ff;
+
+    color:var(--primary);
+
+    padding:12px 18px;
+
+    border-radius:50px;
+
+    font-weight:700;
+
+}
+
+
+
+
+
 /* ==========================
    RESPONSIVE
 ========================== */
@@ -484,6 +603,7 @@ button{
     grid-template-columns:1fr;
 
 }
+
 
 
 .acciones{
