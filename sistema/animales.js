@@ -1,3 +1,12 @@
+/*
+=====================================================
+ GOLDEN KING
+ DATOS DE ANIMALITOS
+ animales.js
+=====================================================
+*/
+
+
 const animales38 = {
 
 "00":"🐳 Ballena",
@@ -46,63 +55,101 @@ const animales38 = {
 window.DATA_LOTERIAS={
 
 
-LottoActivo: animales38,
-
-Granjita: animales38,
-
-SelvaPlus: animales38,
+    LottoActivo: animales38,
 
 
-Guacharo:{
+    Granjita: animales38,
 
 
-...animales38,
+    SelvaPlus: animales38,
 
 
-"37":"🐢 Tortuga",
-"38":"🐃 Búfalo",
-"39":"🦉 Lechuza",
-"40":"🐝 Avispa",
-"41":"🦘 Canguro",
-"42":"🦜 Tucán",
-"43":"🦋 Mariposa",
-"44":"🦫 Chigüire",
-"45":"🦩 Garza",
-"46":"🐆 Puma",
-"47":"🦚 Pavo Real",
-"48":"🦔 Puercoespín",
-"49":"🦥 Pereza",
-"50":"🐤 Canario",
-"51":"🦆 Pelícano",
-"52":"🐙 Pulpo",
-"53":"🐌 Caracol",
-"54":"🦗 Grillo",
-"55":"🦣 Oso Hormiguero",
-"56":"🦈 Tiburón",
-"57":"🦆 Pato",
-"58":"🐜 Hormiga",
-"59":"🐆 Pantera",
-"60":"🦎 Camaleón",
-"61":"🐼 Panda",
-"62":"🐗 Cachicamo",
-"63":"🦀 Cangrejo",
-"64":"🦅 Gavilán",
-"65":"🕷️ Araña",
-"66":"🐺 Lobo",
-"67":"🦤 Avestruz",
-"68":"🐆 Jaguar",
-"69":"🐇 Conejo",
-"70":"🦬 Bisonte",
-"71":"🦜 Guacamaya",
-"72":"🦍 Gorila",
-"73":"🦛 Hipopótamo",
-"74":"🐦 Turpial",
-"75":"🦇 Guácharo"
 
-}
+    Guacharo:{
+
+
+        ...animales38,
+
+
+        "37":"🐢 Tortuga",
+        "38":"🐃 Búfalo",
+        "39":"🦉 Lechuza",
+        "40":"🐝 Avispa",
+        "41":"🦘 Canguro",
+        "42":"🦜 Tucán",
+        "43":"🦋 Mariposa",
+        "44":"🦫 Chigüire",
+        "45":"🦩 Garza",
+        "46":"🐆 Puma",
+        "47":"🦚 Pavo Real",
+        "48":"🦔 Puercoespín",
+        "49":"🦥 Pereza",
+        "50":"🐤 Canario",
+        "51":"🦆 Pelícano",
+        "52":"🐙 Pulpo",
+        "53":"🐌 Caracol",
+        "54":"🦗 Grillo",
+        "55":"🦣 Oso Hormiguero",
+        "56":"🦈 Tiburón",
+        "57":"🦆 Pato",
+        "58":"🐜 Hormiga",
+        "59":"🐆 Pantera",
+        "60":"🦎 Camaleón",
+        "61":"🐼 Panda",
+        "62":"🐗 Cachicamo",
+        "63":"🦀 Cangrejo",
+        "64":"🦅 Gavilán",
+        "65":"🕷️ Araña",
+        "66":"🐺 Lobo",
+        "67":"🦤 Avestruz",
+        "68":"🐆 Jaguar",
+        "69":"🐇 Conejo",
+        "70":"🦬 Bisonte",
+        "71":"🦜 Guacamaya",
+        "72":"🦍 Gorila",
+        "73":"🦛 Hipopótamo",
+        "74":"🐦 Turpial",
+        "75":"🦇 Guácharo"
+
+
+    }
 
 
 };
 
 
-console.log("DATA LOTERIAS CARGADA");
+
+
+
+/*
+=====================================================
+ HORARIOS GENERALES DE SORTEOS
+ 8:00 AM - 7:00 PM
+=====================================================
+*/
+
+
+window.HORARIOS=[
+
+
+"8:00 AM",
+"9:00 AM",
+"10:00 AM",
+"11:00 AM",
+"12:00 PM",
+"1:00 PM",
+"2:00 PM",
+"3:00 PM",
+"4:00 PM",
+"5:00 PM",
+"6:00 PM",
+"7:00 PM"
+
+
+];
+
+
+
+
+
+console.log("DATA LOTERIAS Y HORARIOS CARGADOS");
