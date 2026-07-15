@@ -251,6 +251,4 @@ hora
 
 
 
-console.log(
-"✅ DATA LOTERIAS + HORARIOS + SORTEOS CARGADOS"
-);
+console.log("SORTEOS:", window.SORTEOS);
