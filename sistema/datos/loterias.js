@@ -43,5 +43,7 @@ window.LOTERIAS = [
         ]
 
     }
+console.log("LOTTERIAS CARGADAS", window.LOTERIAS);
 
+ 
 ];
