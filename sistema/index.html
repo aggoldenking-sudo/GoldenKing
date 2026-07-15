@@ -9,14 +9,16 @@
 
 <title>Golden King | Taquilla</title>
 
+
 <link rel="stylesheet" href="sistema.css">
 
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 
 </head>
 
 
+
 <body>
+
 
 
 <header class="topbar">
@@ -32,22 +34,9 @@
 
 
 
-<div class="top-info">
+<div class="hora" id="hora">
 
-
-<span id="hora">
 00:00:00
-</span>
-
-
-<button 
-class="btn-volver"
-onclick="window.location.href='../dashboard/index.html'">
-
-⬅ Dashboard
-
-</button>
-
 
 </div>
 
@@ -58,37 +47,35 @@ onclick="window.location.href='../dashboard/index.html'">
 
 
 
+
+
 <main class="taquilla">
 
 
 
-<!-- PANEL JUGADA -->
-
-<section class="panel jugada">
 
 
 
-<h2>🎟 Nueva Jugada</h2>
+<section class="panel">
+
+
+<h2>
+🎯 Nueva Jugada
+</h2>
+
 
 
 
 <label>
-🎯 Seleccione Sorteos
+Seleccione Sorteo
 </label>
 
 
-
-<div id="listaSorteos" class="lista-sorteos">
-
-</div>
-
-
-
-<div id="contadorSorteos" class="contador">
-
-0 sorteos seleccionados
+<div id="sorteos">
 
 </div>
+
+
 
 
 
@@ -102,21 +89,19 @@ Número
 
 id="numero"
 
-type="text"
-
 maxlength="2"
 
-placeholder="00"
-
-autocomplete="off">
+placeholder="00">
 
 
 
-<div 
-id="animalEncontrado"
-class="animal">
+
+
+
+<div id="animal">
 
 </div>
+
 
 
 
@@ -125,7 +110,6 @@ class="animal">
 <label>
 Monto Bs.
 </label>
-
 
 
 <input
@@ -142,13 +126,12 @@ placeholder="50">
 
 <button
 
-id="agregar"
-
-class="btn-primary">
+id="agregar">
 
 ➕ Agregar Jugada
 
 </button>
+
 
 
 
@@ -160,14 +143,9 @@ class="btn-primary">
 
 
 
-<!-- PANEL TICKET -->
 
 
-<section class="panel ticket">
-
-
-
-<div class="ticket-header">
+<section class="panel">
 
 
 <h2>
@@ -175,25 +153,12 @@ class="btn-primary">
 </h2>
 
 
-<span id="numeroTicket">
-
-#000001
-
-</span>
-
-
-</div>
-
-
-
 
 <div id="ticket">
 
 
-<p class="vacio">
-
+<p>
 No hay jugadas
-
 </p>
 
 
@@ -202,72 +167,39 @@ No hay jugadas
 
 
 
+<h3>
 
-<div class="total">
-
-
-TOTAL:
-
-<strong>
+Total:
 
 <span id="total">
-0.00
+0
 </span>
 
 Bs
 
-</strong>
-
-
-</div>
+</h3>
 
 
 
 
-
-<div class="acciones">
-
-
-<button
-
-id="guardar"
-
-class="btn-success">
-
+<button id="guardar">
 💾 Guardar
-
 </button>
 
 
 
-
-<button
-
-id="imprimir"
-
-class="btn-primary">
-
+<button id="imprimir">
 🖨 Imprimir
-
 </button>
 
 
 
 
-<button
-
-id="whatsapp"
-
-class="btn-whatsapp">
-
+<button id="whatsapp">
 📲 WhatsApp
-
 </button>
 
 
-</div>
-
-
 
 </section>
 
@@ -279,17 +211,22 @@ class="btn-whatsapp">
 
 
 
-<!-- PANEL ANIMALES Y HORARIOS -->
+<section class="panel">
 
 
-<section class="panel animales-panel">
+<h2>
+🐾 Lotto Activo
+</h2>
 
 
-<h2>🐾 Animales</h2>
+
+<h3>
+Animales
+</h3>
 
 
-<div id="listaAnimales">
 
+<div id="animales">
 
 </div>
 
@@ -297,17 +234,20 @@ class="btn-whatsapp">
 
 
 
-<h2>🕒 Horarios</h2>
+<h3>
+Horarios
+</h3>
 
 
-<div id="listaHorarios">
 
+<div id="horarios">
 
 </div>
 
 
 
 </section>
+
 
 
 
@@ -321,17 +261,30 @@ class="btn-whatsapp">
 
 
 
-<script src="animales.js"></script>
+<!-- DATOS LOTTO ACTIVO -->
 
-<script src="ticket/modelo.js"></script>
+<script src="datos/LottoActivo/animales.js"></script>
 
-<script src="ticket/imprimir.js"></script>
+<script src="datos/LottoActivo/horarios.js"></script>
 
-<script src="ticket/whatsapp.js"></script>
+<script src="datos/LottoActivo/modalidades.js"></script>
+
+<script src="datos/LottoActivo/resultados.js"></script>
+
+<script src="datos/LottoActivo/configuracion.js"></script>
+
+
+
+
+
+
+<!-- SISTEMA -->
 
 <script src="sistema.js"></script>
 
 
+
 </body>
+
 
 </html>
