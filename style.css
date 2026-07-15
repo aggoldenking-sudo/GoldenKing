@@ -1,295 +1,128 @@
-*{
-    box-sizing:border-box;
-    font-family:Arial, Helvetica, sans-serif;
+* {
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Arial, sans-serif;
 }
 
-
-body{
-
-    margin:0;
-    background:#f4f6f9;
-    display:flex;
-
+body {
+    margin: 0;
+    background: #f8fafc;
+    display: flex;
 }
 
-
-/* LATERAL */
-
-.sidebar{
-
-    width:300px;
-    min-height:100vh;
-    background:white;
-    padding:20px;
-    box-shadow:0 0 15px #ccc;
-
+/* LATERAL - Sidebar */
+.sidebar {
+    width: 300px;
+    min-height: 100vh;
+    background: white;
+    padding: 20px;
+    border-right: 1px solid #e2e8f0;
 }
 
-
-.logo{
-
-    font-size:25px;
-    font-weight:bold;
-    text-align:center;
-    color:#c99700;
-    margin-bottom:20px;
-
+.logo {
+    font-size: 25px;
+    font-weight: bold;
+    text-align: center;
+    color: #d4af37; /* Dorado */
+    margin-bottom: 20px;
 }
-
-
-
-.sidebar h3{
-
-    text-align:center;
-    color:#555;
-
-}
-
 
 /* BOTON VOLVER */
+.btn-volver {
+    width: 100%;
+    padding: 12px;
+    border: none;
+    border-radius: 8px;
+    background: #174a7c; /* Azul */
+    color: white;
+    cursor: pointer;
+    margin-bottom: 20px;
+    font-weight: bold;
+    transition: 0.3s;
+}
+.btn-volver:hover { background: #1e5a95; }
 
-.btn-volver{
-
-    width:100%;
-    padding:12px;
-    border:none;
-    border-radius:8px;
-    background:#d4a017;
-    color:white;
-    cursor:pointer;
-    margin-bottom:20px;
-    font-weight:bold;
-
+/* BOTONES LOTERIAS */
+.btn-sorteo {
+    width: 31%;
+    margin: 3px;
+    padding: 8px;
+    border: none;
+    border-radius: 6px;
+    background: #f1f5f9;
+    cursor: pointer;
+    font-size: 13px;
 }
 
-
-/* BOTONES CONTROL */
-
-.acciones-sorteos{
-
-    display:flex;
-    gap:8px;
-    margin-bottom:15px;
-
+.btn-sorteo.active {
+    background: #d4af37; /* Dorado */
+    color: white;
+    transform: scale(1.05);
 }
 
-
-.acciones-sorteos button{
-
-    flex:1;
-    padding:8px;
-    border:none;
-    border-radius:6px;
-    cursor:pointer;
-    background:#eee;
-
+/* CONTENIDO PRINCIPAL */
+.main-content {
+    flex: 1;
+    padding: 30px;
 }
 
-
-
-/* LOTERIAS */
-
-#listaSorteos h4{
-
-    margin:15px 0 8px;
-    color:#b8860b;
-
+.card, .ticket {
+    background: white;
+    border-radius: 20px;
+    padding: 25px;
+    margin-bottom: 25px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.05);
 }
 
-
-
-
-.btn-sorteo{
-
-    width:31%;
-    margin:3px;
-    padding:8px;
-    border:none;
-    border-radius:6px;
-    background:#e9ecef;
-    cursor:pointer;
-    font-size:13px;
-
+.card h2, .ticket h2 {
+    color: #174a7c; /* Azul */
+    text-align: center;
 }
 
-
-
-.btn-sorteo:hover{
-
-    background:#ffe7a3;
-
+input {
+    width: 100%;
+    padding: 14px;
+    margin-top: 5px;
+    border: 1px solid #ddd;
+    border-radius: 12px;
+    font-size: 18px;
 }
 
-
-
-.btn-sorteo.active{
-
-    background:#d4a017;
-    color:white;
-    transform:scale(1.05);
-
+/* BOTONES ACCION */
+.btn-agregar {
+    width: 100%;
+    padding: 15px;
+    margin-top: 20px;
+    border: none;
+    border-radius: 10px;
+    background: #d4af37; /* Dorado */
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
 }
 
-
-
-
-/* CONTENIDO */
-
-.main-content{
-
-    flex:1;
-    padding:30px;
-
+.btn-imprimir {
+    width: 100%;
+    padding: 15px;
+    margin-top: 20px;
+    border: none;
+    border-radius: 10px;
+    background: #174a7c; /* Azul */
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
 }
 
-
-
-
-.card,
-.ticket{
-
-    background:white;
-    border-radius:15px;
-    padding:25px;
-    margin-bottom:25px;
-    box-shadow:0 5px 15px #ddd;
-
+/* TOTAL */
+.total {
+    margin-top: 20px;
+    font-size: 24px;
+    font-weight: bold;
+    text-align: right;
+    color: #174a7c; /* Azul */
 }
-
-
-
-.card h2,
-.ticket h2{
-
-    color:#b8860b;
-
-}
-
-
-
-label{
-
-    display:block;
-    margin-top:15px;
-    font-weight:bold;
-
-}
-
-
-
-
-input{
-
-    width:100%;
-    padding:14px;
-    margin-top:5px;
-    border:1px solid #ddd;
-    border-radius:8px;
-    font-size:18px;
-
-}
-
-
-
-
-
-.btn-agregar,
-.btn-imprimir{
-
-
-    width:100%;
-    padding:15px;
-    margin-top:20px;
-    border:none;
-    border-radius:10px;
-    cursor:pointer;
-    font-size:18px;
-    font-weight:bold;
-
-}
-
-
-
-.btn-agregar{
-
-    background:#d4a017;
-    color:white;
-
-}
-
-
-
-.btn-imprimir{
-
-    background:#198754;
-    color:white;
-
-}
-
-
-
-
-
-/* TICKET */
-
-.ticket-item{
-
-    padding:15px 0;
-    border-bottom:1px dashed #aaa;
-    line-height:1.6;
-
-}
-
-
-
-.ticket-item strong{
-
-    display:block;
-    text-align:right;
-    color:#198754;
-
-}
-
-
-
-
-.total{
-
-    margin-top:20px;
-    padding:15px;
-    font-size:22px;
-    font-weight:bold;
-    text-align:right;
-    color:#b8860b;
-
-}
-
-
 
 /* RESPONSIVE */
-
-@media(max-width:900px){
-
-
-body{
-
-    flex-direction:column;
-
-}
-
-
-.sidebar{
-
-    width:100%;
-
-}
-
-
-.btn-sorteo{
-
-    width:30%;
-
-}
-
-
+@media(max-width:900px) {
+    body { flex-direction: column; }
+    .sidebar { width: 100%; min-height: auto; }
 }
