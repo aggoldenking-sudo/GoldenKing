@@ -26,6 +26,9 @@ window.Taquilla = {
         this.cargarEventos();
 
 
+        this.conectarTicket();
+
+
         this.mostrarTicket();
 
 
@@ -68,7 +71,8 @@ window.Taquilla = {
 
 
 
-        Object.keys(DATA_LOTERIAS).forEach(nombre=>{
+        Object.keys(DATA_LOTERIAS)
+        .forEach(nombre=>{
 
 
             select.innerHTML += `
@@ -136,7 +140,6 @@ window.Taquilla = {
     cargarEventos(){
 
 
-
         const numero =
         document.getElementById("numero");
 
@@ -147,28 +150,43 @@ window.Taquilla = {
 
 
 
-        numero.addEventListener("input",()=>{
+
+        if(numero){
 
 
-            this.buscarAnimal();
+            numero.addEventListener("input",()=>{
 
 
-        });
+                this.buscarAnimal();
+
+
+            });
+
+
+        }
 
 
 
 
-        agregar.addEventListener("click",()=>{
+
+        if(agregar){
 
 
-            this.agregarJugada();
+            agregar.addEventListener("click",()=>{
 
 
-        });
+                this.agregarJugada();
+
+
+            });
+
+
+        }
 
 
 
     },
+
 
 
 
@@ -192,7 +210,7 @@ window.Taquilla = {
 
 
 
-        if(numero.length < 1){
+        if(!numero){
 
 
             resultado.innerHTML="";
@@ -202,6 +220,8 @@ window.Taquilla = {
 
 
         }
+
+
 
 
 
@@ -237,6 +257,7 @@ window.Taquilla = {
             animal;
 
 
+
         }else{
 
 
@@ -248,8 +269,9 @@ window.Taquilla = {
         }
 
 
-
     },
+
+
 
 
 
@@ -286,7 +308,8 @@ window.Taquilla = {
         if(!loteria){
 
 
-            alert("Seleccione una lotería");
+            alert("Seleccione lotería");
+
 
             return;
 
@@ -302,6 +325,7 @@ window.Taquilla = {
 
             alert("Seleccione horario");
 
+
             return;
 
 
@@ -311,10 +335,11 @@ window.Taquilla = {
 
 
 
-        if(numero.length < 1){
+        if(!numero){
 
 
             alert("Ingrese número");
+
 
             return;
 
@@ -329,6 +354,7 @@ window.Taquilla = {
 
 
             alert("Ingrese monto");
+
 
             return;
 
@@ -351,7 +377,7 @@ window.Taquilla = {
 
 
 
-        const jugada={
+        this.jugadas.push({
 
 
             loteria,
@@ -365,13 +391,9 @@ window.Taquilla = {
             monto
 
 
-        };
+        });
 
 
-
-
-
-        this.jugadas.push(jugada);
 
 
 
@@ -384,6 +406,8 @@ window.Taquilla = {
 
 
     },
+
+
 
 
 
@@ -414,13 +438,14 @@ window.Taquilla = {
         if(this.jugadas.length===0){
 
 
-            contenedor.innerHTML=
+            contenedor.innerHTML =
 
             `
             <p class="vacio">
             No hay jugadas
             </p>
             `;
+
 
 
             total.textContent="0.00";
@@ -430,6 +455,7 @@ window.Taquilla = {
 
 
         }
+
 
 
 
@@ -447,7 +473,8 @@ window.Taquilla = {
         this.jugadas.forEach((j,index)=>{
 
 
-            suma += j.monto;
+            suma += Number(j.monto);
+
 
 
 
@@ -460,26 +487,38 @@ window.Taquilla = {
 
                 <div>
 
-                <b>${j.loteria}</b>
+
+                <b>
+                ${j.loteria}
+                </b>
+
 
                 <br>
+
 
                 🕒 ${j.sorteo}
 
+
                 <br>
+
 
                 ${j.numero}
                 ${j.animal}
+
+
 
                 </div>
 
 
 
+
                 <strong>
 
-                ${j.monto.toFixed(2)} Bs
+                ${j.monto.toFixed(2)}
+                Bs
 
                 </strong>
+
 
 
 
@@ -491,7 +530,6 @@ window.Taquilla = {
 
 
             </div>
-
 
 
             `;
@@ -507,6 +545,7 @@ window.Taquilla = {
 
 
         total.textContent =
+
         suma.toFixed(2);
 
 
@@ -518,7 +557,129 @@ window.Taquilla = {
 
 
 
+
+
+    conectarTicket(){
+
+
+
+        const imprimir =
+        document.getElementById("imprimir");
+
+
+
+        const whatsapp =
+        document.getElementById("whatsapp");
+
+
+
+
+
+        if(imprimir){
+
+
+            imprimir.onclick=()=>{
+
+
+                const ticket =
+
+                this.generarTicket();
+
+
+
+                TicketImprimir.imprimir(ticket);
+
+
+            };
+
+
+        }
+
+
+
+
+
+        if(whatsapp){
+
+
+            whatsapp.onclick=()=>{
+
+
+                const ticket =
+
+                this.generarTicket();
+
+
+
+                let telefono =
+
+                prompt(
+                "Número WhatsApp"
+                );
+
+
+
+                TicketWhatsApp.enviar(
+
+                ticket,
+
+                telefono
+
+                );
+
+
+            };
+
+
+        }
+
+
+
+    },
+
+
+
+
+
+
+
+    generarTicket(){
+
+
+
+        let numeroTicket =
+
+        "#"+
+
+        Date.now()
+        .toString()
+        .slice(-6);
+
+
+
+
+
+        return TicketModelo.generar(
+
+            this.jugadas,
+
+            numeroTicket
+
+        );
+
+
+
+    },
+
+
+
+
+
+
+
+
     eliminar(index){
+
 
 
         this.jugadas.splice(index,1);
@@ -528,7 +689,9 @@ window.Taquilla = {
         this.mostrarTicket();
 
 
+
     },
+
 
 
 
@@ -548,6 +711,7 @@ window.Taquilla = {
 
 
     },
+
 
 
 
@@ -585,7 +749,9 @@ window.Taquilla = {
 
 
 document.addEventListener(
+
 "DOMContentLoaded",
+
 ()=>{
 
 
