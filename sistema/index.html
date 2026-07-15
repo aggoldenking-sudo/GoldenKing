@@ -1,15 +1,128 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
-    <meta charset="UTF-8">
-    <link rel="stylesheet" href="sistema.css">
-    <title>Golden King POS</title>
+
+<meta charset="UTF-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Golden King - Taquilla</title>
+
+<link rel="stylesheet" href="sistema.css">
+
 </head>
+
+
 <body>
-    <div id="app">
-        <h1>Sistema Golden King</h1>
-        <!-- Aquí irá tu formulario de ventas -->
-    </div>
-    <script type="module" src="sistema.js"></script>
+
+
+<header>
+
+<h1>👑 Golden King</h1>
+
+<h2>🎟️ Taquilla</h2>
+
+</header>
+
+
+
+<section class="panel">
+
+
+<label>Lotería</label>
+
+<select id="loteria">
+
+<option value="Lotto Activo">
+Lotto Activo
+</option>
+
+<option value="La Granjita">
+La Granjita
+</option>
+
+</select>
+
+
+
+<label>Número</label>
+
+<input 
+id="numero"
+maxlength="2"
+placeholder="00">
+
+
+<div id="animal">
+
+🐾 Seleccione número
+
+</div>
+
+
+
+<label>Monto</label>
+
+<input 
+id="monto"
+type="number"
+placeholder="Monto">
+
+
+
+<button id="agregar">
+
+➕ Agregar Jugada
+
+</button>
+
+
+</section>
+
+
+
+
+<section class="ticket">
+
+
+<h2>🎫 Ticket</h2>
+
+
+<div id="listaTicket">
+
+No hay jugadas
+
+</div>
+
+
+<h3>
+
+Total:
+<span id="total">
+0
+</span>
+
+Bs
+
+</h3>
+
+
+<button id="limpiar">
+
+🗑️ Limpiar
+
+</button>
+
+
+</section>
+
+
+
+
+<script src="sistema.js"></script>
+
+
 </body>
+
 </html>
