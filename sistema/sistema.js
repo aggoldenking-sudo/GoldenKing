@@ -1,586 +1,366 @@
-/**
- * Proyecto Golden King
- * Archivo: sistema/sistema.js
- * Control principal de taquilla
- */
+/*
+=====================================================
+ GOLDEN KING
+ SISTEMA DE TAQUILLA
+ sistema.js
+=====================================================
+*/
 
 
 window.Taquilla = {
 
 
-sorteos: [],
+    jugadas: [],
 
-jugadas: [],
 
+    init(){
 
 
-init(){
+        this.cargarEventos();
 
 
-this.cargarSorteos();
+        this.mostrarTicket();
 
 
+        this.reloj();
 
-document
-.getElementById("numero")
-.addEventListener("input",()=>{
 
-this.mostrarAnimal();
 
-});
+        setInterval(()=>{
 
+            this.reloj();
 
+        },1000);
 
-document
-.getElementById("agregar")
-.onclick=()=>{
 
-this.agregarJugada();
 
-};
+    },
 
 
 
-document
-.getElementById("imprimir")
-.onclick=()=>{
+    cargarEventos(){
 
-this.imprimir();
 
-};
 
+        const numero =
+        document.getElementById("numero");
 
 
-},
 
+        const agregar =
+        document.getElementById("agregar");
 
 
 
+        numero.addEventListener("input",()=>{
 
-cargarSorteos(){
 
+            this.buscarAnimal();
 
-let lista =
-document.getElementById("listaSorteos");
 
+        });
 
-let loterias=[
 
-"LOTTO ACTIVO",
-"LA GRANJITA",
-"SELVA PLUS",
-"GUACHARO ACTIVO"
 
-];
+        agregar.addEventListener("click",()=>{
 
 
+            this.agregarJugada();
 
-let horarios=[
 
-"8:00 AM",
-"9:00 AM",
-"10:00 AM",
-"11:00 AM",
-"12:00 PM",
-"1:00 PM",
-"2:00 PM",
-"3:00 PM",
-"4:00 PM",
-"5:00 PM",
-"6:00 PM",
-"7:00 PM"
+        });
 
-];
 
 
+    },
 
-loterias.forEach(loteria=>{
 
 
-let titulo =
-document.createElement("h3");
+    buscarAnimal(){
 
 
-titulo.textContent =
-loteria;
 
+        const numero =
+        document.getElementById("numero").value;
 
-lista.appendChild(titulo);
 
 
+        const resultado =
+        document.getElementById("animalEncontrado");
 
-horarios.forEach(hora=>{
 
 
-let boton =
-document.createElement("button");
+        if(numero.length !== 2){
 
 
-boton.className =
-"btn-sorteo";
+            resultado.innerHTML="";
 
 
-boton.textContent =
-hora;
+            return;
 
 
+        }
 
-boton.onclick=()=>{
 
 
-boton.classList.toggle("active");
+        if(window.ANIMALES && ANIMALES[numero]){
 
 
+            resultado.innerHTML =
 
-let existe =
-this.sorteos.find(s=>
+            "🐾 " + ANIMALES[numero];
 
-s.loteria===loteria &&
-s.hora===hora
 
-);
 
+        }else{
 
 
-if(existe){
+            resultado.innerHTML =
 
+            "Número no encontrado";
 
-this.sorteos =
-this.sorteos.filter(s=>
 
-!(
+        }
 
-s.loteria===loteria &&
-s.hora===hora
 
-)
 
-);
+    },
 
 
 
-}else{
+    agregarJugada(){
 
 
-this.sorteos.push({
 
-loteria:loteria,
+        const numero =
+        document.getElementById("numero").value;
 
-hora:hora
 
-});
 
+        const monto =
+        Number(
+        document.getElementById("monto").value
+        );
 
-}
 
 
+        if(numero.length !== 2){
 
-this.mostrarAnimal();
 
+            alert("Ingrese un número válido");
 
 
-};
+            return;
 
 
+        }
 
-lista.appendChild(boton);
 
 
+        if(!monto || monto<=0){
 
-});
 
+            alert("Ingrese un monto");
 
-});
 
+            return;
 
 
-},
+        }
 
 
 
+        const animal =
+        ANIMALES[numero] || "Sin animal";
 
 
 
-buscarAnimal(loteria,numero){
+        const jugada={
 
 
-let tabla=null;
+            numero,
 
+            animal,
 
+            monto
 
-switch(loteria){
 
+        };
 
-case "LOTTO ACTIVO":
 
-tabla=DATA_LOTERIAS.LottoActivo;
 
-break;
+        this.jugadas.push(jugada);
 
 
-case "LA GRANJITA":
 
-tabla=DATA_LOTERIAS.Granjita;
+        this.mostrarTicket();
 
-break;
 
 
-case "SELVA PLUS":
+        this.limpiar();
 
-tabla=DATA_LOTERIAS.SelvaPlus;
 
-break;
 
+    },
 
-case "GUACHARO ACTIVO":
 
-tabla=DATA_LOTERIAS.Guacharo;
 
-break;
 
+    mostrarTicket(){
 
-}
 
 
+        const contenedor =
+        document.getElementById("ticket");
 
-if(tabla && tabla[numero]){
 
-return tabla[numero];
 
-}
+        const total =
+        document.getElementById("total");
 
 
-return null;
 
+        if(!contenedor)
+        return;
 
-},
 
 
+        if(this.jugadas.length===0){
 
 
+            contenedor.innerHTML=
 
+            `<p class="vacio">
+            No hay jugadas
+            </p>`;
 
 
-mostrarAnimal(){
+            total.textContent="0.00";
 
 
-let numero =
-document
-.getElementById("numero")
-.value
-.trim();
+            return;
 
 
+        }
 
-let caja =
-document.getElementById("animalEncontrado");
 
 
+        let html="";
 
-caja.innerHTML="";
 
+        let suma=0;
 
 
-if(numero===""){
 
-return;
+        this.jugadas.forEach((j,index)=>{
 
-}
 
+            suma += j.monto;
 
 
-if(this.sorteos.length===0){
 
+            html += `
 
-caja.innerHTML =
-"⚠️ Seleccione sorteo";
+            <div class="fila-ticket">
 
 
-return;
+                <span>
+                ${j.numero}
+                ${j.animal}
+                </span>
 
-}
 
+                <strong>
+                ${j.monto.toFixed(2)} Bs
+                </strong>
 
 
-let encontrado=false;
+                <button
+                onclick="Taquilla.eliminar(${index})">
 
+                ❌
 
+                </button>
 
-this.sorteos.forEach(s=>{
 
+            </div>
 
-let animal =
-this.buscarAnimal(
-s.loteria,
-numero
-);
+            `;
 
 
 
-if(animal){
+        });
 
 
-caja.innerHTML +=
 
-`
+        contenedor.innerHTML=html;
 
-🐾 ${animal}<br>
 
-${s.loteria} - ${s.hora}
 
-<br><br>
+        total.textContent=
+        suma.toFixed(2);
 
-`;
 
 
-encontrado=true;
+    },
 
 
-}
 
+    eliminar(index){
 
 
-});
 
+        this.jugadas.splice(index,1);
 
 
-if(!encontrado){
 
+        this.mostrarTicket();
 
-caja.innerHTML =
-"❌ Número no existe";
 
 
-}
+    },
 
 
 
-},
+    limpiar(){
 
 
 
+        document.getElementById("numero").value="";
 
+        document.getElementById("monto").value="";
 
+        document.getElementById("animalEncontrado").innerHTML="";
 
 
-agregarJugada(){
 
+    },
 
 
-let numero =
-document
-.getElementById("numero")
-.value
-.trim();
 
+    reloj(){
 
 
-let monto =
-Number(
-document
-.getElementById("monto")
-.value
-);
+        const hora =
+        document.getElementById("hora");
 
 
+        if(hora){
 
-if(this.sorteos.length===0){
 
-alert("Seleccione sorteo");
+            hora.textContent =
+            new Date()
+            .toLocaleTimeString();
 
-return;
 
-}
+        }
 
 
-
-if(numero===""){
-
-alert("Ingrese número");
-
-return;
-
-}
-
-
-
-if(monto<=0){
-
-alert("Ingrese monto");
-
-return;
-
-}
-
-
-
-
-this.sorteos.forEach(s=>{
-
-
-let animal =
-this.buscarAnimal(
-s.loteria,
-numero
-);
-
-
-
-if(animal){
-
-
-
-this.jugadas.push({
-
-tipo:"Animalitos",
-
-loteria:s.loteria,
-
-hora:s.hora,
-
-numero:numero,
-
-animal:animal,
-
-monto:monto
-
-});
-
-
-
-}
-
-
-
-});
-
-
-
-this.mostrarTicket();
-
-
-
-},
-
-
-
-
-
-
-
-mostrarTicket(){
-
-
-
-let caja =
-document.getElementById("ticket");
-
-
-
-caja.innerHTML="";
-
-
-
-let total=0;
-
-
-
-this.jugadas.forEach(j=>{
-
-
-total += Number(j.monto);
-
-
-
-caja.innerHTML +=
-
-`
-
-<div class="ticket-item">
-
-<b>${j.loteria}</b><br>
-
-${j.hora}<br>
-
-${j.numero} ${j.animal}<br>
-
-${j.monto} Bs
-
-</div>
-
-<hr>
-
-`;
-
-
-
-});
-
-
-
-document
-.getElementById("total")
-.textContent =
-total.toFixed(2);
-
-
-
-},
-
-
-
-
-
-
-
-imprimir(){
-
-
-
-if(this.jugadas.length===0){
-
-
-alert("No hay jugadas para imprimir");
-
-
-return;
-
-
-}
-
-
-
-let numeroTicket =
-
-"GK-" + Date.now();
-
-
-
-
-let ticket =
-
-window.TicketModelo.generar(
-
-this.jugadas,
-
-numeroTicket
-
-);
-
-
-
-
-window.TicketImprimir.imprimir(ticket);
-
-
-
-}
-
+    }
 
 
 
 };
-
 
 
 
@@ -588,6 +368,8 @@ document.addEventListener(
 "DOMContentLoaded",
 ()=>{
 
-Taquilla.init();
+
+    Taquilla.init();
+
 
 });
