@@ -52,67 +52,69 @@ const animales38 = {
 
 
 
+
+
 window.DATA_LOTERIAS={
 
 
-    LottoActivo: animales38,
+LottoActivo: animales38,
 
 
-    Granjita: animales38,
+Granjita: animales38,
 
 
-    SelvaPlus: animales38,
+SelvaPlus: animales38,
 
 
 
-    Guacharo:{
+Guacharo:{
 
 
-        ...animales38,
+...animales38,
 
 
-        "37":"🐢 Tortuga",
-        "38":"🐃 Búfalo",
-        "39":"🦉 Lechuza",
-        "40":"🐝 Avispa",
-        "41":"🦘 Canguro",
-        "42":"🦜 Tucán",
-        "43":"🦋 Mariposa",
-        "44":"🦫 Chigüire",
-        "45":"🦩 Garza",
-        "46":"🐆 Puma",
-        "47":"🦚 Pavo Real",
-        "48":"🦔 Puercoespín",
-        "49":"🦥 Pereza",
-        "50":"🐤 Canario",
-        "51":"🦆 Pelícano",
-        "52":"🐙 Pulpo",
-        "53":"🐌 Caracol",
-        "54":"🦗 Grillo",
-        "55":"🦣 Oso Hormiguero",
-        "56":"🦈 Tiburón",
-        "57":"🦆 Pato",
-        "58":"🐜 Hormiga",
-        "59":"🐆 Pantera",
-        "60":"🦎 Camaleón",
-        "61":"🐼 Panda",
-        "62":"🐗 Cachicamo",
-        "63":"🦀 Cangrejo",
-        "64":"🦅 Gavilán",
-        "65":"🕷️ Araña",
-        "66":"🐺 Lobo",
-        "67":"🦤 Avestruz",
-        "68":"🐆 Jaguar",
-        "69":"🐇 Conejo",
-        "70":"🦬 Bisonte",
-        "71":"🦜 Guacamaya",
-        "72":"🦍 Gorila",
-        "73":"🦛 Hipopótamo",
-        "74":"🐦 Turpial",
-        "75":"🦇 Guácharo"
+"37":"🐢 Tortuga",
+"38":"🐃 Búfalo",
+"39":"🦉 Lechuza",
+"40":"🐝 Avispa",
+"41":"🦘 Canguro",
+"42":"🦜 Tucán",
+"43":"🦋 Mariposa",
+"44":"🦫 Chigüire",
+"45":"🦩 Garza",
+"46":"🐆 Puma",
+"47":"🦚 Pavo Real",
+"48":"🦔 Puercoespín",
+"49":"🦥 Pereza",
+"50":"🐤 Canario",
+"51":"🦆 Pelícano",
+"52":"🐙 Pulpo",
+"53":"🐌 Caracol",
+"54":"🦗 Grillo",
+"55":"🦣 Oso Hormiguero",
+"56":"🦈 Tiburón",
+"57":"🦆 Pato",
+"58":"🐜 Hormiga",
+"59":"🐆 Pantera",
+"60":"🦎 Camaleón",
+"61":"🐼 Panda",
+"62":"🐗 Cachicamo",
+"63":"🦀 Cangrejo",
+"64":"🦅 Gavilán",
+"65":"🕷️ Araña",
+"66":"🐺 Lobo",
+"67":"🦤 Avestruz",
+"68":"🐆 Jaguar",
+"69":"🐇 Conejo",
+"70":"🦬 Bisonte",
+"71":"🦜 Guacamaya",
+"72":"🦍 Gorila",
+"73":"🦛 Hipopótamo",
+"74":"🐦 Turpial",
+"75":"🦇 Guácharo"
 
 
-    }
+}
 
 
 };
@@ -121,9 +123,90 @@ window.DATA_LOTERIAS={
 
 
 
+
+
 /*
 =====================================================
- HORARIOS GENERALES DE SORTEOS
+ CONFIGURACIÓN DE SORTEOS
+ LOTERIA + HORARIO
+=====================================================
+*/
+
+
+window.SORTEOS=[];
+
+
+
+const nombresLoterias={
+
+
+LottoActivo:"LOTTO ACTIVO",
+
+Granjita:"LA GRANJITA",
+
+SelvaPlus:"SELVA PLUS",
+
+Guacharo:"GUÁCHARO"
+
+
+};
+
+
+
+
+
+Object.keys(nombresLoterias)
+
+.forEach(loteria=>{
+
+
+HORARIOS.forEach(hora=>{
+
+
+SORTEOS.push({
+
+
+id:
+loteria+"_"+hora,
+
+
+loteria:loteria,
+
+
+nombre:
+nombresLoterias[loteria],
+
+
+hora:hora,
+
+
+titulo:
+nombresLoterias[loteria]
++
+" "
++
+hora
+
+
+
+});
+
+
+
+});
+
+
+});
+
+
+
+
+
+
+
+/*
+=====================================================
+ HORARIOS GENERALES
  8:00 AM - 7:00 PM
 =====================================================
 */
@@ -151,5 +234,6 @@ window.HORARIOS=[
 
 
 
-
-console.log("DATA LOTERIAS Y HORARIOS CARGADOS");
+console.log(
+"DATA LOTERIAS Y SORTEOS CARGADOS"
+);
