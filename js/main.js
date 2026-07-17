@@ -1,29 +1,19 @@
-// main.js - El corazón de Golden King
-
-document.addEventListener('DOMContentLoaded', () => {
-    console.log("Sistema Golden King iniciado correctamente.");
-    
-    // Aquí inicializaremos funciones como:
-    // 1. Verificar si hay un usuario logueado
-    // 2. Cargar el menú de juegos
-    // 3. Preparar la pantalla de ventas
-    
-    iniciarSistema();
-});
-
-function iniciarSistema() {
-    // Por ahora, solo mostraremos un mensaje en consola
-    // para confirmar que el JS está conectado.
-    console.log("Cargando módulos de gestión...");
+// Función simple de login
+function intentarLogin() {
+    // Aquí luego integraremos una validación real
+    alert("Bienvenido al sistema");
+    cambiarVista('dashboard');
 }
 
-// Función para cambiar de vistas sin recargar la página
+// Función para cambiar de vistas
 function cambiarVista(vistaId) {
-    const vistas = document.querySelectorAll('.view');
-    vistas.forEach(v => v.style.display = 'none');
-    
-    const vistaActiva = document.getElementById(vistaId);
-    if (vistaActiva) {
-        vistaActiva.style.display = 'block';
-    }
+    document.querySelectorAll('.view').forEach(v => v.style.display = 'none');
+    document.getElementById(vistaId).style.display = 'block';
+}
+
+// Lógica de carga de juegos (dinámica)
+function cargarJuego(nombreJuego) {
+    const area = document.getElementById('area-juego');
+    area.innerHTML = `<h2>Estás en: ${nombreJuego.toUpperCase()}</h2>
+                      <p>Aquí se cargarán los animales o números para apostar.</p>`;
 }
