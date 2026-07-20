@@ -127,10 +127,10 @@ async function cargarPerfil(id){
     if(error){
 
 
-        console.error(
-            "ERROR PERFIL:",
-            error
-        );
+       console.error(
+    "ERROR PERFIL:",
+    JSON.stringify(error, null, 2)
+);
 
 
         userBox.innerHTML = `
