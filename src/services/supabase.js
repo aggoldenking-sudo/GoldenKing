@@ -6,56 +6,23 @@
 */
 
 
-// Configuración Supabase
+import { createClient } from 
+"https://cdn.jsdelivr.net/npm/@supabase/supabase-js/+esm";
 
-const SUPABASE_URL = 
+
+
+const SUPABASE_URL =
 "https://atdxeuxrjepiumpxcqxt.supabase.co";
 
 
-const SUPABASE_KEY = 
+
+const SUPABASE_KEY =
 "sb_publishable_wKsM2OWm4USke2jZ1fl0qw_M2TIR3S6";
 
 
 
 
-// Crear cliente
-
-let supabaseClient = null;
-
-
-
-export function getSupabase(){
-
-
-    if(!supabaseClient){
-
-
-        supabaseClient = window.supabase.createClient(
-
-            SUPABASE_URL,
-
-            SUPABASE_KEY
-
-        );
-
-
-    }
-
-
-    return supabaseClient;
-
-
-}
-
-
-
-
-// Exportar configuración
-
-export {
-
+export const supabase = createClient(
     SUPABASE_URL,
-
     SUPABASE_KEY
-
-};
+);
