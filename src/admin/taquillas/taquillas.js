@@ -1,7 +1,7 @@
 /*
 ==================================================
  GOLDEN KING v3
- GESTIÓN DE TAQUILLAS
+ ADMIN - GESTIÓN DE TAQUILLAS
  taquillas.js
 ==================================================
 */
@@ -11,7 +11,8 @@ import { supabase } from "../../services/supabase.js";
 
 
 
-console.log("TAQUILLAS SISTEMA INICIADO");
+console.log("ADMIN TAQUILLAS INICIADO");
+
 
 
 
@@ -32,7 +33,9 @@ document.getElementById("mensaje");
 
 
 
-// CARGAR AL INICIAR
+
+
+// INICIO
 
 cargarTaquillas();
 
@@ -40,7 +43,10 @@ cargarTaquillas();
 
 
 
+
+
 // CREAR TAQUILLA
+
 
 formulario.addEventListener(
 "submit",
@@ -52,35 +58,41 @@ e.preventDefault();
 
 
 const nombre =
-document.getElementById("nombre")
+document
+.getElementById("nombre")
 .value
 .trim();
 
 
 
 const codigo =
-document.getElementById("codigo")
+document
+.getElementById("codigo")
 .value
 .trim();
 
 
 
 const responsable =
-document.getElementById("responsable")
+document
+.getElementById("responsable")
 .value
 .trim();
 
 
 
 const estado =
-document.getElementById("estado")
+document
+.getElementById("estado")
 .value;
 
 
 
 
 
-// USUARIO ACTUAL
+
+// USUARIO ADMIN ACTUAL
+
 
 const {
 
@@ -89,21 +101,27 @@ session
 
 }
 
-} = await supabase.auth.getSession();
+}= await supabase.auth.getSession();
+
 
 
 
 
 if(!session){
 
+
 mostrarMensaje(
 "Sesión no encontrada",
 "red"
 );
 
+
 return;
 
+
 }
+
+
 
 
 
@@ -115,11 +133,13 @@ session.user.id;
 
 
 
-// INSERTAR TAQUILLA
+
+
+// GUARDAR TAQUILLA
 
 
 const {
-data,
+
 error
 
 }= await supabase
@@ -138,9 +158,8 @@ estado,
 
 usuario_id
 
-}])
+}]);
 
-.select();
 
 
 
@@ -148,10 +167,8 @@ usuario_id
 
 if(error){
 
-console.error(
-"ERROR:",
-error
-);
+
+console.error(error);
 
 
 mostrarMensaje(
@@ -162,7 +179,10 @@ error.message,
 
 return;
 
+
 }
+
+
 
 
 
@@ -176,6 +196,7 @@ mostrarMensaje(
 
 
 formulario.reset();
+
 
 
 cargarTaquillas();
@@ -192,7 +213,9 @@ cargarTaquillas();
 
 
 
-// MOSTRAR TAQUILLAS
+
+
+// LISTAR TAQUILLAS
 
 
 async function cargarTaquillas(){
@@ -205,6 +228,8 @@ lista.innerHTML =
 
 
 
+
+
 const {
 
 data:{
@@ -212,17 +237,22 @@ session
 
 }
 
-} = await supabase.auth.getSession();
+}= await supabase.auth.getSession();
+
+
 
 
 
 
 if(!session){
 
+
 lista.innerHTML =
 "Sesión no encontrada";
 
+
 return;
+
 
 }
 
@@ -230,28 +260,28 @@ return;
 
 
 
-const usuario_id =
-session.user.id;
-
-
-
-
 
 
 const {
+
 data,
+
 error
 
 }= await supabase
 
+
 .from("taquillas")
+
 
 .select("*")
 
+
 .eq(
 "usuario_id",
-usuario_id
+session.user.id
 )
+
 
 .order(
 "created_at",
@@ -265,16 +295,24 @@ ascending:false
 
 
 
+
+
 if(error){
 
+
 console.error(error);
+
 
 lista.innerHTML =
 error.message;
 
+
 return;
 
+
 }
+
+
 
 
 
@@ -284,13 +322,14 @@ if(!data || data.length===0){
 
 
 lista.innerHTML =
-"No existen taquillas";
+"No existen taquillas creadas";
 
 
 return;
 
 
 }
+
 
 
 
@@ -305,8 +344,10 @@ lista.innerHTML="";
 
 
 
+
 data.forEach(
 (taquilla)=>{
+
 
 
 lista.innerHTML += `
@@ -342,16 +383,6 @@ ${taquilla.estado}
 
 
 
-<button 
-class="btn-entrar"
-onclick='entrarTaquilla(${JSON.stringify(taquilla)})'>
-
-🚀 Entrar
-
-</button>
-
-
-
 </div>
 
 
@@ -373,41 +404,7 @@ onclick='entrarTaquilla(${JSON.stringify(taquilla)})'>
 
 
 
-// ENTRAR A TAQUILLA
-
-
-window.entrarTaquilla = function(taquilla){
-
-
-
-localStorage.setItem(
-
-"taquilla_activa",
-
-JSON.stringify(taquilla)
-
-);
-
-
-
-
-window.location.href =
-
-"../../taquilla/index.html";
-
-
-
-};
-
-
-
-
-
-
-
-
-
-// MENSAJE
+// MENSAJES
 
 
 function mostrarMensaje(
