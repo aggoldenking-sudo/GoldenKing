@@ -1,200 +1,428 @@
-<!DOCTYPE html>
-<html lang="es">
+/*
+==================================================
+ GOLDEN KING v3
+ GESTIÓN DE TAQUILLAS
+ taquillas.js
+==================================================
+*/
 
-<head>
 
-<meta charset="UTF-8">
+import { supabase } from "../../services/supabase.js";
 
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 
-<title>
-Golden King | Taquillas
-</title>
+console.log("TAQUILLAS SISTEMA INICIADO");
 
 
-<link rel="stylesheet" href="./taquillas.css">
 
 
-</head>
+// ELEMENTOS
 
+const formulario =
+document.getElementById("taquillaForm");
 
-<body>
 
+const lista =
+document.getElementById("listaTaquillas");
 
-<div class="container">
 
+const mensaje =
+document.getElementById("mensaje");
 
-<header>
 
-    <h1>
-        🏪 Gestión de Taquillas
-    </h1>
 
 
-    <a href="../dashboard.html">
-        Volver Dashboard
-    </a>
+// CARGAR AL INICIAR
 
+cargarTaquillas();
 
-</header>
 
 
 
 
+// CREAR TAQUILLA
 
-<section class="card">
+formulario.addEventListener(
+"submit",
+async(e)=>{
 
 
-<h2>
-Crear Nueva Taquilla
-</h2>
+e.preventDefault();
 
 
 
-<form id="taquillaForm">
+const nombre =
+document.getElementById("nombre")
+.value
+.trim();
 
 
 
-<div class="grupo">
+const codigo =
+document.getElementById("codigo")
+.value
+.trim();
 
-<label>
-Nombre de Taquilla
-</label>
 
-<input 
-type="text"
-id="nombre"
-placeholder="Ej: Taquilla Centro"
-required>
 
-</div>
+const responsable =
+document.getElementById("responsable")
+.value
+.trim();
 
 
 
+const estado =
+document.getElementById("estado")
+.value;
 
 
-<div class="grupo">
 
-<label>
-Código
-</label>
 
-<input 
-type="text"
-id="codigo"
-placeholder="TK001"
-required>
 
-</div>
+// USUARIO ACTUAL
 
+const {
 
+data:{
+session
 
+}
 
+} = await supabase.auth.getSession();
 
-<div class="grupo">
 
-<label>
-Responsable
-</label>
 
-<input 
-type="text"
-id="responsable"
-placeholder="Nombre responsable"
-required>
 
-</div>
+if(!session){
 
+mostrarMensaje(
+"Sesión no encontrada",
+"red"
+);
 
+return;
 
+}
 
 
-<div class="grupo">
 
-<label>
-Estado
-</label>
+const usuario_id =
+session.user.id;
 
 
-<select id="estado">
 
 
-<option value="activo">
-Activo
-</option>
 
 
-<option value="inactivo">
-Inactivo
-</option>
+// INSERTAR TAQUILLA
 
 
-</select>
+const {
+data,
+error
 
+}= await supabase
 
-</div>
+.from("taquillas")
 
+.insert([{
 
+nombre,
 
+codigo,
 
+responsable,
 
-<button type="submit">
+estado,
 
-Crear Taquilla
+usuario_id
+
+}])
+
+.select();
+
+
+
+
+
+if(error){
+
+console.error(
+"ERROR:",
+error
+);
+
+
+mostrarMensaje(
+error.message,
+"red"
+);
+
+
+return;
+
+}
+
+
+
+
+
+mostrarMensaje(
+"Taquilla creada correctamente",
+"green"
+);
+
+
+
+formulario.reset();
+
+
+cargarTaquillas();
+
+
+
+});
+
+
+
+
+
+
+
+
+
+// MOSTRAR TAQUILLAS
+
+
+async function cargarTaquillas(){
+
+
+
+lista.innerHTML =
+"Cargando...";
+
+
+
+
+const {
+
+data:{
+session
+
+}
+
+} = await supabase.auth.getSession();
+
+
+
+
+if(!session){
+
+lista.innerHTML =
+"Sesión no encontrada";
+
+return;
+
+}
+
+
+
+
+
+const usuario_id =
+session.user.id;
+
+
+
+
+
+
+const {
+data,
+error
+
+}= await supabase
+
+.from("taquillas")
+
+.select("*")
+
+.eq(
+"usuario_id",
+usuario_id
+)
+
+.order(
+"created_at",
+{
+ascending:false
+}
+);
+
+
+
+
+
+
+if(error){
+
+console.error(error);
+
+lista.innerHTML =
+error.message;
+
+return;
+
+}
+
+
+
+
+
+if(!data || data.length===0){
+
+
+lista.innerHTML =
+"No existen taquillas";
+
+
+return;
+
+
+}
+
+
+
+
+
+
+
+lista.innerHTML="";
+
+
+
+
+
+
+data.forEach(
+(taquilla)=>{
+
+
+lista.innerHTML += `
+
+
+<div class="item-taquilla">
+
+
+<h3>
+🏪 ${taquilla.nombre}
+</h3>
+
+
+
+<p>
+<strong>Código:</strong>
+${taquilla.codigo}
+</p>
+
+
+
+<p>
+<strong>Responsable:</strong>
+${taquilla.responsable}
+</p>
+
+
+
+<p>
+<strong>Estado:</strong>
+${taquilla.estado}
+</p>
+
+
+
+<button 
+class="btn-entrar"
+onclick='entrarTaquilla(${JSON.stringify(taquilla)})'>
+
+🚀 Entrar
 
 </button>
 
 
 
-<p id="mensaje"></p>
-
-
-
-</form>
-
-
-
-</section>
-
-
-
-
-
-<section class="card">
-
-
-<h2>
-Taquillas Registradas
-</h2>
-
-
-<div id="listaTaquillas">
-
-Cargando...
-
 </div>
 
 
-
-</section>
-
+`;
 
 
 
-
-</div>
-
+});
 
 
 
-
-<script 
-type="module"
-src="./taquillas.js">
-</script>
+}
 
 
-</body>
 
-</html>
+
+
+
+
+
+
+// ENTRAR A TAQUILLA
+
+
+window.entrarTaquilla = function(taquilla){
+
+
+
+localStorage.setItem(
+
+"taquilla_activa",
+
+JSON.stringify(taquilla)
+
+);
+
+
+
+
+window.location.href =
+
+"../../taquilla/index.html";
+
+
+
+};
+
+
+
+
+
+
+
+
+
+// MENSAJE
+
+
+function mostrarMensaje(
+texto,
+color
+){
+
+
+mensaje.textContent =
+texto;
+
+
+mensaje.style.color =
+color;
+
+
+
+}
