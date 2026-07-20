@@ -108,13 +108,18 @@ async function cargarPerfil(id){
 
 
 
-    if(error){
+    if (error) {
 
+    console.error("ERROR PERFIL:", error);
 
-        console.error(
-            "ERROR PERFIL:",
-            error
-        );
+    userBox.innerHTML = `
+        ❌ Error
+        <br>
+        <small>${error.message}</small>
+    `;
+
+    return;
+}
 
 
         userBox.innerHTML =
