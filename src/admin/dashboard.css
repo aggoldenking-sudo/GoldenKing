@@ -1,341 +1,328 @@
-/*
-==================================================
- GOLDEN KING v3
- ADMIN DASHBOARD CSS
-==================================================
-*/
+<!DOCTYPE html>
+<html lang="es">
 
+<head>
 
-*{
+<meta charset="UTF-8">
 
-    margin:0;
-    padding:0;
-    box-sizing:border-box;
-    font-family:"Inter",Arial,sans-serif;
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-}
 
+<title>
+Golden King | Dashboard
+</title>
 
 
-body{
+<link rel="stylesheet" href="./dashboard.css">
 
-    background:#f4f7fb;
 
-    color:#1f2937;
+</head>
 
-}
 
+<body>
 
 
-/* LAYOUT */
+<div class="layout">
 
-.layout{
 
-    display:flex;
 
-    min-height:100vh;
 
-}
 
+<!-- SIDEBAR -->
 
+<aside class="sidebar">
 
 
+<div class="logo">
 
-/* SIDEBAR */
+👑 GOLDEN KING
 
-.sidebar{
+</div>
 
-    width:250px;
 
-    background:#ffffff;
 
-    border-right:1px solid #e5e7eb;
+<nav>
 
-    padding:25px;
 
-}
+<a href="./taquillas/index.html">
 
+🏪 Taquillas
 
+</a>
 
 
 
-.logo{
+<a href="./usuarios/index.html">
 
-    font-size:24px;
+👥 Usuarios
 
-    font-weight:800;
+</a>
 
-    letter-spacing:2px;
 
-    color:#2563eb;
 
-    margin-bottom:40px;
+<a href="./resultados/index.html">
 
-}
+🎯 Resultados
 
+</a>
 
 
 
+<a href="./ventas/index.html">
 
+🎫 Ventas
 
+</a>
 
-nav a{
 
 
-    display:block;
+<a href="./reportes/index.html">
 
-    text-decoration:none;
+📊 Reportes
 
-    color:#4b5563;
+</a>
 
-    padding:13px 15px;
 
-    border-radius:10px;
 
-    margin-bottom:8px;
+<a href="./configuracion/index.html">
 
-    transition:.3s;
+⚙️ Configuración
 
+</a>
 
-}
 
 
+<a href="#" onclick="cerrarSesion()">
 
+🚪 Cerrar Sesión
 
+</a>
 
-nav a:hover{
 
 
-    background:#eff6ff;
+</nav>
 
-    color:#2563eb;
 
+</aside>
 
-}
 
 
 
 
 
-/* CONTENIDO */
 
-.content{
 
-    flex:1;
+<!-- CONTENIDO -->
 
-    padding:35px;
+<main class="content">
 
-}
 
 
+<header>
 
 
+<div>
 
-header{
 
+<h1>
+Dashboard
+</h1>
 
-    display:flex;
 
-    justify-content:space-between;
+<p>
+Panel Administrativo Golden King
+</p>
 
-    align-items:center;
 
-    margin-bottom:35px;
+</div>
 
 
-}
 
 
 
-header h1{
+<div class="user">
 
+Cargando usuario...
 
-    font-size:30px;
+</div>
 
 
-}
 
+</header>
 
 
 
 
-.user{
 
 
-    background:#ffffff;
 
-    padding:12px 18px;
 
-    border-radius:12px;
+<div class="cards">
 
-    border:1px solid #e5e7eb;
 
-    color:#2563eb;
 
-    font-weight:600;
 
 
-}
+<div class="card">
 
 
+<h3>
+Taquillas
+</h3>
 
 
+<strong>
+🏪
+</strong>
 
 
+<p>
+Gestión de puntos de venta
+</p>
 
-/* TARJETAS */
 
-.cards{
+</div>
 
 
-    display:grid;
 
-    grid-template-columns:
 
-    repeat(4,1fr);
 
 
-    gap:20px;
+<div class="card">
 
 
-}
+<h3>
+Usuarios
+</h3>
 
 
+<strong>
+👥
+</strong>
 
 
+<p>
+Cajeros y permisos
+</p>
 
-.card{
 
+</div>
 
-    background:#ffffff;
 
-    padding:25px;
 
-    border-radius:18px;
 
 
-    box-shadow:
 
-    0 10px 25px rgba(0,0,0,.05);
 
 
-}
+<div class="card">
 
 
+<h3>
+Resultados
+</h3>
 
-.card h3{
 
+<strong>
+🎯
+</strong>
 
-    color:#6b7280;
 
-    font-size:15px;
+<p>
+Control de sorteos
+</p>
 
-    margin-bottom:15px;
 
+</div>
 
-}
 
 
 
 
-.card strong{
 
 
-    font-size:30px;
 
-    color:#2563eb;
+<div class="card">
 
 
-}
+<h3>
+Ventas
+</h3>
 
 
+<strong>
+🎫
+</strong>
 
 
+<p>
+Sistema de taquilla
+</p>
 
-/* BIENVENIDA */
 
+</div>
 
-.welcome{
 
 
-    margin-top:30px;
 
-    background:white;
 
-    padding:30px;
 
-    border-radius:18px;
 
 
-}
+</div>
 
 
 
-.welcome h2{
 
 
-    margin-bottom:10px;
 
 
-}
+<section class="welcome">
 
 
+<h2>
 
-.welcome p{
+Bienvenido a Golden King
 
+</h2>
 
-    color:#6b7280;
 
+<p>
 
-}
+Sistema profesional de administración de apuestas.
 
+</p>
 
 
+</section>
 
 
-/* RESPONSIVE */
 
 
-@media(max-width:900px){
 
 
 
-.cards{
+</main>
 
-    grid-template-columns:repeat(2,1fr);
 
-}
 
 
-}
 
 
+</div>
 
 
-@media(max-width:650px){
 
 
 
-.layout{
 
-    flex-direction:column;
+<script
+type="module"
+src="./dashboard.js">
+</script>
 
-}
 
 
+</body>
 
-.sidebar{
-
-    width:100%;
-
-}
-
-
-.cards{
-
-    grid-template-columns:1fr;
-
-}
-
-
-}
+</html>
