@@ -1,1 +1,146 @@
+<!DOCTYPE html>
+<html lang="es">
 
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Golden King | Login</title>
+
+<link rel="stylesheet" href="./login.css">
+
+</head>
+
+
+<body>
+
+
+<div class="login-container">
+
+
+    <div class="brand">
+
+
+        <h1>
+            GOLDEN KING
+        </h1>
+
+
+        <p>
+            Sistema Profesional de Taquillas
+        </p>
+
+
+        <span>
+            Versión 3.0
+        </span>
+
+
+    </div>
+
+
+
+    <div class="login-card">
+
+
+        <h2>
+            Bienvenido
+        </h2>
+
+
+        <p class="subtitle">
+            Ingrese sus datos para continuar
+        </p>
+
+
+
+        <form id="loginForm">
+
+
+            <div class="input-group">
+
+                <label>
+                    Usuario o correo
+                </label>
+
+                <input 
+                type="email"
+                id="email"
+                placeholder="usuario@goldenking.com"
+                required>
+
+            </div>
+
+
+
+            <div class="input-group">
+
+                <label>
+                    Contraseña
+                </label>
+
+
+                <input 
+                type="password"
+                id="password"
+                placeholder="********"
+                required>
+
+
+            </div>
+
+
+
+            <div class="options">
+
+
+                <label>
+
+                    <input 
+                    type="checkbox"
+                    id="remember">
+
+                    Recordar sesión
+
+                </label>
+
+
+            </div>
+
+
+
+
+            <button type="submit">
+
+                Iniciar Sesión
+
+            </button>
+
+
+
+            <p 
+            id="message"
+            class="message">
+            </p>
+
+
+
+        </form>
+
+
+
+    </div>
+
+
+
+</div>
+
+
+
+<script type="module" src="./login.js"></script>
+
+
+</body>
+
+</html>
