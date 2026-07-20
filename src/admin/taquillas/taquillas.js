@@ -1,19 +1,83 @@
 /*
 ==================================================
  GOLDEN KING v3
- PRUEBA TAQUILLAS
+ TAQUILLAS
+ PRUEBA CON SUPABASE
 ==================================================
 */
 
 
-alert("TAQUILLAS JS NUEVO CARGADO");
+import { getSupabase } from "../../services/supabase.js";
+
+
+console.log("TAQUILLAS JS CARGADO");
+
+
+const supabase = getSupabase();
 
 
 const lista = document.getElementById("listaTaquillas");
 
 
-console.log("LISTA:", lista);
+
+async function cargarTaquillas(){
+
+
+    lista.innerHTML = "Conectando con Supabase...";
 
 
 
-lista.innerHTML = "CAMBIO REALIZADO POR JAVASCRIPT";
+    console.log("Ejecutando consulta...");
+
+
+
+    const { data, error } = await supabase
+    .from("taquillas")
+    .select("*");
+
+
+
+    console.log("DATA:", data);
+
+    console.log("ERROR:", error);
+
+
+
+
+    if(error){
+
+
+        lista.innerHTML =
+        "ERROR: " + error.message;
+
+
+        return;
+
+    }
+
+
+
+    if(!data || data.length === 0){
+
+
+        lista.innerHTML =
+        "Conexión correcta. No hay taquillas creadas";
+
+
+        return;
+
+    }
+
+
+
+
+    lista.innerHTML =
+    "Taquillas encontradas: " + data.length;
+
+
+
+}
+
+
+
+cargarTaquillas();
