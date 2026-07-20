@@ -1,17 +1,17 @@
 /*
 ==================================================
  GOLDEN KING v3
- TAQUILLAS CSS
+ DASHBOARD TAQUILLA CSS
 ==================================================
 */
 
 
 *{
 
-    margin:0;
-    padding:0;
-    box-sizing:border-box;
-    font-family:"Inter",Arial,sans-serif;
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:"Inter",Arial,sans-serif;
 
 }
 
@@ -19,24 +19,9 @@
 
 body{
 
-    background:#f4f7fb;
+background:#f4f7fb;
 
-    color:#1f2937;
-
-}
-
-
-
-
-
-.container{
-
-    width:90%;
-
-    max-width:1100px;
-
-    margin:40px auto;
-
+color:#1f2937;
 
 }
 
@@ -44,42 +29,83 @@ body{
 
 
 
-header{
+.layout{
 
-    display:flex;
-
-    justify-content:space-between;
-
-    align-items:center;
-
-    margin-bottom:30px;
-
+min-height:100vh;
 
 }
 
 
 
-header h1{
 
-    color:#2563eb;
+
+.topbar{
+
+height:75px;
+
+background:white;
+
+display:flex;
+
+align-items:center;
+
+justify-content:space-between;
+
+padding:0 35px;
+
+box-shadow:
+
+0 5px 20px rgba(0,0,0,.05);
 
 }
 
 
 
-header a{
 
-    text-decoration:none;
 
-    background:#ffffff;
+.logo{
 
-    color:#2563eb;
+font-size:22px;
 
-    padding:12px 18px;
+font-weight:800;
 
-    border-radius:10px;
+color:#2563eb;
 
-    border:1px solid #e5e7eb;
+}
+
+
+
+.titulo{
+
+font-size:18px;
+
+font-weight:600;
+
+}
+
+
+
+
+
+#usuario{
+
+font-size:14px;
+
+color:#374151;
+
+}
+
+
+
+
+
+.contenido{
+
+width:90%;
+
+max-width:1100px;
+
+margin:35px auto;
 
 }
 
@@ -89,26 +115,29 @@ header a{
 
 .card{
 
-    background:white;
+background:white;
 
-    padding:30px;
+padding:30px;
 
-    border-radius:18px;
+border-radius:18px;
 
-    margin-bottom:25px;
+margin-bottom:25px;
 
-    box-shadow:
+box-shadow:
 
-    0 10px 30px rgba(0,0,0,.05);
-
+0 10px 30px rgba(0,0,0,.05);
 
 }
+
+
 
 
 
 .card h2{
 
-    margin-bottom:25px;
+margin-bottom:20px;
+
+color:#2563eb;
 
 }
 
@@ -116,61 +145,15 @@ header a{
 
 
 
-.grupo{
+#infoTaquilla{
 
-    margin-bottom:18px;
+background:#f8fafc;
 
-}
+padding:20px;
 
+border-radius:12px;
 
-
-
-
-.grupo label{
-
-    display:block;
-
-    margin-bottom:8px;
-
-    color:#374151;
-
-    font-size:14px;
-
-}
-
-
-
-
-
-.grupo input,
-
-.grupo select{
-
-
-    width:100%;
-
-    height:45px;
-
-    border:1px solid #d1d5db;
-
-    border-radius:10px;
-
-    padding:0 15px;
-
-    font-size:15px;
-
-    outline:none;
-
-
-}
-
-
-
-.grupo input:focus,
-
-.grupo select:focus{
-
-    border-color:#2563eb;
+line-height:1.8;
 
 }
 
@@ -180,32 +163,31 @@ header a{
 
 button{
 
-    width:100%;
+background:#2563eb;
 
-    height:48px;
+color:white;
 
-    border:none;
+border:none;
 
-    border-radius:10px;
+height:45px;
 
-    background:#2563eb;
+padding:0 25px;
 
-    color:white;
+border-radius:10px;
 
-    font-size:16px;
+font-weight:600;
 
-    font-weight:600;
-
-    cursor:pointer;
-
+cursor:pointer;
 
 }
+
+
 
 
 
 button:hover{
 
-    background:#1d4ed8;
+background:#1d4ed8;
 
 }
 
@@ -213,13 +195,11 @@ button:hover{
 
 
 
-#mensaje{
+.resumen{
 
-    text-align:center;
+display:flex;
 
-    margin-top:15px;
-
-    font-size:14px;
+gap:20px;
 
 }
 
@@ -227,38 +207,41 @@ button:hover{
 
 
 
-.item-taquilla{
+.resumen p{
 
+background:#f8fafc;
 
-    padding:18px;
+padding:20px;
 
-    border:1px solid #e5e7eb;
+border-radius:12px;
 
-    border-radius:12px;
-
-    margin-bottom:12px;
-
+flex:1;
 
 }
 
 
-
-.item-taquilla strong{
-
-    color:#2563eb;
-
-}
 
 
 
 @media(max-width:700px){
 
 
-header{
+.topbar{
 
-    flex-direction:column;
+flex-direction:column;
 
-    gap:15px;
+height:auto;
+
+gap:15px;
+
+padding:20px;
+
+}
+
+
+.resumen{
+
+flex-direction:column;
 
 }
 
