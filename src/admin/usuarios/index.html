@@ -1,1 +1,192 @@
+<!DOCTYPE html>
+<html lang="es">
 
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>
+Golden King | Usuarios
+</title>
+
+
+<link rel="stylesheet" href="./usuarios.css">
+
+</head>
+
+
+<body>
+
+
+<div class="container">
+
+
+<header>
+
+<h1>
+👥 Gestión de Usuarios
+</h1>
+
+
+<a href="../dashboard.html">
+Volver Dashboard
+</a>
+
+
+</header>
+
+
+
+
+
+<section class="card">
+
+
+<h2>
+Crear Usuario
+</h2>
+
+
+<form id="usuarioForm">
+
+
+<label>
+Nombre
+</label>
+
+<input
+id="nombre"
+type="text"
+placeholder="Nombre completo"
+required>
+
+
+
+<label>
+Correo
+</label>
+
+<input
+id="email"
+type="email"
+placeholder="usuario@golden.com"
+required>
+
+
+
+
+<label>
+Contraseña
+</label>
+
+<input
+id="password"
+type="password"
+placeholder="********"
+required>
+
+
+
+
+<label>
+Rol
+</label>
+
+
+<select id="rol">
+
+
+<option value="cajero">
+Cajero
+</option>
+
+
+<option value="supervisor">
+Supervisor
+</option>
+
+
+<option value="admin">
+Administrador
+</option>
+
+
+</select>
+
+
+
+
+
+<label>
+Taquilla
+</label>
+
+
+<select id="taquilla">
+
+<option>
+Cargando...
+</option>
+
+</select>
+
+
+
+
+
+<button type="submit">
+
+Crear Usuario
+
+</button>
+
+
+<p id="mensaje"></p>
+
+
+</form>
+
+
+</section>
+
+
+
+
+
+
+
+<section class="card">
+
+
+<h2>
+Usuarios Registrados
+</h2>
+
+
+<div id="listaUsuarios">
+
+Cargando...
+
+</div>
+
+
+</section>
+
+
+
+
+</div>
+
+
+
+<script
+type="module"
+src="./usuarios.js">
+</script>
+
+
+</body>
+
+</html>
