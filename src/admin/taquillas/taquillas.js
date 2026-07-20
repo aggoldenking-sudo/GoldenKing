@@ -16,7 +16,7 @@ console.log("TAQUILLAS SISTEMA INICIADO");
 
 
 
-// Elementos
+// ELEMENTOS
 
 const formulario =
 document.getElementById("taquillaForm");
@@ -32,7 +32,8 @@ document.getElementById("mensaje");
 
 
 
-// Cargar taquillas al iniciar
+
+// INICIO
 
 cargarTaquillas();
 
@@ -47,115 +48,158 @@ formulario.addEventListener(
 async(e)=>{
 
 
-    e.preventDefault();
+e.preventDefault();
 
 
 
-    const nombre =
-    document.getElementById("nombre")
-    .value
-    .trim();
+const nombre =
+document
+.getElementById("nombre")
+.value
+.trim();
 
 
 
-    const codigo =
-    document.getElementById("codigo")
-    .value
-    .trim();
+const codigo =
+document
+.getElementById("codigo")
+.value
+.trim();
 
 
 
-    const responsable =
-    document.getElementById("responsable")
-    .value
-    .trim();
+const responsable =
+document
+.getElementById("responsable")
+.value
+.trim();
 
 
 
-    const estado =
-    document.getElementById("estado")
-    .value;
-
-
-
-
-
-    console.log({
-        nombre,
-        codigo,
-        responsable,
-        estado
-    });
+const estado =
+document
+.getElementById("estado")
+.value;
 
 
 
 
 
+// OBTENER USUARIO ACTUAL
 
+const {
 
-    const {data,error}=
+data:{
+    session
 
-    await supabase
+}
 
-    .from("taquillas")
-
-    .insert([{
-
-        nombre,
-
-        codigo,
-
-        responsable,
-
-        estado
-
-    }])
-
-    .select();
+} = await supabase.auth.getSession();
 
 
 
 
 
+if(!session){
 
 
-    if(error){
+mostrarMensaje(
+"Sesión no encontrada",
+"red"
+);
 
 
-        console.error(
-            "ERROR CREANDO:",
-            error
-        );
+return;
 
 
-        mostrarMensaje(
-            error.message,
-            "red"
-        );
+}
 
 
-        return;
 
-    }
+
+
+const usuario_id =
+session.user.id;
 
 
 
 
 
 
-
-    mostrarMensaje(
-        "Taquilla creada correctamente",
-        "green"
-    );
+// GUARDAR TAQUILLA
 
 
+const {
 
-    formulario.reset();
+data,
+error
+
+}= await supabase
+
+.from("taquillas")
+
+.insert([{
+
+nombre,
+
+codigo,
+
+responsable,
+
+estado,
+
+usuario_id
+
+}])
+
+.select();
 
 
 
-    cargarTaquillas();
+
+
+
+
+if(error){
+
+
+console.error(
+"ERROR CREANDO TAQUILLA:",
+error
+);
+
+
+
+mostrarMensaje(
+error.message,
+"red"
+);
+
+
+
+return;
+
+
+}
+
+
+
+
+
+
+
+mostrarMensaje(
+"Taquilla creada correctamente",
+"green"
+);
+
+
+
+formulario.reset();
+
+
+
+cargarTaquillas();
 
 
 
@@ -171,135 +215,193 @@ async(e)=>{
 
 
 
-// MOSTRAR TAQUILLAS
+// CARGAR TAQUILLAS
+
 
 async function cargarTaquillas(){
 
 
 
-    lista.innerHTML =
-    "Cargando...";
+lista.innerHTML =
+"Cargando...";
 
 
 
 
 
-    const {data,error}=
+const {
 
-    await supabase
+data:{
+    session
 
-    .from("taquillas")
+}
 
-    .select("*")
+} = await supabase.auth.getSession();
 
-    .order(
-        "created_at",
-        {
-            ascending:false
-        }
-    );
 
 
 
 
+if(!session){
 
-    console.log(
-        "TAQUILLAS:",
-        data,
-        error
-    );
 
+lista.innerHTML =
+"Sesión no encontrada";
 
 
+return;
 
 
+}
 
-    if(error){
 
 
-        lista.innerHTML =
 
-        "ERROR: " + error.message;
 
+const usuario_id =
+session.user.id;
 
-        return;
 
-    }
 
 
 
 
 
 
+const {
 
-    if(!data || data.length===0){
+data,
+error
 
+}= await supabase
 
-        lista.innerHTML =
 
-        "No existen taquillas creadas";
+.from("taquillas")
 
+.select("*")
 
-        return;
+.eq(
+"usuario_id",
+usuario_id
+)
 
+.order(
+"created_at",
+{
+ascending:false
+}
+);
 
-    }
 
 
 
 
 
 
+console.log(
+"TAQUILLAS:",
+data,
+error
+);
 
 
-    lista.innerHTML="";
 
 
 
 
 
-    data.forEach((taquilla)=>{
 
+if(error){
 
-        lista.innerHTML += `
 
+console.error(error);
 
-        <div class="item-taquilla">
 
 
-            <h3>
+lista.innerHTML =
+"ERROR: "+error.message;
 
-            ${taquilla.nombre}
 
-            </h3>
+return;
 
 
-            Código:
-            ${taquilla.codigo}
+}
 
 
-            <br>
 
 
-            Responsable:
-            ${taquilla.responsable}
 
 
-            <br>
 
+if(!data || data.length===0){
 
-            Estado:
-            ${taquilla.estado}
 
+lista.innerHTML =
+"No existen taquillas creadas";
 
 
-        </div>
+return;
 
 
-        `;
+}
 
 
-    });
+
+
+
+
+
+
+lista.innerHTML="";
+
+
+
+
+
+
+
+data.forEach(
+(taquilla)=>{
+
+
+
+lista.innerHTML += `
+
+
+<div class="item-taquilla">
+
+
+<h3>
+🏪 ${taquilla.nombre}
+</h3>
+
+
+<p>
+<strong>Código:</strong>
+${taquilla.codigo}
+</p>
+
+
+<p>
+<strong>Responsable:</strong>
+${taquilla.responsable}
+</p>
+
+
+<p>
+<strong>Estado:</strong>
+${taquilla.estado}
+</p>
+
+
+</div>
+
+
+`;
+
+
+
+});
 
 
 
@@ -312,7 +414,9 @@ async function cargarTaquillas(){
 
 
 
-// MENSAJE
+
+// MENSAJES
+
 
 function mostrarMensaje(
 texto,
@@ -320,12 +424,12 @@ color
 ){
 
 
-    mensaje.textContent =
-    texto;
+mensaje.textContent =
+texto;
 
 
-    mensaje.style.color =
-    color;
+mensaje.style.color =
+color;
 
 
 
