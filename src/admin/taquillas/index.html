@@ -1,369 +1,181 @@
-/*
-==================================================
- GOLDEN KING v3
- GESTIÓN DE TAQUILLAS
- taquillas.js
-==================================================
-*/
+<!DOCTYPE html>
+<html lang="es">
 
+<head>
 
-import { supabase } from "../../services/supabase.js";
+<meta charset="UTF-8">
 
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 
-console.log("TAQUILLAS SISTEMA INICIADO");
+<title>
+Golden King | Taquilla
+</title>
 
 
+<link rel="stylesheet" href="./taquilla.css">
 
 
-// ELEMENTOS
+</head>
 
-const formulario =
-document.getElementById("taquillaForm");
 
+<body>
 
-const lista =
-document.getElementById("listaTaquillas");
 
+<div class="layout">
 
-const mensaje =
-document.getElementById("mensaje");
 
 
+<!-- BARRA SUPERIOR -->
 
+<header class="topbar">
 
-// CARGAR AL INICIAR
 
-cargarTaquillas();
+<div class="logo">
 
+👑 GOLDEN KING
 
+</div>
 
 
 
-// CREAR TAQUILLA
+<div class="titulo">
 
-formulario.addEventListener(
-"submit",
-async(e)=>{
+Sistema de Taquilla
 
+</div>
 
-e.preventDefault();
 
 
+<div id="usuario">
 
-const nombre =
-document.getElementById("nombre")
-.value
-.trim();
+Cargando...
 
+</div>
 
 
-const codigo =
-document.getElementById("codigo")
-.value
-.trim();
+</header>
 
 
 
-const responsable =
-document.getElementById("responsable")
-.value
-.trim();
 
 
 
-const estado =
-document.getElementById("estado")
-.value;
 
 
+<!-- CONTENIDO -->
 
+<main class="contenido">
 
 
-// USUARIO ACTUAL
 
-const {
 
-data:{
-session
 
-}
+<section class="card">
 
-} = await supabase.auth.getSession();
 
+<h2>
 
+🏪 Taquilla Activa
 
+</h2>
 
-if(!session){
 
-mostrarMensaje(
-"Sesión no encontrada",
-"red"
-);
 
-return;
+<div id="infoTaquilla">
 
-}
+Cargando taquilla...
 
+</div>
 
 
-const usuario_id =
-session.user.id;
 
+</section>
 
 
 
 
 
-// INSERTAR TAQUILLA
 
 
-const {
-data,
-error
 
-}= await supabase
+<section class="card">
 
-.from("taquillas")
 
-.insert([{
+<h2>
 
-nombre,
+🎫 Nueva Jugada
 
-codigo,
-
-responsable,
-
-estado,
-
-usuario_id
-
-}])
-
-.select();
-
-
-
-
-
-if(error){
-
-console.error(
-"ERROR:",
-error
-);
-
-
-mostrarMensaje(
-error.message,
-"red"
-);
-
-
-return;
-
-}
-
-
-
-
-
-mostrarMensaje(
-"Taquilla creada correctamente",
-"green"
-);
-
-
-
-formulario.reset();
-
-
-cargarTaquillas();
-
-
-
-});
-
-
-
-
-
-
-
-
-
-// MOSTRAR TAQUILLAS
-
-
-async function cargarTaquillas(){
-
-
-
-lista.innerHTML =
-"Cargando...";
-
-
-
-
-const {
-
-data:{
-session
-
-}
-
-} = await supabase.auth.getSession();
-
-
-
-
-if(!session){
-
-lista.innerHTML =
-"Sesión no encontrada";
-
-return;
-
-}
-
-
-
-
-
-const usuario_id =
-session.user.id;
-
-
-
-
-
-
-const {
-data,
-error
-
-}= await supabase
-
-.from("taquillas")
-
-.select("*")
-
-.eq(
-"usuario_id",
-usuario_id
-)
-
-.order(
-"created_at",
-{
-ascending:false
-}
-);
-
-
-
-
-
-
-if(error){
-
-console.error(error);
-
-lista.innerHTML =
-error.message;
-
-return;
-
-}
-
-
-
-
-
-if(!data || data.length===0){
-
-
-lista.innerHTML =
-"No existen taquillas";
-
-
-return;
-
-
-}
-
-
-
-
-
-
-
-lista.innerHTML="";
-
-
-
-
-
-
-data.forEach(
-(taquilla)=>{
-
-
-lista.innerHTML += `
-
-
-<div class="item-taquilla">
-
-
-<h3>
-🏪 ${taquilla.nombre}
-</h3>
+</h2>
 
 
 
 <p>
-<strong>Código:</strong>
-${taquilla.codigo}
+
+Módulo de ventas Golden King
+
 </p>
 
 
 
-<p>
-<strong>Responsable:</strong>
-${taquilla.responsable}
-</p>
+<button>
 
-
-
-<p>
-<strong>Estado:</strong>
-${taquilla.estado}
-</p>
-
-
-
-<button 
-class="btn-entrar"
-onclick='entrarTaquilla(${JSON.stringify(taquilla)})'>
-
-🚀 Entrar
+Nueva Venta
 
 </button>
+
+
+
+</section>
+
+
+
+
+
+
+
+
+<section class="card">
+
+
+<h2>
+
+📊 Resumen del Día
+
+</h2>
+
+
+
+<div class="resumen">
+
+
+<p>
+
+Ventas:
+<b>
+0 Bs
+</b>
+
+</p>
+
+
+
+<p>
+
+Tickets:
+<b>
+0
+</b>
+
+</p>
 
 
 
 </div>
 
 
-`;
 
-
-
-});
-
-
-
-}
+</section>
 
 
 
@@ -372,57 +184,25 @@ onclick='entrarTaquilla(${JSON.stringify(taquilla)})'>
 
 
 
-
-// ENTRAR A TAQUILLA
-
-
-window.entrarTaquilla = function(taquilla){
-
-
-
-localStorage.setItem(
-
-"taquilla_activa",
-
-JSON.stringify(taquilla)
-
-);
-
-
-
-
-window.location.href =
-
-"../../taquilla/index.html";
-
-
-
-};
+</main>
 
 
 
 
 
+</div>
 
 
 
 
-// MENSAJE
 
-
-function mostrarMensaje(
-texto,
-color
-){
-
-
-mensaje.textContent =
-texto;
-
-
-mensaje.style.color =
-color;
+<script 
+type="module"
+src="./taquilla.js">
+</script>
 
 
 
-}
+</body>
+
+</html>
