@@ -393,6 +393,9 @@ ${taquilla.responsable}
 ${taquilla.estado}
 </p>
 
+<button>
+Entrar
+</button>
 
 </div>
 
