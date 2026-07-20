@@ -9,11 +9,11 @@
 
 
 <title>
-Golden King | Taquilla
+Golden King | Gestión de Taquillas
 </title>
 
 
-<link rel="stylesheet" href="./taquilla.css">
+<link rel="stylesheet" href="./taquillas.css">
 
 
 </head>
@@ -22,36 +22,36 @@ Golden King | Taquilla
 <body>
 
 
-<div class="layout">
+
+<div class="container">
 
 
 
-<!-- BARRA SUPERIOR -->
-
-<header class="topbar">
 
 
-<div class="logo">
+<header>
 
-👑 GOLDEN KING
+
+<div>
+
+<h1>
+🏪 Gestión de Taquillas
+</h1>
+
+
+<p>
+Administración de puntos de venta
+</p>
+
 
 </div>
 
 
 
-<div class="titulo">
+<a href="../dashboard.html">
+⬅ Dashboard
+</a>
 
-Sistema de Taquilla
-
-</div>
-
-
-
-<div id="usuario">
-
-Cargando...
-
-</div>
 
 
 </header>
@@ -62,35 +62,67 @@ Cargando...
 
 
 
-
-<!-- CONTENIDO -->
-
-<main class="contenido">
-
-
-
-
-
 <section class="card">
 
 
 <h2>
-
-🏪 Taquilla Activa
-
+➕ Crear Nueva Taquilla
 </h2>
 
 
 
-<div id="infoTaquilla">
 
-Cargando taquilla...
+<form id="taquillaForm">
+
+
+
+
+
+<div class="grupo">
+
+
+<label>
+Nombre de Taquilla
+</label>
+
+
+<input
+
+type="text"
+
+id="nombre"
+
+placeholder="Ej: Taquilla Centro"
+
+required>
 
 </div>
 
 
 
-</section>
+
+
+
+
+<div class="grupo">
+
+
+<label>
+Código
+</label>
+
+
+<input
+
+type="text"
+
+id="codigo"
+
+placeholder="GK001"
+
+required>
+
+</div>
 
 
 
@@ -98,35 +130,85 @@ Cargando taquilla...
 
 
 
-
-<section class="card">
-
-
-<h2>
-
-🎫 Nueva Jugada
-
-</h2>
+<div class="grupo">
 
 
-
-<p>
-
-Módulo de ventas Golden King
-
-</p>
+<label>
+Responsable
+</label>
 
 
+<input
 
-<button>
+type="text"
 
-Nueva Venta
+id="responsable"
+
+placeholder="Nombre responsable"
+
+required>
+
+</div>
+
+
+
+
+
+
+
+<div class="grupo">
+
+
+<label>
+Estado
+</label>
+
+
+
+<select id="estado">
+
+
+<option value="activo">
+Activo
+</option>
+
+
+<option value="inactivo">
+Inactivo
+</option>
+
+
+
+</select>
+
+
+
+</div>
+
+
+
+
+
+
+
+<button type="submit">
+
+Crear Taquilla
 
 </button>
 
 
 
+<p id="mensaje"></p>
+
+
+
+</form>
+
+
+
 </section>
+
 
 
 
@@ -139,37 +221,15 @@ Nueva Venta
 
 
 <h2>
-
-📊 Resumen del Día
-
+🏪 Taquillas Registradas
 </h2>
 
 
 
-<div class="resumen">
 
+<div id="listaTaquillas">
 
-<p>
-
-Ventas:
-<b>
-0 Bs
-</b>
-
-</p>
-
-
-
-<p>
-
-Tickets:
-<b>
-0
-</b>
-
-</p>
-
-
+Cargando...
 
 </div>
 
@@ -182,23 +242,18 @@ Tickets:
 
 
 
-
-
-</main>
-
-
-
-
-
 </div>
 
 
 
 
 
-<script 
+<script
+
 type="module"
-src="./taquilla.js">
+
+src="./taquillas.js">
+
 </script>
 
 
