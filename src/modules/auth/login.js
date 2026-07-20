@@ -6,14 +6,7 @@
 ==================================================
 */
 
-
-import { getSupabase } from "../../services/supabase.js";
-
-
-
-// Cliente Supabase
-
-const supabase = getSupabase();
+import { supabase } from "../../services/supabase.js";
 
 
 
@@ -28,42 +21,34 @@ const button = loginForm.querySelector("button");
 
 
 
-
 // Evento Login
 
 loginForm.addEventListener("submit", async (e)=>{
 
-
     e.preventDefault();
 
+    const email =
+    document.getElementById("email")
+    .value
+    .trim();
 
-
-    const email = 
-    document.getElementById("email").value.trim();
-
-
-
-    const password = 
-    document.getElementById("password").value.trim();
-
-
+    const password =
+    document.getElementById("password")
+    .value
+    .trim();
 
 
 
     if(!email || !password){
-
 
         mostrarMensaje(
             "Complete todos los campos",
             "#ef4444"
         );
 
-
         return;
 
-
     }
-
 
 
 
@@ -73,62 +58,24 @@ loginForm.addEventListener("submit", async (e)=>{
 
 
 
-
-
     try{
 
-
-        /*
-        ==========================================
-        LOGIN SUPABASE
-        ==========================================
-        */
-
-
-        const { data, error } = 
+        const { error } =
         await supabase.auth.signInWithPassword({
 
+            email,
 
-            email: email,
-
-
-            password: password
-
+            password
 
         });
 
 
 
-
-
-
         if(error){
-
 
             throw error;
 
-
         }
-
-
-
-
-
-        /*
-        ==========================================
-        USUARIO CORRECTO
-
-        Aquí después cargaremos:
-
-        - Perfil
-        - Rol
-        - Permisos
-        - Taquilla
-
-        ==========================================
-        */
-
-
 
 
 
@@ -136,28 +83,18 @@ loginForm.addEventListener("submit", async (e)=>{
 
             "Acceso correcto",
 
-            "#2563eb"
+            "#16a34a"
 
         );
 
 
 
-
-
-
         setTimeout(()=>{
 
-
-            window.location.href = 
-
+            window.location.href =
             "../../admin/dashboard.html";
 
-
-
-        },1000);
-
-
-
+        },800);
 
 
 
@@ -165,37 +102,25 @@ loginForm.addEventListener("submit", async (e)=>{
 
     catch(error){
 
-
+        console.error(error);
 
         mostrarMensaje(
 
-            "Usuario o contraseña incorrectos",
+            error.message,
 
             "#ef4444"
 
         );
 
-
-        console.error(error);
-
-
-
     }
 
-
-
-
     finally{
-
 
         button.disabled = false;
 
         button.textContent = "Iniciar Sesión";
 
-
     }
-
-
 
 });
 
@@ -203,16 +128,10 @@ loginForm.addEventListener("submit", async (e)=>{
 
 
 
-
-
-// Mostrar mensajes
-
 function mostrarMensaje(texto,color){
-
 
     message.textContent = texto;
 
     message.style.color = color;
-
 
 }
