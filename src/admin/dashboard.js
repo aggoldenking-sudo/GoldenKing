@@ -7,28 +7,26 @@
 */
 
 
-import { getSupabase } from "../services/supabase.js";
+import { supabase } from "../../services/supabase.js";
 
 
 
-const supabase = getSupabase();
-
-
-
-// Elemento usuario
-
-const userBox = document.querySelector(".user");
+const userBox =
+document.querySelector(".user");
 
 
 
 
-// Verificar sesión
 
 async function verificarSesion(){
 
 
-    const { data, error } = 
-    await supabase.auth.getSession();
+
+    const {
+        data,
+        error
+    } = await supabase.auth.getSession();
+
 
 
 
@@ -43,17 +41,16 @@ async function verificarSesion(){
 
 
 
-    const session = data.session;
+    const session =
+    data.session;
 
 
 
-    // Si no hay sesión
 
     if(!session){
 
 
         window.location.href =
-
         "../modules/auth/login.html";
 
 
@@ -64,13 +61,15 @@ async function verificarSesion(){
 
 
 
-    const usuario = session.user;
+    const usuario =
+    session.user;
 
 
 
-    // Buscar perfil
 
-    await cargarPerfil(usuario.id);
+
+
+    cargarPerfil(usuario.id);
 
 
 
@@ -81,23 +80,29 @@ async function verificarSesion(){
 
 
 
-// Cargar perfil desde profiles
+
+
 
 async function cargarPerfil(id){
 
 
 
-    const { data, error } =
-
-    await supabase
+    const {
+        data,
+        error
+    } = await supabase
 
     .from("profiles")
 
     .select("*")
 
-    .eq("id", id)
+    .eq(
+        "id",
+        id
+    )
 
     .single();
+
 
 
 
@@ -107,51 +112,22 @@ async function cargarPerfil(id){
 
 
         console.error(
-            "Error cargando perfil:",
+            "ERROR PERFIL:",
             error
         );
 
 
-        userBox.innerHTML = `
+        userBox.innerHTML =
 
-            ⚠️ Perfil no encontrado
-
-        `;
+        "Perfil no encontrado";
 
 
         return;
-
 
     }
 
 
 
-
-
-    mostrarPerfil(data);
-
-
-
-}
-
-
-
-
-
-
-
-
-// Mostrar datos del perfil
-
-function mostrarPerfil(perfil){
-
-
-
-    if(!userBox){
-
-        return;
-
-    }
 
 
 
@@ -159,27 +135,40 @@ function mostrarPerfil(perfil){
     userBox.innerHTML = `
 
 
-        👑
-
-        <div>
-
-            <strong>
-                ${perfil.nombre}
-            </strong>
-
-            <br>
-
-            <small>
-
-                ${perfil.rol}
-
-            </small>
+    👑 ${data.nombre}
 
 
-        </div>
+    <br>
+
+
+    <small>
+
+    Rol:
+    ${data.rol.toUpperCase()}
+
+    </small>
 
 
     `;
+
+
+
+
+
+
+
+    // Verificar administrador
+
+
+    if(data.rol !== "admin"){
+
+
+        alert(
+        "Acceso limitado"
+        );
+
+
+    }
 
 
 
@@ -192,7 +181,6 @@ function mostrarPerfil(perfil){
 
 
 
-// Cerrar sesión
 
 async function cerrarSesion(){
 
@@ -200,9 +188,7 @@ async function cerrarSesion(){
     await supabase.auth.signOut();
 
 
-
     window.location.href =
-
     "../modules/auth/login.html";
 
 
@@ -213,14 +199,10 @@ async function cerrarSesion(){
 
 
 
-// Iniciar sistema
-
 verificarSesion();
 
 
 
 
-
-// Disponible globalmente
-
-window.cerrarSesion = cerrarSesion;
+window.cerrarSesion =
+cerrarSesion;
