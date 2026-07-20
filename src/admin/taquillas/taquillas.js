@@ -1,3 +1,6 @@
+alert("ESTE ES EL TAQUILLAS.JS NUEVO");
+
+
 /*
 ==================================================
  GOLDEN KING v3
