@@ -2,28 +2,36 @@
 ==================================================
  GOLDEN KING v3
  LOGIN SYSTEM
- login.js
+ Supabase Auth
 ==================================================
 */
 
 
-// Elementos del formulario
+import { getSupabase } from "../../services/supabase.js";
+
+
+
+// Cliente Supabase
+
+const supabase = getSupabase();
+
+
+
+// Elementos
 
 const loginForm = document.getElementById("loginForm");
 
 const message = document.getElementById("message");
 
-const button = loginForm?.querySelector("button");
+const button = loginForm.querySelector("button");
 
 
 
 
-// Verificar que exista el formulario
 
-if(loginForm){
+// Evento Login
 
-
-loginForm.addEventListener("submit",(e)=>{
+loginForm.addEventListener("submit", async (e)=>{
 
 
     e.preventDefault();
@@ -41,12 +49,6 @@ loginForm.addEventListener("submit",(e)=>{
 
 
 
-    // Limpiar mensaje
-
-    message.textContent = "";
-
-
-
 
     if(!email || !password){
 
@@ -59,11 +61,11 @@ loginForm.addEventListener("submit",(e)=>{
 
         return;
 
+
     }
 
 
 
-    // Estado de carga
 
     button.disabled = true;
 
@@ -72,42 +74,118 @@ loginForm.addEventListener("submit",(e)=>{
 
 
 
-    /*
-    ==================================================
-    FUTURA CONEXIÓN SUPABASE
 
-    Aquí irá:
+    try{
 
-    supabase.auth.signInWithPassword()
 
-    Validación del usuario
+        /*
+        ==========================================
+        LOGIN SUPABASE
+        ==========================================
+        */
 
-    Consulta del rol:
 
-    Super Admin
-    Administrador
-    Cajero
-    Supervisor
+        const { data, error } = 
+        await supabase.auth.signInWithPassword({
 
-    Redirección:
 
-    Dashboard
-    Taquilla
+            email: email,
 
-    ==================================================
-    */
+
+            password: password
+
+
+        });
 
 
 
 
 
-    setTimeout(()=>{
+
+        if(error){
+
+
+            throw error;
+
+
+        }
+
+
+
+
+
+        /*
+        ==========================================
+        USUARIO CORRECTO
+
+        Aquí después cargaremos:
+
+        - Perfil
+        - Rol
+        - Permisos
+        - Taquilla
+
+        ==========================================
+        */
+
+
+
 
 
         mostrarMensaje(
-            "Sistema preparado correctamente",
+
+            "Acceso correcto",
+
             "#2563eb"
+
         );
+
+
+
+
+
+
+        setTimeout(()=>{
+
+
+            window.location.href = 
+
+            "../../admin/dashboard.html";
+
+
+
+        },1000);
+
+
+
+
+
+
+    }
+
+    catch(error){
+
+
+
+        mostrarMensaje(
+
+            "Usuario o contraseña incorrectos",
+
+            "#ef4444"
+
+        );
+
+
+        console.error(error);
+
+
+
+    }
+
+
+
+
+    finally{
 
 
         button.disabled = false;
@@ -115,27 +193,24 @@ loginForm.addEventListener("submit",(e)=>{
         button.textContent = "Iniciar Sesión";
 
 
-
-    },1000);
-
+    }
 
 
 
 });
 
 
-}
 
 
 
 
-// Función mensajes
+
+// Mostrar mensajes
 
 function mostrarMensaje(texto,color){
 
 
     message.textContent = texto;
-
 
     message.style.color = color;
 
