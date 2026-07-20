@@ -1,1 +1,199 @@
+<!DOCTYPE html>
+<html lang="es">
 
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+
+<title>
+Golden King | Taquillas
+</title>
+
+
+<link rel="stylesheet" href="./taquillas.css">
+
+
+</head>
+
+
+<body>
+
+
+<div class="container">
+
+
+<header>
+
+    <h1>
+        🏪 Gestión de Taquillas
+    </h1>
+
+
+    <a href="../dashboard.html">
+        Volver Dashboard
+    </a>
+
+
+</header>
+
+
+
+
+
+<section class="card">
+
+
+<h2>
+Crear Nueva Taquilla
+</h2>
+
+
+
+<form id="taquillaForm">
+
+
+
+<div class="grupo">
+
+<label>
+Nombre de Taquilla
+</label>
+
+<input 
+type="text"
+id="nombre"
+placeholder="Ej: Taquilla Centro"
+required>
+
+</div>
+
+
+
+
+
+<div class="grupo">
+
+<label>
+Código
+</label>
+
+<input 
+type="text"
+id="codigo"
+placeholder="TK001"
+required>
+
+</div>
+
+
+
+
+
+<div class="grupo">
+
+<label>
+Responsable
+</label>
+
+<input 
+type="text"
+id="responsable"
+placeholder="Nombre responsable"
+required>
+
+</div>
+
+
+
+
+
+<div class="grupo">
+
+<label>
+Estado
+</label>
+
+
+<select id="estado">
+
+
+<option value="activo">
+Activo
+</option>
+
+
+<option value="inactivo">
+Inactivo
+</option>
+
+
+</select>
+
+
+</div>
+
+
+
+
+
+<button type="submit">
+
+Crear Taquilla
+
+</button>
+
+
+
+<p id="mensaje"></p>
+
+
+
+</form>
+
+
+
+</section>
+
+
+
+
+
+<section class="card">
+
+
+<h2>
+Taquillas Registradas
+</h2>
+
+
+<div id="listaTaquillas">
+
+Cargando...
+
+</div>
+
+
+</section>
+
+
+
+
+
+</div>
+
+
+
+
+
+<script 
+type="module"
+src="./taquillas.js">
+</script>
+
+
+</body>
+
+</html>
