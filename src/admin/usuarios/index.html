@@ -25,6 +25,9 @@ Golden King | Usuarios
 <div class="container">
 
 
+
+
+
 <header>
 
 
@@ -36,7 +39,7 @@ Golden King | Usuarios
 
 
 <p>
-Administración de usuarios y permisos
+Crear usuarios y asignar permisos
 </p>
 
 
@@ -69,6 +72,7 @@ Administración de usuarios y permisos
 
 
 
+
 <form id="usuarioForm">
 
 
@@ -77,19 +81,18 @@ Administración de usuarios y permisos
 
 <div class="grupo">
 
-
 <label>
-Nombre
+Nombre completo
 </label>
 
 
 <input
-
-id="nombre"
 
 type="text"
 
-placeholder="Nombre completo"
+id="nombre"
+
+placeholder="Ej: Juan Pérez"
 
 required>
 
@@ -102,21 +105,21 @@ required>
 
 
 
+
 <div class="grupo">
 
-
 <label>
-Correo
+Correo electrónico
 </label>
 
 
 <input
 
-id="email"
-
 type="email"
 
-placeholder="correo@goldenking.com"
+id="email"
+
+placeholder="usuario@goldenking.com"
 
 required>
 
@@ -132,6 +135,32 @@ required>
 
 <div class="grupo">
 
+<label>
+Contraseña
+</label>
+
+
+<input
+
+type="password"
+
+id="password"
+
+placeholder="********"
+
+required>
+
+
+</div>
+
+
+
+
+
+
+
+
+<div class="grupo">
 
 <label>
 Rol
@@ -142,12 +171,16 @@ Rol
 
 
 <option value="taquilla">
+
 Taquilla
+
 </option>
 
 
 <option value="administrador">
+
 Administrador
+
 </option>
 
 
@@ -165,7 +198,6 @@ Administrador
 
 <div class="grupo">
 
-
 <label>
 Taquilla asignada
 </label>
@@ -175,7 +207,9 @@ Taquilla asignada
 
 
 <option value="">
+
 Seleccione taquilla
+
 </option>
 
 
@@ -183,7 +217,6 @@ Seleccione taquilla
 
 
 </div>
-
 
 
 
@@ -199,8 +232,8 @@ Crear Usuario
 
 
 
-
 <p id="mensaje"></p>
+
 
 
 
@@ -222,8 +255,11 @@ Crear Usuario
 
 
 <h2>
+
 👥 Usuarios Registrados
+
 </h2>
+
 
 
 
@@ -242,17 +278,21 @@ Cargando...
 
 
 
+
 </div>
 
 
 
 
 
+<script
 
-<script 
 type="module"
+
 src="./usuarios.js">
+
 </script>
+
 
 
 </body>
