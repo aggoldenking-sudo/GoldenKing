@@ -11,15 +11,19 @@ import { supabase } from "../services/supabase.js";
 
 
 
-const userBox =
+
+
+const userBox = 
 document.querySelector(".user");
 
 
 
 
 
-async function verificarSesion(){
 
+// VERIFICAR SESIÓN
+
+async function verificarSesion(){
 
 
     const {
@@ -41,8 +45,11 @@ async function verificarSesion(){
 
 
 
+
+
     const session =
     data.session;
+
 
 
 
@@ -61,9 +68,10 @@ async function verificarSesion(){
 
 
 
+
+
     const usuario =
     session.user;
-
 
 
 
@@ -83,6 +91,8 @@ async function verificarSesion(){
 
 
 
+// CARGAR PERFIL
+
 async function cargarPerfil(id){
 
 
@@ -92,14 +102,18 @@ async function cargarPerfil(id){
         error
     } = await supabase
 
+
     .from("profiles")
 
+
     .select("*")
+
 
     .eq(
         "id",
         id
     )
+
 
     .single();
 
@@ -108,28 +122,29 @@ async function cargarPerfil(id){
 
 
 
-    if (error) {
-
-    console.error("ERROR PERFIL:", error);
-
-    userBox.innerHTML = `
-        ❌ Error
-        <br>
-        <small>${error.message}</small>
-    `;
-
-    return;
-}
 
 
-        userBox.innerHTML =
+    if(error){
 
-        "Perfil no encontrado";
+
+        console.error(
+            "ERROR PERFIL:",
+            error
+        );
+
+
+        userBox.innerHTML = `
+
+        ⚠️ Perfil no encontrado
+
+        `;
 
 
         return;
 
+
     }
+
 
 
 
@@ -142,13 +157,10 @@ async function cargarPerfil(id){
 
     👑 ${data.nombre}
 
-
     <br>
-
 
     <small>
 
-    Rol:
     ${data.rol.toUpperCase()}
 
     </small>
@@ -160,23 +172,6 @@ async function cargarPerfil(id){
 
 
 
-
-
-    // Verificar administrador
-
-
-    if(data.rol !== "admin"){
-
-
-        alert(
-        "Acceso limitado"
-        );
-
-
-    }
-
-
-
 }
 
 
@@ -185,16 +180,24 @@ async function cargarPerfil(id){
 
 
 
+
+
+// CERRAR SESIÓN
 
 
 async function cerrarSesion(){
 
 
+
     await supabase.auth.signOut();
 
 
+
+
     window.location.href =
+
     "../modules/auth/login.html";
+
 
 
 }
@@ -202,12 +205,21 @@ async function cerrarSesion(){
 
 
 
+
+
+
+
+
+// INICIO
 
 
 verificarSesion();
 
 
 
+
+
+// Disponible para HTML
 
 window.cerrarSesion =
 cerrarSesion;
