@@ -1,53 +1,28 @@
 /*
 ==================================================
  GOLDEN KING v3
- TEST SUPABASE TAQUILLAS
+ SUPABASE CONNECTION
 ==================================================
 */
 
 
-import { getSupabase } from "../../services/supabase.js";
-
-
-alert("INICIO TAQUILLAS");
-
-
-
-const lista = document.getElementById("listaTaquillas");
-
-
-lista.innerHTML = "PASO 1 OK";
+import { createClient } from 
+"https://cdn.jsdelivr.net/npm/@supabase/supabase-js/+esm";
 
 
 
-let supabase;
-
-
-try {
-
-
-    supabase = getSupabase();
-
-
-    console.log(
-        "SUPABASE CREADO:",
-        supabase
-    );
-
-
-    lista.innerHTML = "PASO 2 OK - SUPABASE CONECTADO";
+const SUPABASE_URL =
+"https://atdxeuxrjepiumpxcqxt.supabase.co";
 
 
 
-}
-catch(error){
+const SUPABASE_KEY =
+"sb_publishable_wKsM2OWm4USke2jZ1fl0qw_M2TIR3S6";
 
 
-    console.error(error);
 
 
-    lista.innerHTML =
-    "ERROR SUPABASE: " + error.message;
-
-
-}
+export const supabase = createClient(
+    SUPABASE_URL,
+    SUPABASE_KEY
+);
