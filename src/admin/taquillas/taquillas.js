@@ -1,23 +1,19 @@
-/*
-==================================================
- GOLDEN KING v3
- TAQUILLAS TEST
-==================================================
-*/
-
-import { getSupabase } from "../../services/supabase.js";
-
-
-console.log("TAQUILLAS JS CARGADO");
-
-
-const supabase = getSupabase();
+console.log("INICIO TAQUILLAS JS");
 
 
 const lista = document.getElementById("listaTaquillas");
 
 
-lista.innerHTML = "JAVASCRIPT FUNCIONANDO";
+console.log("ELEMENTO LISTA:", lista);
 
 
-console.log("SUPABASE CLIENTE:", supabase);
+
+if(lista){
+
+    lista.innerHTML = "JAVASCRIPT ENCONTRO LA LISTA";
+
+}else{
+
+    alert("NO ENCUENTRO listaTaquillas");
+
+}
