@@ -7,12 +7,14 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+
 <title>
 Golden King | Usuarios
 </title>
 
 
 <link rel="stylesheet" href="./usuarios.css">
+
 
 </head>
 
@@ -25,17 +27,32 @@ Golden King | Usuarios
 
 <header>
 
+
+<div>
+
 <h1>
 👥 Gestión de Usuarios
 </h1>
 
 
+<p>
+Administración de usuarios y permisos
+</p>
+
+
+</div>
+
+
+
 <a href="../dashboard.html">
-Volver Dashboard
+⬅ Dashboard
 </a>
 
 
+
 </header>
+
+
 
 
 
@@ -45,49 +62,75 @@ Volver Dashboard
 
 
 <h2>
-Crear Usuario
+➕ Crear Usuario
 </h2>
 
 
+
+
+
 <form id="usuarioForm">
+
+
+
+
+
+<div class="grupo">
 
 
 <label>
 Nombre
 </label>
 
+
 <input
+
 id="nombre"
+
 type="text"
+
 placeholder="Nombre completo"
+
 required>
 
+
+</div>
+
+
+
+
+
+
+
+<div class="grupo">
 
 
 <label>
 Correo
 </label>
 
+
 <input
+
 id="email"
+
 type="email"
-placeholder="usuario@golden.com"
+
+placeholder="correo@goldenking.com"
+
 required>
 
 
+</div>
 
 
-<label>
-Contraseña
-</label>
-
-<input
-id="password"
-type="password"
-placeholder="********"
-required>
 
 
+
+
+
+
+<div class="grupo">
 
 
 <label>
@@ -98,17 +141,12 @@ Rol
 <select id="rol">
 
 
-<option value="cajero">
-Cajero
+<option value="taquilla">
+Taquilla
 </option>
 
 
-<option value="supervisor">
-Supervisor
-</option>
-
-
-<option value="admin">
+<option value="administrador">
 Administrador
 </option>
 
@@ -116,21 +154,38 @@ Administrador
 </select>
 
 
+</div>
 
+
+
+
+
+
+
+
+<div class="grupo">
 
 
 <label>
-Taquilla
+Taquilla asignada
 </label>
 
 
 <select id="taquilla">
 
-<option>
-Cargando...
+
+<option value="">
+Seleccione taquilla
 </option>
 
+
 </select>
+
+
+</div>
+
+
+
 
 
 
@@ -143,13 +198,19 @@ Crear Usuario
 </button>
 
 
+
+
 <p id="mensaje"></p>
+
 
 
 </form>
 
 
+
 </section>
+
+
 
 
 
@@ -161,8 +222,9 @@ Crear Usuario
 
 
 <h2>
-Usuarios Registrados
+👥 Usuarios Registrados
 </h2>
+
 
 
 <div id="listaUsuarios">
@@ -172,7 +234,10 @@ Cargando...
 </div>
 
 
+
 </section>
+
+
 
 
 
@@ -181,7 +246,10 @@ Cargando...
 
 
 
-<script
+
+
+
+<script 
 type="module"
 src="./usuarios.js">
 </script>
