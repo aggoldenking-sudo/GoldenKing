@@ -1,328 +1,341 @@
-<!DOCTYPE html>
-<html lang="es">
+/*
+==================================================
+ GOLDEN KING v3
+ ADMIN DASHBOARD CSS
+==================================================
+*/
 
-<head>
 
-<meta charset="UTF-8">
+*{
 
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:"Inter",Arial,sans-serif;
 
+}
 
-<title>
-Golden King | Dashboard
-</title>
 
 
-<link rel="stylesheet" href="./dashboard.css">
+body{
 
+    background:#f4f7fb;
 
-</head>
+    color:#1f2937;
 
+}
 
-<body>
 
 
-<div class="layout">
+/* LAYOUT */
 
+.layout{
 
+    display:flex;
 
+    min-height:100vh;
 
+}
 
-<!-- SIDEBAR -->
 
-<aside class="sidebar">
 
 
-<div class="logo">
 
-👑 GOLDEN KING
+/* SIDEBAR */
 
-</div>
+.sidebar{
 
+    width:250px;
 
+    background:#ffffff;
 
-<nav>
+    border-right:1px solid #e5e7eb;
 
+    padding:25px;
 
-<a href="./taquillas/index.html">
+}
 
-🏪 Taquillas
 
-</a>
 
 
 
-<a href="./usuarios/index.html">
+.logo{
 
-👥 Usuarios
+    font-size:24px;
 
-</a>
+    font-weight:800;
 
+    letter-spacing:2px;
 
+    color:#2563eb;
 
-<a href="./resultados/index.html">
+    margin-bottom:40px;
 
-🎯 Resultados
+}
 
-</a>
 
 
 
-<a href="./ventas/index.html">
 
-🎫 Ventas
 
-</a>
 
+nav a{
 
 
-<a href="./reportes/index.html">
+    display:block;
 
-📊 Reportes
+    text-decoration:none;
 
-</a>
+    color:#4b5563;
 
+    padding:13px 15px;
 
+    border-radius:10px;
 
-<a href="./configuracion/index.html">
+    margin-bottom:8px;
 
-⚙️ Configuración
+    transition:.3s;
 
-</a>
 
+}
 
 
-<a href="#" onclick="cerrarSesion()">
 
-🚪 Cerrar Sesión
 
-</a>
 
+nav a:hover{
 
 
-</nav>
+    background:#eff6ff;
 
+    color:#2563eb;
 
-</aside>
 
+}
 
 
 
 
 
+/* CONTENIDO */
 
+.content{
 
-<!-- CONTENIDO -->
+    flex:1;
 
-<main class="content">
+    padding:35px;
 
+}
 
 
-<header>
 
 
-<div>
 
+header{
 
-<h1>
-Dashboard
-</h1>
 
+    display:flex;
 
-<p>
-Panel Administrativo Golden King
-</p>
+    justify-content:space-between;
 
+    align-items:center;
 
-</div>
+    margin-bottom:35px;
 
 
+}
 
 
 
-<div class="user">
+header h1{
 
-Cargando usuario...
 
-</div>
+    font-size:30px;
 
 
+}
 
-</header>
 
 
 
 
+.user{
 
 
+    background:#ffffff;
 
+    padding:12px 18px;
 
-<div class="cards">
+    border-radius:12px;
 
+    border:1px solid #e5e7eb;
 
+    color:#2563eb;
 
+    font-weight:600;
 
 
-<div class="card">
+}
 
 
-<h3>
-Taquillas
-</h3>
 
 
-<strong>
-🏪
-</strong>
 
 
-<p>
-Gestión de puntos de venta
-</p>
 
+/* TARJETAS */
 
-</div>
+.cards{
 
 
+    display:grid;
 
+    grid-template-columns:
 
+    repeat(4,1fr);
 
 
-<div class="card">
+    gap:20px;
 
 
-<h3>
-Usuarios
-</h3>
+}
 
 
-<strong>
-👥
-</strong>
 
 
-<p>
-Cajeros y permisos
-</p>
 
+.card{
 
-</div>
 
+    background:#ffffff;
 
+    padding:25px;
 
+    border-radius:18px;
 
 
+    box-shadow:
 
+    0 10px 25px rgba(0,0,0,.05);
 
 
-<div class="card">
+}
 
 
-<h3>
-Resultados
-</h3>
 
+.card h3{
 
-<strong>
-🎯
-</strong>
 
+    color:#6b7280;
 
-<p>
-Control de sorteos
-</p>
+    font-size:15px;
 
+    margin-bottom:15px;
 
-</div>
 
+}
 
 
 
 
+.card strong{
 
 
+    font-size:30px;
 
-<div class="card">
+    color:#2563eb;
 
 
-<h3>
-Ventas
-</h3>
+}
 
 
-<strong>
-🎫
-</strong>
 
 
-<p>
-Sistema de taquilla
-</p>
 
+/* BIENVENIDA */
 
-</div>
 
+.welcome{
 
 
+    margin-top:30px;
 
+    background:white;
 
+    padding:30px;
 
+    border-radius:18px;
 
 
-</div>
+}
 
 
 
+.welcome h2{
 
 
+    margin-bottom:10px;
 
 
-<section class="welcome">
+}
 
 
-<h2>
 
-Bienvenido a Golden King
+.welcome p{
 
-</h2>
 
+    color:#6b7280;
 
-<p>
 
-Sistema profesional de administración de apuestas.
+}
 
-</p>
 
 
-</section>
 
 
+/* RESPONSIVE */
 
 
+@media(max-width:900px){
 
 
 
-</main>
+.cards{
 
+    grid-template-columns:repeat(2,1fr);
 
+}
 
 
+}
 
 
-</div>
 
 
+@media(max-width:650px){
 
 
 
+.layout{
 
-<script
-type="module"
-src="./dashboard.js">
-</script>
+    flex-direction:column;
 
+}
 
 
-</body>
 
-</html>
+.sidebar{
+
+    width:100%;
+
+}
+
+
+.cards{
+
+    grid-template-columns:1fr;
+
+}
+
+
+}
