@@ -1,7 +1,7 @@
 /*
 ==================================================
  GOLDEN KING v3
- DASHBOARD TAQUILLA CSS
+ ADMIN - GESTIÓN DE TAQUILLAS CSS
 ==================================================
 */
 
@@ -29,83 +29,73 @@ color:#1f2937;
 
 
 
-.layout{
-
-min-height:100vh;
-
-}
-
-
-
-
-
-.topbar{
-
-height:75px;
-
-background:white;
-
-display:flex;
-
-align-items:center;
-
-justify-content:space-between;
-
-padding:0 35px;
-
-box-shadow:
-
-0 5px 20px rgba(0,0,0,.05);
-
-}
-
-
-
-
-
-.logo{
-
-font-size:22px;
-
-font-weight:800;
-
-color:#2563eb;
-
-}
-
-
-
-.titulo{
-
-font-size:18px;
-
-font-weight:600;
-
-}
-
-
-
-
-
-#usuario{
-
-font-size:14px;
-
-color:#374151;
-
-}
-
-
-
-
-
-.contenido{
+.container{
 
 width:90%;
 
 max-width:1100px;
 
-margin:35px auto;
+margin:40px auto;
+
+}
+
+
+
+
+
+header{
+
+display:flex;
+
+justify-content:space-between;
+
+align-items:center;
+
+margin-bottom:30px;
+
+}
+
+
+
+
+
+header h1{
+
+color:#2563eb;
+
+font-size:28px;
+
+}
+
+
+
+
+
+header p{
+
+color:#6b7280;
+
+margin-top:5px;
+
+}
+
+
+
+
+
+header a{
+
+text-decoration:none;
+
+background:white;
+
+color:#2563eb;
+
+padding:12px 18px;
+
+border-radius:10px;
+
+border:1px solid #e5e7eb;
 
 }
 
@@ -135,9 +125,9 @@ box-shadow:
 
 .card h2{
 
-margin-bottom:20px;
+margin-bottom:25px;
 
-color:#2563eb;
+color:#1f2937;
 
 }
 
@@ -145,15 +135,63 @@ color:#2563eb;
 
 
 
-#infoTaquilla{
+.grupo{
 
-background:#f8fafc;
+margin-bottom:18px;
 
-padding:20px;
+}
 
-border-radius:12px;
 
-line-height:1.8;
+
+
+
+.grupo label{
+
+display:block;
+
+margin-bottom:8px;
+
+font-size:14px;
+
+color:#374151;
+
+}
+
+
+
+
+
+.grupo input,
+
+.grupo select{
+
+
+width:100%;
+
+height:45px;
+
+padding:0 15px;
+
+border-radius:10px;
+
+border:1px solid #d1d5db;
+
+outline:none;
+
+font-size:15px;
+
+
+}
+
+
+
+
+
+.grupo input:focus,
+
+.grupo select:focus{
+
+border-color:#2563eb;
 
 }
 
@@ -163,17 +201,19 @@ line-height:1.8;
 
 button{
 
+width:100%;
+
+height:48px;
+
+border:none;
+
+border-radius:10px;
+
 background:#2563eb;
 
 color:white;
 
-border:none;
-
-height:45px;
-
-padding:0 25px;
-
-border-radius:10px;
+font-size:16px;
 
 font-weight:600;
 
@@ -195,11 +235,13 @@ background:#1d4ed8;
 
 
 
-.resumen{
+#mensaje{
 
-display:flex;
+text-align:center;
 
-gap:20px;
+margin-top:15px;
+
+font-size:14px;
 
 }
 
@@ -207,15 +249,59 @@ gap:20px;
 
 
 
-.resumen p{
-
-background:#f8fafc;
+.item-taquilla{
 
 padding:20px;
 
-border-radius:12px;
+border:1px solid #e5e7eb;
 
-flex:1;
+border-radius:14px;
+
+margin-bottom:15px;
+
+}
+
+
+
+
+
+.item-taquilla h3{
+
+color:#2563eb;
+
+margin-bottom:10px;
+
+}
+
+
+
+
+
+.item-taquilla p{
+
+margin:6px 0;
+
+}
+
+
+
+
+
+.btn-entrar{
+
+margin-top:15px;
+
+background:#22c55e;
+
+}
+
+
+
+
+
+.btn-entrar:hover{
+
+background:#16a34a;
 
 }
 
@@ -226,22 +312,13 @@ flex:1;
 @media(max-width:700px){
 
 
-.topbar{
+header{
 
 flex-direction:column;
-
-height:auto;
 
 gap:15px;
 
-padding:20px;
-
-}
-
-
-.resumen{
-
-flex-direction:column;
+align-items:flex-start;
 
 }
 
