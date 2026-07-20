@@ -1,7 +1,7 @@
 /*
 ==================================================
  GOLDEN KING v3
- GESTIÓN DE USUARIOS
+ ADMIN - CREAR USUARIOS
  usuarios.js
 ==================================================
 */
@@ -11,19 +11,8 @@ import { supabase } from "../../services/supabase.js";
 
 
 
-console.log("USUARIOS SISTEMA INICIADO");
+console.log("USUARIOS ADMIN INICIADO");
 
-
-
-
-// Elementos
-
-const listaUsuarios =
-document.getElementById("listaUsuarios");
-
-
-const selectTaquilla =
-document.getElementById("taquilla");
 
 
 
@@ -32,11 +21,25 @@ const formulario =
 document.getElementById("usuarioForm");
 
 
+const lista =
+document.getElementById("listaUsuarios");
+
+
+const mensaje =
+document.getElementById("mensaje");
+
+
+const selectTaquilla =
+document.getElementById("taquilla");
 
 
 
 
-// Iniciar
+
+
+
+// INICIO
+
 
 cargarTaquillas();
 
@@ -48,66 +51,85 @@ cargarUsuarios();
 
 
 
-// Cargar taquillas
+
+// CARGAR TAQUILLAS
+
 
 async function cargarTaquillas(){
 
 
 
-    const {data,error} =
+const {
 
-    await supabase
+data,
 
-    .from("taquillas")
+error
 
-    .select("*")
-
-    .eq(
-        "estado",
-        "activo"
-    );
+}= await supabase
 
 
+.from("taquillas")
 
 
-    if(error){
+.select("*")
 
-        console.error(error);
 
-        selectTaquilla.innerHTML =
-        "Error cargando";
+.eq(
+"estado",
+"activo"
+)
 
-        return;
-
-    }
+.order(
+"nombre"
+);
 
 
 
 
 
-    selectTaquilla.innerHTML = "";
+if(error){
+
+console.error(error);
+
+return;
+
+}
 
 
 
 
 
-    data.forEach((taquilla)=>{
+
+selectTaquilla.innerHTML = `
+
+<option value="">
+Seleccione taquilla
+</option>
+
+`;
 
 
-        selectTaquilla.innerHTML += `
 
 
-        <option value="${taquilla.id}">
-
-        ${taquilla.nombre}
-
-        </option>
 
 
-        `;
+data.forEach((taquilla)=>{
 
 
-    });
+selectTaquilla.innerHTML += `
+
+
+<option value="${taquilla.id}">
+
+${taquilla.nombre}
+
+</option>
+
+
+`;
+
+
+});
 
 
 
@@ -121,149 +143,276 @@ async function cargarTaquillas(){
 
 
 
-// Cargar usuarios
+// CREAR USUARIO
+
+
+formulario.addEventListener(
+"submit",
+async(e)=>{
+
+
+e.preventDefault();
+
+
+
+
+const nombre =
+document
+.getElementById("nombre")
+.value
+.trim();
+
+
+
+const email =
+document
+.getElementById("email")
+.value
+.trim();
+
+
+
+const password =
+document
+.getElementById("password")
+.value
+.trim();
+
+
+
+const rol =
+document
+.getElementById("rol")
+.value;
+
+
+
+const taquilla_id =
+selectTaquilla.value || null;
+
+
+
+
+
+
+
+mostrarMensaje(
+"Creando usuario...",
+"#2563eb"
+);
+
+
+
+
+
+
+
+
+const {data,error}=
+
+await supabase.functions.invoke(
+
+"create-user",
+
+{
+
+body:{
+
+nombre,
+
+email,
+
+password,
+
+rol,
+
+taquilla_id
+
+}
+
+}
+
+);
+
+
+
+
+
+
+if(error){
+
+
+console.error(error);
+
+
+mostrarMensaje(
+error.message,
+"#ef4444"
+);
+
+
+return;
+
+
+}
+
+
+
+
+
+
+
+mostrarMensaje(
+
+"Usuario creado correctamente",
+
+"#16a34a"
+
+);
+
+
+
+formulario.reset();
+
+
+cargarUsuarios();
+
+
+
+});
+
+
+
+
+
+
+
+
+
+
+
+// LISTAR USUARIOS
+
 
 async function cargarUsuarios(){
 
 
 
-    listaUsuarios.innerHTML =
-    "Cargando...";
+lista.innerHTML =
+"Cargando...";
 
 
 
 
 
-    const {data,error}=
 
-    await supabase
+const {
 
-    .from("profiles")
+data,
 
-    .select(`
+error
 
-        *,
+}= await supabase
 
-        taquillas(
 
-            nombre
+.from("profiles")
 
-        )
 
-    `)
+.select(`
 
-    .order(
-        "created_at",
-        {
-            ascending:false
-        }
-    );
+*,
 
+taquillas(nombre)
 
+`)
 
 
+.order(
+"created_at",
+{
+ascending:false
+}
+);
 
-    console.log(
-        "USUARIOS:",
-        data,
-        error
-    );
 
 
 
 
 
+if(error){
 
-    if(error){
+lista.innerHTML =
+error.message;
 
+return;
 
-        listaUsuarios.innerHTML =
-        error.message;
+}
 
 
-        return;
 
 
-    }
 
 
+lista.innerHTML="";
 
 
 
 
 
-    if(!data.length){
 
 
-        listaUsuarios.innerHTML =
-        "No existen usuarios";
+data.forEach((usuario)=>{
 
 
-        return;
+lista.innerHTML += `
 
 
-    }
+<div class="item-usuario">
 
 
+<h3>
+👤 ${usuario.nombre}
+</h3>
 
 
+<p>
+${usuario.email}
+</p>
 
 
 
-    listaUsuarios.innerHTML="";
+<p>
 
+Rol:
 
+<span class="rol">
 
+${usuario.rol}
 
+</span>
 
+</p>
 
-    data.forEach((usuario)=>{
 
 
-        listaUsuarios.innerHTML += `
+<p>
 
+Taquilla:
 
-        <div class="item-usuario">
+${usuario.taquillas?.nombre ?? "Sin asignar"}
 
+</p>
 
-        <strong>
 
-        ${usuario.nombre}
 
-        </strong>
+</div>
 
 
-        <br>
+`;
 
 
-        Email:
-        ${usuario.email}
 
-
-        <br>
-
-
-        Rol:
-        ${usuario.rol}
-
-
-        <br>
-
-
-        Taquilla:
-
-        ${usuario.taquillas?.nombre || "Sin asignar"}
-
-
-
-        </div>
-
-
-        `;
-
-
-
-    });
+});
 
 
 
@@ -275,19 +424,21 @@ async function cargarUsuarios(){
 
 
 
-// Crear usuario (temporal)
-
-formulario.addEventListener(
-"submit",
-(e)=>{
 
 
-    e.preventDefault();
+function mostrarMensaje(
+texto,
+color
+){
 
 
-    alert(
-        "Módulo de creación listo. Falta conectar Auth."
-    );
+mensaje.textContent =
+texto;
 
 
-});
+mensaje.style.color =
+color;
+
+
+
+}
