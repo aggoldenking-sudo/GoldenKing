@@ -7,33 +7,54 @@
 */
 
 
+// Elementos del formulario
+
 const loginForm = document.getElementById("loginForm");
 
 const message = document.getElementById("message");
 
+const button = loginForm?.querySelector("button");
 
 
-loginForm.addEventListener("submit", (e)=>{
+
+
+// Verificar que exista el formulario
+
+if(loginForm){
+
+
+loginForm.addEventListener("submit",(e)=>{
 
 
     e.preventDefault();
 
 
 
-    const email = document.getElementById("email").value;
+    const email = 
+    document.getElementById("email").value.trim();
 
-    const password = document.getElementById("password").value;
+
+
+    const password = 
+    document.getElementById("password").value.trim();
+
+
+
+
+    // Limpiar mensaje
+
+    message.textContent = "";
+
 
 
 
     if(!email || !password){
 
 
-        message.textContent = 
-        "Complete todos los campos";
-
-
-        message.style.color = "red";
+        mostrarMensaje(
+            "Complete todos los campos",
+            "#ef4444"
+        );
 
 
         return;
@@ -42,29 +63,81 @@ loginForm.addEventListener("submit", (e)=>{
 
 
 
+    // Estado de carga
+
+    button.disabled = true;
+
+    button.textContent = "Ingresando...";
+
+
+
+
     /*
-    ==============================================
-    PRUEBA TEMPORAL
+    ==================================================
+    FUTURA CONEXIÓN SUPABASE
 
-    Más adelante aquí irá:
+    Aquí irá:
 
-    Supabase Auth
-    Validación de usuario
-    Roles
-    Permisos
-    Redirección
+    supabase.auth.signInWithPassword()
 
-    ==============================================
+    Validación del usuario
+
+    Consulta del rol:
+
+    Super Admin
+    Administrador
+    Cajero
+    Supervisor
+
+    Redirección:
+
+    Dashboard
+    Taquilla
+
+    ==================================================
     */
 
 
-    message.textContent =
-    "Sistema preparado correctamente";
 
 
-    message.style.color =
-    "#2563eb";
+
+    setTimeout(()=>{
+
+
+        mostrarMensaje(
+            "Sistema preparado correctamente",
+            "#2563eb"
+        );
+
+
+        button.disabled = false;
+
+        button.textContent = "Iniciar Sesión";
+
+
+
+    },1000);
+
 
 
 
 });
+
+
+}
+
+
+
+
+// Función mensajes
+
+function mostrarMensaje(texto,color){
+
+
+    message.textContent = texto;
+
+
+    message.style.color = color;
+
+
+}
