@@ -10,33 +10,35 @@
 import { getSupabase } from "../../services/supabase.js";
 
 
-
 const supabase = getSupabase();
 
+
+
+console.log("TAQUILLAS SISTEMA CARGADO");
 
 
 
 // Elementos
 
-const formulario = 
-document.getElementById("taquillaForm");
+const formulario = document.getElementById("taquillaForm");
 
+const lista = document.getElementById("listaTaquillas");
 
-const lista = 
-document.getElementById("listaTaquillas");
-
-
-const mensaje =
-document.getElementById("mensaje");
+const mensaje = document.getElementById("mensaje");
 
 
 
 
+// Iniciar
 
+document.addEventListener(
+"DOMContentLoaded",
+()=>{
 
-// Cargar al iniciar
+    cargarTaquillas();
 
-cargarTaquillas();
+}
+);
 
 
 
@@ -49,98 +51,122 @@ formulario.addEventListener(
 async(e)=>{
 
 
-    e.preventDefault();
+e.preventDefault();
 
 
 
-
-    const nombre =
-    document.getElementById("nombre").value.trim();
-
-
-
-    const codigo =
-    document.getElementById("codigo").value.trim();
+const nombre =
+document.getElementById("nombre").value.trim();
 
 
 
-    const responsable =
-    document.getElementById("responsable").value.trim();
+const codigo =
+document.getElementById("codigo").value.trim();
 
 
 
-    const estado =
-    document.getElementById("estado").value;
+const responsable =
+document.getElementById("responsable").value.trim();
 
 
 
-
-
-
-    const {error}=
-
-    await supabase
-
-    .from("taquillas")
-
-    .insert({
-
-
-        nombre,
-
-        codigo,
-
-        responsable,
-
-        estado
-
-
-    });
+const estado =
+document.getElementById("estado").value;
 
 
 
 
 
+console.log({
 
-    if(error){
+nombre,
+codigo,
+responsable,
+estado
 
-
-        console.error(error);
-
-
-        mostrarMensaje(
-            "Error creando taquilla",
-            "#ef4444"
-        );
+});
 
 
-        return;
 
 
-    }
+
+const {data,error}=
+
+await supabase
+
+.from("taquillas")
+
+.insert([{
+
+    nombre,
+
+    codigo,
+
+    responsable,
+
+    estado
+
+}])
+
+.select();
 
 
 
 
 
 
+if(error){
 
-    mostrarMensaje(
 
-        "Taquilla creada correctamente",
-
-        "#2563eb"
-
-    );
-
+console.error(
+"ERROR CREANDO:",
+error
+);
 
 
 
-    formulario.reset();
+mostrarMensaje(
+
+error.message,
+
+"#ef4444"
+
+);
+
+
+return;
+
+
+}
 
 
 
-    cargarTaquillas();
+
+
+
+console.log(
+"TAQUILLA CREADA:",
+data
+);
+
+
+
+
+mostrarMensaje(
+
+"Taquilla creada correctamente",
+
+"#2563eb"
+
+);
+
+
+
+formulario.reset();
+
+
+
+cargarTaquillas();
 
 
 
@@ -154,127 +180,142 @@ async(e)=>{
 
 
 
-// Mostrar taquillas
+// Leer taquillas
 
 async function cargarTaquillas(){
 
 
 
-    const {data,error}=
+lista.innerHTML =
+"Cargando...";
 
-    await supabase
 
-    .from("taquillas")
 
-    .select("*")
 
-    .order(
-        "created_at",
-        {
-            ascending:false
-        }
-    );
 
+const {data,error}=
 
+await supabase
 
+.from("taquillas")
 
+.select("*")
 
-    if(error){
+.order(
+"created_at",
+{
+ascending:false
+}
+);
 
 
-        console.error(error);
 
-        lista.innerHTML =
 
-        "Error cargando taquillas";
 
 
-        return;
+if(error){
 
 
-    }
+console.error(
+"ERROR CARGANDO:",
+error
+);
 
 
 
+lista.innerHTML =
 
+error.message;
 
 
-    if(!data.length){
 
-
-        lista.innerHTML =
-
-        "No existen taquillas creadas";
-
-
-        return;
-
-
-    }
-
-
-
-
-
-
-
-    lista.innerHTML="";
-
-
-
-
-
-    data.forEach((taquilla)=>{
-
-
-        lista.innerHTML += `
-
-
-        <div class="item-taquilla">
-
-
-            <strong>
-
-            ${taquilla.nombre}
-
-            </strong>
-
-
-            <br>
-
-
-            Código:
-            ${taquilla.codigo}
-
-
-            <br>
-
-
-            Responsable:
-            ${taquilla.responsable}
-
-
-            <br>
-
-
-            Estado:
-            ${taquilla.estado}
-
-
-
-        </div>
-
-
-        `;
-
-
-
-    });
-
+return;
 
 
 }
 
+
+
+
+
+
+if(!data || data.length===0){
+
+
+lista.innerHTML =
+
+"No existen taquillas creadas";
+
+
+return;
+
+
+}
+
+
+
+
+
+
+
+lista.innerHTML="";
+
+
+
+
+
+data.forEach((taquilla)=>{
+
+
+
+lista.innerHTML += `
+
+
+<div class="item-taquilla">
+
+
+<strong>
+
+${taquilla.nombre}
+
+</strong>
+
+
+<br>
+
+
+Código:
+${taquilla.codigo}
+
+
+<br>
+
+
+Responsable:
+${taquilla.responsable}
+
+
+<br>
+
+
+Estado:
+${taquilla.estado}
+
+
+
+</div>
+
+
+`;
+
+
+
+});
+
+
+
+
+}
 
 
 
@@ -287,9 +328,21 @@ async function cargarTaquillas(){
 function mostrarMensaje(texto,color){
 
 
-    mensaje.textContent = texto;
+mensaje.textContent = texto;
 
-    mensaje.style.color=color;
+
+mensaje.style.color=color;
+
+
+
+setTimeout(()=>{
+
+
+mensaje.textContent="";
+
+
+},4000);
+
 
 
 }
