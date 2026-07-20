@@ -15,7 +15,6 @@ const supabase = getSupabase();
 
 
 
-
 // Elemento usuario
 
 const userBox = document.querySelector(".user");
@@ -48,7 +47,7 @@ async function verificarSesion(){
 
 
 
-    // Si no existe sesión
+    // Si no hay sesión
 
     if(!session){
 
@@ -60,7 +59,6 @@ async function verificarSesion(){
 
         return;
 
-
     }
 
 
@@ -70,7 +68,9 @@ async function verificarSesion(){
 
 
 
-    mostrarUsuario(usuario);
+    // Buscar perfil
+
+    await cargarPerfil(usuario.id);
 
 
 
@@ -80,9 +80,70 @@ async function verificarSesion(){
 
 
 
-// Mostrar usuario
 
-function mostrarUsuario(usuario){
+// Cargar perfil desde profiles
+
+async function cargarPerfil(id){
+
+
+
+    const { data, error } =
+
+    await supabase
+
+    .from("profiles")
+
+    .select("*")
+
+    .eq("id", id)
+
+    .single();
+
+
+
+
+
+    if(error){
+
+
+        console.error(
+            "Error cargando perfil:",
+            error
+        );
+
+
+        userBox.innerHTML = `
+
+            ⚠️ Perfil no encontrado
+
+        `;
+
+
+        return;
+
+
+    }
+
+
+
+
+
+    mostrarPerfil(data);
+
+
+
+}
+
+
+
+
+
+
+
+
+// Mostrar datos del perfil
+
+function mostrarPerfil(perfil){
 
 
 
@@ -97,15 +158,33 @@ function mostrarUsuario(usuario){
 
     userBox.innerHTML = `
 
+
         👑
 
-        ${usuario.email}
+        <div>
+
+            <strong>
+                ${perfil.nombre}
+            </strong>
+
+            <br>
+
+            <small>
+
+                ${perfil.rol}
+
+            </small>
+
+
+        </div>
+
 
     `;
 
 
 
 }
+
 
 
 
@@ -134,7 +213,7 @@ async function cerrarSesion(){
 
 
 
-// Iniciar
+// Iniciar sistema
 
 verificarSesion();
 
@@ -142,6 +221,6 @@ verificarSesion();
 
 
 
-// Exponer función
+// Disponible globalmente
 
 window.cerrarSesion = cerrarSesion;
