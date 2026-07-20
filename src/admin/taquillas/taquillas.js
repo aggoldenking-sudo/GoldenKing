@@ -1,10 +1,7 @@
-alert("ESTOY EJECUTANDO EL NUEVO CODIGO");
-
 /*
 ==================================================
  GOLDEN KING v3
- TAQUILLAS
- CONEXIÓN SUPABASE
+ TEST SUPABASE TAQUILLAS
 ==================================================
 */
 
@@ -12,111 +9,45 @@ alert("ESTOY EJECUTANDO EL NUEVO CODIGO");
 import { getSupabase } from "../../services/supabase.js";
 
 
-console.log("TAQUILLAS SISTEMA INICIADO");
+alert("INICIO TAQUILLAS");
 
 
 
-const supabase = getSupabase();
+const lista = document.getElementById("listaTaquillas");
 
 
-console.log(
-"SUPABASE:",
-supabase
-);
+lista.innerHTML = "PASO 1 OK";
 
 
 
-const lista =
-document.getElementById("listaTaquillas");
+let supabase;
 
 
+try {
 
 
-async function cargarTaquillas(){
+    supabase = getSupabase();
 
 
-    try {
+    console.log(
+        "SUPABASE CREADO:",
+        supabase
+    );
 
 
-        lista.innerHTML =
-        "Conectando con Supabase...";
-
-
-
-        const respuesta =
-        await supabase
-        .from("taquillas")
-        .select("*");
-
-
-
-        console.log(
-        "RESPUESTA COMPLETA:",
-        respuesta
-        );
-
-
-
-        const {data,error}=respuesta;
-
-
-
-        if(error){
-
-
-            lista.innerHTML =
-            "ERROR: " + error.message;
-
-
-            console.error(error);
-
-
-            return;
-
-        }
-
-
-
-
-        if(!data || data.length === 0){
-
-
-            lista.innerHTML =
-            "Conexión correcta. No existen taquillas";
-
-
-            return;
-
-        }
-
-
-
-
-        lista.innerHTML =
-        "Taquillas encontradas: " + data.length;
-
-
-
-    }
-    catch(e){
-
-
-        console.error(
-        "ERROR GENERAL:",
-        e
-        );
-
-
-        lista.innerHTML =
-        e.message;
-
-
-    }
+    lista.innerHTML = "PASO 2 OK - SUPABASE CONECTADO";
 
 
 
 }
+catch(error){
 
 
+    console.error(error);
 
-cargarTaquillas();
+
+    lista.innerHTML =
+    "ERROR SUPABASE: " + error.message;
+
+
+}
