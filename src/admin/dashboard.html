@@ -22,190 +22,254 @@ Golden King | Dashboard
 <body>
 
 
-<div class="layout">
-
-
-    <!-- MENU -->
-
-    <aside class="sidebar">
-
-
-        <div class="logo">
-
-            GOLDEN KING
-
-        </div>
+<div class="dashboard-container">
 
 
 
-        <nav>
+<header class="topbar">
 
 
-            <a href="#">
-                🏠 Dashboard
-            </a>
+<div class="brand">
 
 
-          <a href="./taquillas/index.html">
-    🏪 Taquillas
+<h1>
+👑 GOLDEN KING
+</h1>
+
+
+<p>
+Panel Administrativo
+</p>
+
+
+</div>
+
+
+
+
+
+<div class="user-area">
+
+
+<div class="user">
+
+Cargando usuario...
+
+</div>
+
+
+
+<button 
+onclick="cerrarSesion()"
+class="logout">
+
+
+🚪 Cerrar Sesión
+
+
+</button>
+
+
+</div>
+
+
+</header>
+
+
+
+
+
+
+
+
+<main class="dashboard-grid">
+
+
+
+
+
+
+<!-- TAQUILLAS -->
+
+
+<a href="./taquillas/index.html" class="card">
+
+
+<div class="icon">
+🏪
+</div>
+
+
+<h2>
+Taquillas
+</h2>
+
+
+<p>
+Gestionar puntos de venta
+</p>
+
+
 </a>
 
 
-            <a href="#">
-                👥 Usuarios
-            </a>
 
 
-            <a href="#">
-                🎲 Loterías
-            </a>
 
 
-            <a href="#">
-                💵 Caja
-            </a>
 
 
-            <a href="#">
-                📊 Reportes
-            </a>
+<!-- USUARIOS -->
 
 
-            <a href="#">
-                ⚙ Configuración
-            </a>
+<a href="./usuarios/index.html" class="card">
 
 
-        </nav>
+<div class="icon">
+👥
+</div>
 
 
+<h2>
+Usuarios
+</h2>
 
-    </aside>
 
+<p>
+Crear cajeros y permisos
+</p>
 
 
+</a>
 
 
-    <!-- CONTENIDO -->
 
 
-    <main class="content">
 
 
-        <header>
 
 
-            <h1>
-                Dashboard
-            </h1>
+<!-- RESULTADOS -->
 
 
-            <div class="user">
+<a href="./resultados/index.html" class="card">
 
-                👑 Super Administrador
 
-            </div>
+<div class="icon">
+🎯
+</div>
 
 
-        </header>
+<h2>
+Resultados
+</h2>
 
 
+<p>
+Gestionar sorteos y resultados
+</p>
 
 
+</a>
 
-        <section class="cards">
 
 
 
-            <div class="card">
 
-                <h3>
-                    Taquillas
-                </h3>
 
-                <strong>
-                    0
-                </strong>
 
-            </div>
 
+<!-- VENTAS -->
 
 
+<a href="./ventas/index.html" class="card">
 
 
-            <div class="card">
+<div class="icon">
+🎫
+</div>
 
-                <h3>
-                    Usuarios
-                </h3>
 
-                <strong>
-                    0
-                </strong>
+<h2>
+Ventas
+</h2>
 
-            </div>
 
+<p>
+Sistema de taquilla
+</p>
 
 
+</a>
 
 
-            <div class="card">
 
-                <h3>
-                    Ventas Hoy
-                </h3>
 
-                <strong>
-                    0 Bs
-                </strong>
 
-            </div>
 
 
 
+<!-- REPORTES -->
 
 
-            <div class="card">
+<a href="./reportes/index.html" class="card">
 
-                <h3>
-                    Tickets
-                </h3>
 
-                <strong>
-                    0
-                </strong>
+<div class="icon">
+📊
+</div>
 
-            </div>
 
+<h2>
+Reportes
+</h2>
 
 
-        </section>
+<p>
+Ventas, cajas y movimientos
+</p>
 
 
+</a>
 
 
-        <section class="welcome">
 
 
-            <h2>
-                Bienvenido a Golden King
-            </h2>
 
 
-            <p>
 
-            Desde este panel podrás administrar
-            taquillas, usuarios y todo el sistema.
 
-            </p>
+<!-- CONFIGURACION -->
 
 
-        </section>
+<a href="./configuracion/index.html" class="card">
 
 
+<div class="icon">
+⚙️
+</div>
 
 
-    </main>
+<h2>
+Configuración
+</h2>
+
+
+<p>
+Ajustes generales del sistema
+</p>
+
+
+</a>
+
+
+
+
+
+
+</main>
+
+
 
 
 
@@ -214,7 +278,15 @@ Golden King | Dashboard
 
 
 
-<script type="module" src="./dashboard.js"></script>
+
+
+
+<script 
+type="module"
+src="./dashboard.js">
+</script>
+
+
 
 
 </body>
