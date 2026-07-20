@@ -2,125 +2,115 @@
 ==================================================
  GOLDEN KING v3
  LOGIN SYSTEM
- Supabase Auth
+ Supabase Auth + Roles
 ==================================================
 */
+
 
 import { supabase } from "../../services/supabase.js";
 
 
 
+
 // Elementos
 
-const loginForm = document.getElementById("loginForm");
-
-const message = document.getElementById("message");
-
-const button = loginForm.querySelector("button");
+const loginForm =
+document.getElementById("loginForm");
 
 
+const message =
+document.getElementById("message");
 
 
-// Evento Login
-
-loginForm.addEventListener("submit", async (e)=>{
-
-    e.preventDefault();
-
-    const email =
-    document.getElementById("email")
-    .value
-    .trim();
-
-    const password =
-    document.getElementById("password")
-    .value
-    .trim();
+const button =
+loginForm.querySelector("button");
 
 
 
-    if(!email || !password){
-
-        mostrarMensaje(
-            "Complete todos los campos",
-            "#ef4444"
-        );
-
-        return;
-
-    }
 
 
 
-    button.disabled = true;
-
-    button.textContent = "Ingresando...";
+// LOGIN
 
 
+loginForm.addEventListener(
+"submit",
+async(e)=>{
 
-    try{
 
-        const { error } =
-        await supabase.auth.signInWithPassword({
-
-            email,
-
-            password
-
-        });
+e.preventDefault();
 
 
 
-        if(error){
 
-            throw error;
-
-        }
-
-
-
-        mostrarMensaje(
-
-            "Acceso correcto",
-
-            "#16a34a"
-
-        );
+const email =
+document
+.getElementById("email")
+.value
+.trim();
 
 
 
-        setTimeout(()=>{
 
-            window.location.href =
-            "../../admin/dashboard.html";
+const password =
+document
+.getElementById("password")
+.value
+.trim();
 
-        },800);
 
 
 
-    }
 
-    catch(error){
 
-        console.error(error);
+if(!email || !password){
 
-        mostrarMensaje(
 
-            error.message,
+mostrarMensaje(
+"Complete todos los campos",
+"#ef4444"
+);
 
-            "#ef4444"
 
-        );
+return;
 
-    }
 
-    finally{
+}
 
-        button.disabled = false;
 
-        button.textContent = "Iniciar Sesión";
 
-    }
+
+
+
+button.disabled = true;
+
+button.textContent =
+"Ingresando...";
+
+
+
+
+
+
+
+try{
+
+
+
+// AUTENTICAR
+
+
+const {
+
+data,
+
+error
+
+}= await supabase.auth.signInWithPassword({
+
+email,
+
+password
 
 });
 
@@ -128,10 +118,197 @@ loginForm.addEventListener("submit", async (e)=>{
 
 
 
+
+if(error){
+
+throw error;
+
+}
+
+
+
+
+
+
+
+const usuario =
+data.user;
+
+
+
+
+
+
+
+// BUSCAR PERFIL
+
+
+const {
+
+data:perfil,
+
+error:perfilError
+
+}= await supabase
+
+
+.from("profiles")
+
+
+.select("*")
+
+
+.eq(
+"id",
+usuario.id
+)
+
+
+.single();
+
+
+
+
+
+
+
+if(perfilError){
+
+
+throw perfilError;
+
+
+}
+
+
+
+
+
+
+
+
+mostrarMensaje(
+"Acceso correcto",
+"#16a34a"
+);
+
+
+
+
+
+
+
+
+setTimeout(()=>{
+
+
+
+if(perfil.rol === "administrador"){
+
+
+
+window.location.href =
+
+"../../admin/dashboard.html";
+
+
+
+}
+
+else if(perfil.rol === "taquilla"){
+
+
+
+window.location.href =
+
+"../../taquilla/index.html";
+
+
+
+}
+
+else{
+
+
+
+mostrarMensaje(
+
+"Rol no configurado",
+
+"#ef4444"
+
+);
+
+
+
+}
+
+
+
+
+},800);
+
+
+
+
+
+
+
+
+}
+
+catch(error){
+
+
+
+console.error(error);
+
+
+
+mostrarMensaje(
+
+error.message,
+
+"#ef4444"
+
+);
+
+
+
+}
+
+finally{
+
+
+button.disabled = false;
+
+
+button.textContent =
+"Iniciar Sesión";
+
+
+}
+
+
+
+});
+
+
+
+
+
+
+
 function mostrarMensaje(texto,color){
 
-    message.textContent = texto;
 
-    message.style.color = color;
+message.textContent =
+texto;
+
+
+message.style.color =
+color;
+
+
 
 }
