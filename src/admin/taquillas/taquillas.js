@@ -32,8 +32,7 @@ document.getElementById("mensaje");
 
 
 
-
-// INICIO
+// CARGAR AL INICIAR
 
 cargarTaquillas();
 
@@ -53,44 +52,40 @@ e.preventDefault();
 
 
 const nombre =
-document
-.getElementById("nombre")
+document.getElementById("nombre")
 .value
 .trim();
 
 
 
 const codigo =
-document
-.getElementById("codigo")
+document.getElementById("codigo")
 .value
 .trim();
 
 
 
 const responsable =
-document
-.getElementById("responsable")
+document.getElementById("responsable")
 .value
 .trim();
 
 
 
 const estado =
-document
-.getElementById("estado")
+document.getElementById("estado")
 .value;
 
 
 
 
 
-// OBTENER USUARIO ACTUAL
+// USUARIO ACTUAL
 
 const {
 
 data:{
-    session
+session
 
 }
 
@@ -99,22 +94,16 @@ data:{
 
 
 
-
 if(!session){
-
 
 mostrarMensaje(
 "Sesión no encontrada",
 "red"
 );
 
-
 return;
 
-
 }
-
-
 
 
 
@@ -126,11 +115,10 @@ session.user.id;
 
 
 
-// GUARDAR TAQUILLA
+// INSERTAR TAQUILLA
 
 
 const {
-
 data,
 error
 
@@ -158,16 +146,12 @@ usuario_id
 
 
 
-
-
 if(error){
 
-
 console.error(
-"ERROR CREANDO TAQUILLA:",
+"ERROR:",
 error
 );
-
 
 
 mostrarMensaje(
@@ -176,13 +160,9 @@ error.message,
 );
 
 
-
 return;
 
-
 }
-
-
 
 
 
@@ -196,7 +176,6 @@ mostrarMensaje(
 
 
 formulario.reset();
-
 
 
 cargarTaquillas();
@@ -213,9 +192,7 @@ cargarTaquillas();
 
 
 
-
-
-// CARGAR TAQUILLAS
+// MOSTRAR TAQUILLAS
 
 
 async function cargarTaquillas(){
@@ -228,11 +205,10 @@ lista.innerHTML =
 
 
 
-
 const {
 
 data:{
-    session
+session
 
 }
 
@@ -241,16 +217,12 @@ data:{
 
 
 
-
 if(!session){
-
 
 lista.innerHTML =
 "Sesión no encontrada";
 
-
 return;
-
 
 }
 
@@ -266,15 +238,11 @@ session.user.id;
 
 
 
-
-
 const {
-
 data,
 error
 
 }= await supabase
-
 
 .from("taquillas")
 
@@ -297,37 +265,16 @@ ascending:false
 
 
 
-
-console.log(
-"TAQUILLAS:",
-data,
-error
-);
-
-
-
-
-
-
-
-
 if(error){
-
 
 console.error(error);
 
-
-
 lista.innerHTML =
-"ERROR: "+error.message;
-
+error.message;
 
 return;
 
-
 }
-
-
 
 
 
@@ -337,14 +284,13 @@ if(!data || data.length===0){
 
 
 lista.innerHTML =
-"No existen taquillas creadas";
+"No existen taquillas";
 
 
 return;
 
 
 }
-
 
 
 
@@ -359,10 +305,8 @@ lista.innerHTML="";
 
 
 
-
 data.forEach(
 (taquilla)=>{
-
 
 
 lista.innerHTML += `
@@ -376,10 +320,12 @@ lista.innerHTML += `
 </h3>
 
 
+
 <p>
 <strong>Código:</strong>
 ${taquilla.codigo}
 </p>
+
 
 
 <p>
@@ -388,14 +334,23 @@ ${taquilla.responsable}
 </p>
 
 
+
 <p>
 <strong>Estado:</strong>
 ${taquilla.estado}
 </p>
 
-<button>
-Entrar
+
+
+<button 
+class="btn-entrar"
+onclick='entrarTaquilla(${JSON.stringify(taquilla)})'>
+
+🚀 Entrar
+
 </button>
+
+
 
 </div>
 
@@ -418,7 +373,41 @@ Entrar
 
 
 
-// MENSAJES
+// ENTRAR A TAQUILLA
+
+
+window.entrarTaquilla = function(taquilla){
+
+
+
+localStorage.setItem(
+
+"taquilla_activa",
+
+JSON.stringify(taquilla)
+
+);
+
+
+
+
+window.location.href =
+
+"../../taquilla/index.html";
+
+
+
+};
+
+
+
+
+
+
+
+
+
+// MENSAJE
 
 
 function mostrarMensaje(
