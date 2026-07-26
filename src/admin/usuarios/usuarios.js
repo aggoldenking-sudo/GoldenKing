@@ -1,7 +1,7 @@
 /*
 ==================================================
  GOLDEN KING v3
- ADMIN - CREAR USUARIOS
+ ADMIN - USUARIOS
  usuarios.js
 ==================================================
 */
@@ -15,31 +15,18 @@ console.log("USUARIOS ADMIN INICIADO");
 
 
 
+const formulario = document.getElementById("usuarioForm");
 
+const lista = document.getElementById("listaUsuarios");
 
-const formulario =
-document.getElementById("usuarioForm");
+const mensaje = document.getElementById("mensaje");
 
-
-const lista =
-document.getElementById("listaUsuarios");
-
-
-const mensaje =
-document.getElementById("mensaje");
-
-
-const selectTaquilla =
-document.getElementById("taquilla");
-
-
-
+const selectTaquilla = document.getElementById("taquilla");
 
 
 
 
 // INICIO
-
 
 cargarTaquillas();
 
@@ -50,13 +37,12 @@ cargarUsuarios();
 
 
 
-
-
+// ================================
 // CARGAR TAQUILLAS
+// ================================
 
 
 async function cargarTaquillas(){
-
 
 
 const {
@@ -67,12 +53,9 @@ error
 
 }= await supabase
 
-
 .from("taquillas")
 
-
 .select("*")
-
 
 .eq(
 "estado",
@@ -82,8 +65,6 @@ error
 .order(
 "nombre"
 );
-
-
 
 
 
@@ -97,9 +78,6 @@ return;
 
 
 
-
-
-
 selectTaquilla.innerHTML = `
 
 <option value="">
@@ -110,14 +88,10 @@ Seleccione taquilla
 
 
 
-
-
-
 data.forEach((taquilla)=>{
 
 
 selectTaquilla.innerHTML += `
-
 
 <option value="${taquilla.id}">
 
@@ -125,12 +99,10 @@ ${taquilla.nombre}
 
 </option>
 
-
 `;
 
 
 });
-
 
 
 }
@@ -143,7 +115,9 @@ ${taquilla.nombre}
 
 
 
+// ================================
 // CREAR USUARIO
+// ================================
 
 
 formulario.addEventListener(
@@ -155,41 +129,35 @@ e.preventDefault();
 
 
 
-
 const nombre =
-document
-.getElementById("nombre")
+document.getElementById("nombre")
 .value
 .trim();
 
 
 
 const email =
-document
-.getElementById("email")
+document.getElementById("email")
 .value
 .trim();
 
 
 
 const password =
-document
-.getElementById("password")
+document.getElementById("password")
 .value
 .trim();
 
 
 
 const rol =
-document
-.getElementById("rol")
+document.getElementById("rol")
 .value;
 
 
 
 const taquilla_id =
 selectTaquilla.value || null;
-
 
 
 
@@ -205,12 +173,13 @@ mostrarMensaje(
 
 
 
+const {
 
+data,
 
+error
 
-const {data,error}=
-
-await supabase.functions.invoke(
+}= await supabase.functions.invoke(
 
 "create-user",
 
@@ -238,7 +207,6 @@ taquilla_id
 
 
 
-
 if(error){
 
 
@@ -246,8 +214,11 @@ console.error(error);
 
 
 mostrarMensaje(
+
 error.message,
+
 "#ef4444"
+
 );
 
 
@@ -261,7 +232,6 @@ return;
 
 
 
-
 mostrarMensaje(
 
 "Usuario creado correctamente",
@@ -269,6 +239,7 @@ mostrarMensaje(
 "#16a34a"
 
 );
+
 
 
 
@@ -289,18 +260,16 @@ cargarUsuarios();
 
 
 
-
-
+// ================================
 // LISTAR USUARIOS
+// ================================
 
 
 async function cargarUsuarios(){
 
 
-
 lista.innerHTML =
 "Cargando...";
-
 
 
 
@@ -322,16 +291,22 @@ error
 
 *,
 
-taquillas(nombre)
+taquillas!profiles_taquilla_id_fkey(nombre)
 
 `)
 
 
+
 .order(
+
 "created_at",
+
 {
+
 ascending:false
+
 }
+
 );
 
 
@@ -341,10 +316,17 @@ ascending:false
 
 if(error){
 
+
+console.error(error);
+
+
 lista.innerHTML =
-error.message;
+
+"Error: " + error.message;
+
 
 return;
+
 
 }
 
@@ -352,10 +334,7 @@ return;
 
 
 
-
 lista.innerHTML="";
-
-
 
 
 
@@ -376,7 +355,9 @@ lista.innerHTML += `
 
 
 <p>
-${usuario.email}
+
+📧 ${usuario.email}
+
 </p>
 
 
@@ -395,9 +376,10 @@ ${usuario.rol}
 
 
 
+
 <p>
 
-Taquilla:
+🏪 Taquilla:
 
 ${usuario.taquillas?.nombre ?? "Sin asignar"}
 
@@ -416,6 +398,7 @@ ${usuario.taquillas?.nombre ?? "Sin asignar"}
 
 
 
+
 }
 
 
@@ -425,6 +408,10 @@ ${usuario.taquillas?.nombre ?? "Sin asignar"}
 
 
 
+// ================================
+// MENSAJES
+// ================================
+
 
 function mostrarMensaje(
 texto,
@@ -432,13 +419,10 @@ color
 ){
 
 
-mensaje.textContent =
-texto;
+mensaje.textContent = texto;
 
 
-mensaje.style.color =
-color;
-
+mensaje.style.color = color;
 
 
 }
